@@ -206,5 +206,6 @@
   <modules>
     <module>mtg-commons</module>
     <module>mtg-admin</module>
+    <module>mtg-web</module>
   </modules>
 </project>

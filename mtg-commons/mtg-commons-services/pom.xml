@@ -15,7 +15,6 @@
     <dependency>
       <groupId>mtg-commons</groupId>
       <artifactId>mtg-commons-models</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <!-- SPRING -->
