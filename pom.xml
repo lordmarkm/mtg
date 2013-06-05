@@ -1,0 +1,210 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>mtg</groupId>
+  <artifactId>mtg</artifactId>
+  <name>MtG Online Binder</name>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.version>1.0</project.version>
+
+    <spring.version>3.2.1.RELEASE</spring.version>
+    <spring.security.version>3.1.3.RELEASE</spring.security.version>
+    <hibernate.version>4.1.9.Final</hibernate.version>
+    <hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
+    <morphia.version>1.2.2</morphia.version>
+    <spring.data.mongodb.version>1.2.0.RELEASE</spring.data.mongodb.version>
+    <spring.data.jpa.version>1.3.0.RELEASE</spring.data.jpa.version>
+    <mysql.connector.version>5.1.23</mysql.connector.version>
+    <c3p0.version>0.9.2.1</c3p0.version>
+    <joda-time.version>2.1</joda-time.version>
+    <jackson.version>1.9.12</jackson.version>
+    <commons.lang.version>2.3</commons.lang.version>
+
+    <!-- VIEW -->
+    <freemarker.version>2.3.14</freemarker.version>
+
+    <!-- LOGGING -->
+    <logback.version>1.0.9</logback.version>
+
+    <!-- TEST -->
+    <junit.version>4.11</junit.version>
+    <mockito.version>1.8.4</mockito.version>
+    <commons-io.version>2.4</commons-io.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- PROJECT -->
+      <dependency>
+        <groupId>mtg-commons</groupId>
+        <artifactId>mtg-commons-models</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mtg-commons</groupId>
+        <artifactId>mtg-commons-services</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mtg-security</groupId>
+        <artifactId>mtg-security-services</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- SPRING -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-mongodb</artifactId>
+        <version>${spring.data.mongodb.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>${spring.data.jpa.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <!-- SPRING SECURITY -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-taglibs</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <!-- HIBERNATE -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate.validator.version}</version>
+      </dependency>
+
+      <!-- PERSISTENCE -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.connector.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.mchange</groupId>
+        <artifactId>c3p0</artifactId>
+        <version>${c3p0.version}</version>
+      </dependency>
+
+      <!-- JACKSON -->
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <!-- FREEMARKER -->
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>${freemarker.version}</version>
+      </dependency>
+
+      <!-- CGLIB -->
+      <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+        <version>${cglib.version}</version>
+      </dependency>
+
+      <!-- LOGGING -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <!-- COMMINS -->
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons.lang.version}</version>
+      </dependency>
+
+      <!-- TEST -->
+      <dependency>
+        <groupId>mtga</groupId>
+        <artifactId>mtga-common-test</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>${mockito.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <modules>
+    <module>mtg-commons</module>
+    <module>mtg-admin</module>
+  </modules>
+</project>
