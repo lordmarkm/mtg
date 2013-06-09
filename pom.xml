@@ -51,6 +51,11 @@
       </dependency>
       <dependency>
         <groupId>mtg-security</groupId>
+        <artifactId>mtg-security-models</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mtg-security</groupId>
         <artifactId>mtg-security-services</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -175,8 +180,8 @@
 
       <!-- TEST -->
       <dependency>
-        <groupId>mtga</groupId>
-        <artifactId>mtga-common-test</artifactId>
+        <groupId>mtg-commons</groupId>
+        <artifactId>mtg-commons-test</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -207,5 +212,6 @@
     <module>mtg-commons</module>
     <module>mtg-admin</module>
     <module>mtg-web</module>
+    <module>mtg-security</module>
   </modules>
 </project>
