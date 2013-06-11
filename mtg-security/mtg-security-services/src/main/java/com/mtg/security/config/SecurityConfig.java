@@ -1,7 +1,6 @@
 package com.mtg.security.config;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,13 +15,13 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.mtg.security.services.support.MtgUserDetailsService;
+import com.mtg.security.services.support.Roles;
+
 @Configuration
 @EnableWebSecurity
 @ComponentScan("com.kemika.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-//	@Resource
-//    private DataSource dataSource;
 
 	@Resource
 	private MtgUserDetailsService userDetailsService;
@@ -52,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasRole(Roles.ROLE_ADMIN)
 				.antMatchers("/account*").authenticated()
 				.antMatchers("/**").permitAll()
-				//.antMatchers("/favicon.ico","/css/**","/images/**","/javascript/**","/libs/**").permitAll()
 				.and()
 			.logout()
 				.deleteCookies("JSESSIONID")
@@ -69,10 +67,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void registerAuthentication(AuthenticationRegistry builder) throws Exception {
 		builder.userDetailsService(userDetailsService);
-//		builder
-//			.jdbcUserDetailsManager()
-//			.dataSource(dataSource)
-//			.usersByUsernameQuery("select username, password, true from " + Account.TABLE_NAME + " where username = ?")
-//			.authoritiesByUsernameQuery("select username, authorities from " + Account.TABLE_NAME + " where username = ?");
 	}
 }

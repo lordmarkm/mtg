@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.mtg.security.models.Account;
+import com.mtg.security.services.AccountService;
 
 @Component
 public class MtgUserDetailsService implements UserDetailsService {

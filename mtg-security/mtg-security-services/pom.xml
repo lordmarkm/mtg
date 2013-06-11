@@ -30,7 +30,11 @@
       <groupId>mtg-security</groupId>
       <artifactId>mtg-security-models</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>mtg-commons</groupId>
+      <artifactId>mtg-commons-services</artifactId>
+    </dependency>
+    
     <!-- Spring Security + Javaconfig -->
     <dependency>
       <groupId>org.springframework.security</groupId>
