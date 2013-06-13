@@ -12,9 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/support/")
 public interface SupportController {
 
-	@RequestMapping("/login")
-	public ModelAndView login();
-	
 	@RequestMapping("/faq")
 	public ModelAndView faq();
 	

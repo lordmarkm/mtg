@@ -24,7 +24,7 @@ public abstract class AbstractEntity {
 	
 	@Column(name = "description", nullable = false)
 	@Type(type="text")
-	private String description;
+	private String description = "";
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Image image;

@@ -18,7 +18,8 @@
             </@sec.authorize>
             <li class="divider"></li>
             <@sec.authorize access="isAnonymous()">
-            <li><a href="<@spring.url '/support/login' />">Login</a></li>
+            <li><a href="<@spring.url '/auth/login' />">Login</a></li>
+            <li><a href="<@spring.url '/auth/register' />">Register</a></li>
             </@sec.authorize>
             <@sec.authorize access="isAuthenticated()">
             <li><a href="<@spring.url '/logout' />">Logout</a></li>

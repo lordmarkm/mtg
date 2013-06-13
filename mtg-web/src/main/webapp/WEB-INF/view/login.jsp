@@ -1,6 +1,5 @@
 <#import "/spring.ftl" as spring /> 
 
-<div class="clearfix"></div>
 <div class="container">
   <div class="span8">
     <#assign action><@spring.url '/login/authenticate' /></#assign>
@@ -14,5 +13,6 @@
       </fieldset>
       <input type="submit" />
     </form>
+    <p>No account? <a href="<@spring.url '/auth/register' />">Register!</a>
   </div>
 </div>
