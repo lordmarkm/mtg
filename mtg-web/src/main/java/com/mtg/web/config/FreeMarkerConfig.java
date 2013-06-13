@@ -19,12 +19,12 @@ public class FreeMarkerConfig extends WebMvcConfigurerAdapter {
     
     @Bean
     public ViewResolver viewResolver() {
-        FreeMarkerViewResolver fmvr = new FreeMarkerViewResolver();
-        fmvr.setCache(true);
-        fmvr.setPrefix("");
-        fmvr.setSuffix(".jsp");
-        fmvr.setExposeSpringMacroHelpers(true);
-        return fmvr;
+        FreeMarkerViewResolver res = new FreeMarkerViewResolver();
+        res.setCache(true);
+        res.setPrefix("");
+        res.setSuffix(".jsp");
+        res.setExposeSpringMacroHelpers(true);
+        return res;
     }
     
 }

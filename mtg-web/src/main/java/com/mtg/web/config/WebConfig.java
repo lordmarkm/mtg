@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.mtg.web.interceptor.NavbarInterceptor;
+import com.mtg.web.interceptor.OnePageInterceptor;
 import com.mtg.web.support.DbMessageSource;
 
 @EnableWebMvc
@@ -28,6 +29,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Resource
 	private NavbarInterceptor navbarInterceptor;
+	
+	@Resource
+	private OnePageInterceptor onepageInterceptor;
 	
     @Bean
     public MessageSource messageSource() {
@@ -62,5 +66,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
     	registry.addInterceptor(navbarInterceptor);
+    	registry.addInterceptor(onepageInterceptor);
     }
 }
