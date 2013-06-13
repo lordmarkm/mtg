@@ -10,16 +10,18 @@ $(function(){
 		$load.load(uri + '?ajax');
 	}
 	
-	$('a').click(function(){
-		var uri = $(this).attr('href');
-		if(uri === 'javascript:;' || uri === '#') {
-			return;
-		}
-		go(uri);
+	$(document).on({
+		click: function(){
+			var uri = $(this).attr('href');
+			if(uri === 'javascript:;' || uri === '#' || uri.indexOf('/logout') != -1) {
+				return;
+			}
+			go(uri);
 
-		$(document).click();
-		return false;
-	});
+			$(document).click();
+			return false;
+		}
+	}, 'a');
 	
 	if(page.target) {
 		go(page.target);

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.security.services.RegistrationService;
@@ -22,7 +23,13 @@ public class AuthenticationControllerImpl extends GenericController implements A
     
     @Override
     public ModelAndView login() {
-        return mav("login");
+    	return login(null);
+    }
+    
+    @Override
+    public ModelAndView login(@PathVariable String message) {
+        return mav("login")
+        		.addObject("error", message);
     }
 
     @Override

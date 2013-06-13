@@ -20,10 +20,7 @@
   <h1>Welcome!</h1>
   </#if>
   
-  <a href="<@spring.url '/auth/login' />">Login</a>
-  <a href="<@spring.url '/support/faq' />">FAQ</a>
-
-  <div id="loadhere">Load things here</div>
+  <div id="loadhere"></div>
   
   </div>
 </body>

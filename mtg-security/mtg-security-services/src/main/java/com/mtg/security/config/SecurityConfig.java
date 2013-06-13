@@ -47,21 +47,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpConfiguration http) throws Exception {
 		http
 			.authorizeUrls()
-				.antMatchers("/admin*").hasRole(Roles.ROLE_ADMIN)
-				.antMatchers("/admin/**").hasRole(Roles.ROLE_ADMIN)
+				.antMatchers("/admin*").hasRole(Roles.ADMIN)
+				.antMatchers("/admin/**").hasRole(Roles.ADMIN)
 				.antMatchers("/account*").authenticated()
+				.antMatchers("/account/**").authenticated()
 				.antMatchers("/**").permitAll()
 				.and()
 			.logout()
 				.deleteCookies("JSESSIONID")
 				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
 				.permitAll()
 				.and()
 			.formLogin()
-				.loginPage("/support/login")
+				.loginPage("/auth/login")
 				.loginProcessingUrl("/login/authenticate")
 				.defaultSuccessUrl("/account/dashboard", true)
-				.failureUrl("/support/login?error=bad_credentials")
+				.failureUrl("/auth/login/bad_credentials")
 				.permitAll();
 	}
 	

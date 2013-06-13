@@ -28,9 +28,10 @@
       </fieldset>
       <div class="control-group">
         <div class="controls">
-          <input type="submit" />
+          <input class="btn btn-success btn-large" type="submit" value="Sign Up" />
         </div>
       </div>
     </form>
+    <p>Already have an account? <a href="<@spring.url '/auth/login' />">Log in</a>
   </div>
 </div>

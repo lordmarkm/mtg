@@ -15,6 +15,9 @@ public interface AuthenticationController {
     @RequestMapping("/login")
     public ModelAndView login();
 
+    @RequestMapping("/login/{message}")
+    public ModelAndView login(String message);
+    
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register();
 

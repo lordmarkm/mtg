@@ -30,21 +30,31 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 
 		//ignore if ajax request
 		if(null != request.getParameter(RequestParams.AJAX)) {
+			log.debug("Ignoring ajax request.");
 			return true;
 		}
 		
 		//ignore resources
 		for(String resource : new String[]{"/css/","/images/","/javascript/","/libs/"}) {
+			log.debug("Ignoring resource request.");
 			if(uri.contains(resource)) return true;
+		}
+		
+		//ignore logout request (is this a get?)
+		if(uri.contains("/logout")) {
+			log.debug("Ignoring logout request.");
+			return true;
 		}
 		
 		//ignore posts like from forms
 		if(RequestMethod.POST.toString().equals(request.getMethod())) {
+			log.debug("Ignoring post request.");
 			return true;
 		}
 			
 		//ignore if request for front page
 		if(uri != null && "/".equals(uri)) {
+			log.debug("Ignoring homepage request.");
 			return true;
 		}
 		
