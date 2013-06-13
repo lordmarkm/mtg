@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/support/login")
 				.loginProcessingUrl("/login/authenticate")
+				.defaultSuccessUrl("/account/dashboard", true)
 				.failureUrl("/support/login?error=bad_credentials")
 				.permitAll();
 	}

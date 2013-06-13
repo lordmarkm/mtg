@@ -1,12 +1,16 @@
 package com.mtg.security.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
+
+import com.mtg.commons.models.magic.MagicPlayer;
 
 @Entity
 @Table(name=Account.TABLE_NAME)
@@ -18,7 +22,7 @@ public class Account {
 	@GeneratedValue
 	private long id;
 	
-	@Column
+	@Column(unique=true)
 	private String username;
 	
 	@Column
@@ -27,6 +31,9 @@ public class Account {
 	@Column
 	private String authorities;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private MagicPlayer player;
+	
 	@Override
 	public String toString() {
 		return new ToStringCreator(this)
@@ -68,5 +75,13 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+    public MagicPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(MagicPlayer player) {
+        this.player = player;
+    }
 	
 }

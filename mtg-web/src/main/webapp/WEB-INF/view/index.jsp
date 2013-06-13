@@ -1,5 +1,6 @@
 <#import "/spring.ftl" as spring />
 <#import "./templates/includes.ftl" as includes />
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
 <!DOCTYPE html>
 <html>

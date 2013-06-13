@@ -3,22 +3,17 @@ package com.mtg.commons.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="expansion")
 public class Expansion extends AbstractEntity {
 
-	@ManyToMany
-	@JoinTable(
-		name="expansion_card",
-		joinColumns= {@JoinColumn(name="expansion_id")},
-		inverseJoinColumns={@JoinColumn(name="card_id")}
-	)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="expansion")
 	private List<Card> cards;
 
 	public List<Card> getCards() {

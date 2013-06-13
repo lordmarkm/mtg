@@ -10,8 +10,19 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="<@spring.url '/support/faq' />">FAQ</a></li>
+            <@sec.authorize access="isAuthenticated()">
             <li><a href="<@spring.url '/account/' />">Account Settings</a></li>
-            <li><a href="<@spring.url '/logout/' />">Logout</a></li>
+            </@sec.authorize>
+            <@sec.authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="<@spring.url '/admin/dashboard' />">Admin Dashboard</a>
+            </@sec.authorize>
+            <li class="divider"></li>
+            <@sec.authorize access="isAnonymous()">
+            <li><a href="<@spring.url '/support/login' />">Login</a></li>
+            </@sec.authorize>
+            <@sec.authorize access="isAuthenticated()">
+            <li><a href="<@spring.url '/logout' />">Logout</a></li>
+            </@sec.authorize>
           </ul>
          </li>
       </ul>

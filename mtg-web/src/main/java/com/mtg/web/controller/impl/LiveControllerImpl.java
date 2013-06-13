@@ -24,7 +24,7 @@ public class LiveControllerImpl implements LiveController {
 	
 	@Override
 	public DeferredResult<JSON> live(Principal principal) {
-		DeferredResult<JSON> response = new DeferredResult<>();
+		DeferredResult<JSON> response = new DeferredResult<JSON>();
 		
 		boolean respond = false;
 		JSON json = JSON.ok();
