@@ -1,5 +1,25 @@
+var footer =  {
+	ensurediv : function() {
+		if(!footer.alertbox || footer.alertbox.length == 0) {
+			footer.alertbox = $('#footer-error');
+		}
+	},
+	debug : function(msg) {
+		footer.ensurediv();
+		var span = $('<span>').text(msg);
+		footer.alertbox.html(span);
+	},
+	error : function(msg) {
+		footer.ensurediv();
+		var span = $('<span style="color:rgb(185, 74, 72);">').text(msg);
+		footer.alertbox.html(span);
+	}
+}
+
 $(function(){
-	var $load = $('#loadhere')
+	var 
+		$load = $('#loadhere'),
+		$error = $('#footer-error');
 	
 	function go(uri) {
 		history.pushState({uri: uri}, null, uri);
@@ -7,7 +27,15 @@ $(function(){
 	}
 	
 	function load(uri) {
-		$load.load(uri + '?ajax');
+		$load.load(uri + '?ajax', function(response, status, xhr) {
+			switch(status) {
+			case 'error':
+				$error.text('Error loading ' + uri + ': ' + xhr.status + '-' + xhr.statusText);
+				break;
+			default:
+				$error.text('Stop the schmucking!');
+			}
+		});
 	}
 	
 	$(document).on({

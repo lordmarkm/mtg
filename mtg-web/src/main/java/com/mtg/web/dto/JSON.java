@@ -12,6 +12,10 @@ public class JSON extends HashMap<String, Object> {
 		return new JSON().status("200").message("OK");
 	}
 	
+	public static JSON error(String message) {
+	    return new JSON().status("500").message(message);
+	}
+	
 	/**
 	 * @return status 404 - Not found
 	 */

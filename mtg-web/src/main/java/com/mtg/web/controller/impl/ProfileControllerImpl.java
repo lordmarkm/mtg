@@ -4,12 +4,15 @@ import java.security.Principal;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.commons.models.collections.Binder;
+import com.mtg.commons.services.BinderService;
 import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.ProfileController;
@@ -22,6 +25,9 @@ public class ProfileControllerImpl extends GenericController implements ProfileC
 	@Resource
 	private AccountService accounts;
 	
+	@Resource
+	private BinderService binders;
+	
 	@Override
 	public ModelAndView profile(Principal principal, @PathVariable String username) {
 		
@@ -32,5 +38,20 @@ public class ProfileControllerImpl extends GenericController implements ProfileC
 		return mav("profile")
 				.addObject("user", user);
 	}
+
+    @Override
+    public ModelAndView binder(Principal principal, @PathVariable String username,
+            @PathVariable String bindername) {
+        
+        Validate.notEmpty(username);
+        Validate.notEmpty(bindername);
+        
+        log.info("Binder view requested. user={}, owner={}, binder={}", name(principal), username, bindername);
+        
+        Binder binder = binders.findByOwnerAndUrlFragment(username, bindername);
+
+        return mav("profile/binder")
+                .addObject("binder", binder);
+    }
 
 }

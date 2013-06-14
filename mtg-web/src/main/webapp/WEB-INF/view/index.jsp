@@ -12,16 +12,10 @@
 
 <body>
   <#include "templates/navbar.jsp">
+  <#include "templates/footer.jsp">
     
   <div class="container">
-  <#if target??>
-  <h1>Target uri: ${target }</h1>
-  <#else>
-  <h1>Welcome!</h1>
-  </#if>
-  
-  <div id="loadhere"></div>
-  
+    <div id="loadhere"></div>
   </div>
 </body>
 

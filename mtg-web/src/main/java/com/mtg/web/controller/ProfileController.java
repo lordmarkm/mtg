@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/u")
 public interface ProfileController {
 
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
 	ModelAndView profile(Principal principal, String username);
 
+	@RequestMapping(value = "/{username}/{bindername}")
+	ModelAndView binder(Principal principal, String username, String bindername);
+	
 }

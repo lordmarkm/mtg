@@ -11,6 +11,7 @@
 <h3>Binders</h3>
 <ol>
 <#list account.player.binders as binder>
-  <li>${binder.name }</li>
+  <li><a href="<@spring.url '/u/${account.player.name }/${binder.urlFragment }' />">${binder.name }</a></li>
 </#list>
 </ol>
+<a class="btn" href="/account/newbinder">Create a binder</a>
