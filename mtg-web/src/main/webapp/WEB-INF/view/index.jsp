@@ -15,7 +15,8 @@
   <#include "templates/footer.jsp">
     
   <div class="container">
-    <div id="loadhere"></div>
+    <div id="loadhere" class="span7"></div>
+    <div id="rightpane" class="span4"></div>
   </div>
 </body>
 

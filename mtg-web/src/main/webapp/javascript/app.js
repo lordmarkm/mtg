@@ -4,6 +4,11 @@ var footer =  {
 			footer.alertbox = $('#footer-error');
 		}
 	},
+	success : function(msg) {
+		footer.ensurediv();
+		var span = $('<span class="text-success">').text(msg);
+		footer.alertbox.html(span);
+	},
 	debug : function(msg) {
 		footer.ensurediv();
 		var span = $('<span>').text(msg);
@@ -11,7 +16,7 @@ var footer =  {
 	},
 	error : function(msg) {
 		footer.ensurediv();
-		var span = $('<span style="color:rgb(185, 74, 72);">').text(msg);
+		var span = $('<span class="text-error">').text(msg);
 		footer.alertbox.html(span);
 	}
 }
@@ -30,10 +35,10 @@ $(function(){
 		$load.load(uri + '?ajax', function(response, status, xhr) {
 			switch(status) {
 			case 'error':
-				$error.text('Error loading ' + uri + ': ' + xhr.status + '-' + xhr.statusText);
+				footer.error('Error loading ' + uri + ': ' + xhr.status + '-' + xhr.statusText);
 				break;
 			default:
-				$error.text('Stop the schmucking!');
+				footer.success('Stop the schmucking!');
 			}
 		});
 	}

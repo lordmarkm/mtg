@@ -1,7 +1,6 @@
 package com.mtg.web.controller.impl;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.magic.MagicPlayer;

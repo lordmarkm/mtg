@@ -1,6 +1,7 @@
 package com.mtg.web.controller.impl;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class AuthenticationControllerImpl extends GenericController implements A
     }
 
     @Override
-    public ModelAndView register(AccountForm form, BindingResult result) {
+    public ModelAndView register(@Valid AccountForm form, BindingResult result) {
         
         log.info("Registration request received. form={}", form);
         
