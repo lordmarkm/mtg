@@ -1,7 +1,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="<@spring.url '/' />">Magic Online Binder</a>
+      <a class="brand" href="<@spring.url '/support/updates' />">Magic Online Binder</a>
 	    <form class="navbar-form pull-left">
 	      <div class="input-append">
 			    <input type="text" class="span2">

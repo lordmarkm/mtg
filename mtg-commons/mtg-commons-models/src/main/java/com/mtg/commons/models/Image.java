@@ -1,13 +1,12 @@
 package com.mtg.commons.models;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 /**
  * @author mbmartinez
@@ -20,12 +19,15 @@ public class Image {
 	@Id
 	@GeneratedValue
 	private long id;
-	
-	@Column(nullable = false)
-	@Lob
-	@Basic(fetch = FetchType.EAGER)
-	private byte[] image;
 
+	@Column
+	@Type(type="text")
+	private String path;
+	
+	@Column
+	@Type(type="text")
+	private String originalPath;
+	
 	public long getId() {
 		return id;
 	}
@@ -34,12 +36,20 @@ public class Image {
 		this.id = id;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getPath() {
+		return path;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getOriginalPath() {
+		return originalPath;
+	}
+
+	public void setOriginalPath(String originalPath) {
+		this.originalPath = originalPath;
 	}
 	
 }

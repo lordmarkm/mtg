@@ -14,20 +14,20 @@ public abstract class AbstractEntity {
 
 	@Id
 	@GeneratedValue
-	private long id;
+	protected long id;
 	
 	@Column(name = "name", nullable = false)
-	private String name;
+	protected String name;
 	
 	@Column(name = "url_fragment")
-	private String urlFragment;
+	protected String urlFragment;
 	
 	@Column(name = "description", nullable = false)
 	@Type(type="text")
-	private String description = "";
+	protected String description = "";
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Image image;
+	protected Image image;
 	
 	public long getId() {
 		return id;

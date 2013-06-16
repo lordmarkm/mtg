@@ -2,11 +2,14 @@ package com.mtg.commons.services;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,6 +39,12 @@ public class CardServiceTest {
 	public void testSave() {
 		Card wog = wog();
 		service.save(wog);
-		assertEquals(1, service.findAll().size());
+		assertEquals(1, ((List<Card>)service.findAll()).size());
+	}
+	
+	@Test
+	public void testfind() {
+		PageRequest request = new PageRequest(0,10);
+		service.findByExpCode("TSP", request);
 	}
 }

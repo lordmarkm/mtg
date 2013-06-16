@@ -9,10 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Mark
  */
 @Controller
-@RequestMapping("/support/")
+@RequestMapping("/support")
 public interface SupportController {
 
 	@RequestMapping("/faq")
-	public ModelAndView faq();
+	ModelAndView faq();
+	
+	@RequestMapping("/upcoming")
+	ModelAndView upcoming();
+	
+	@RequestMapping("/updates")
+	ModelAndView updates();
 	
 }

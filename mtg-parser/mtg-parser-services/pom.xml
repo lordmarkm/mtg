@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>mtg-parser</groupId>
+    <artifactId>mtg-parser</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>mtg-parser-services</artifactId>
+  <name>MtG :: Parser :: Services</name>
+
+  <dependencies>
+    <!-- PROJECT -->
+    <dependency>
+      <groupId>mtg-commons</groupId>
+      <artifactId>mtg-commons-services</artifactId>
+    </dependency>
+
+    <!-- JSOUP -->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.7.2</version>
+    </dependency>
+    
+    <!-- TEST -->
+    <dependency>
+      <groupId>mtg-commons</groupId>
+      <artifactId>mtg-commons-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>

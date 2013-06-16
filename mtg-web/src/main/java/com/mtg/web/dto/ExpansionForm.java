@@ -7,20 +7,21 @@ import com.mtg.commons.models.Expansion;
 
 public class ExpansionForm {
 
-    @NotEmpty
+    @NotEmpty(message="Expansion must have a name")
     private String name;
     
-    @NotEmpty
+    @NotEmpty(message="Expansion must have a description")
     private String description;
     
-    @NotEmpty
-    private String abbreviation;
+    @NotEmpty(message="Expansion must have a code")
+    private String code;
     
     public Expansion toExpansion() {
         Expansion exp = new Expansion();
         exp.setName(name);
+        exp.setCode(code);
         exp.setDescription(description);
-        exp.setUrlFragment(abbreviation);
+        exp.setUrlFragment(code);
         return exp;
     }
     
@@ -29,7 +30,7 @@ public class ExpansionForm {
         return new ToStringCreator(this)
             .append("name", name)
             .append("description", description)
-            .append("abbreviation", abbreviation)
+            .append("abbreviation", code)
             .toString();
     }
 
@@ -49,11 +50,11 @@ public class ExpansionForm {
         this.description = description;
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
+    public String getCode() {
+        return code;
     }
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -4,12 +4,24 @@
 <form class="form-horizontal" action="${action }" method="post">
   <fieldset>
     <legend>Login</legend>
-    <#if error??>
+
+    <#if message??>
+    <#switch message>
+      <#case 'regsuccess'>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Registration successful. You can now Log in.
+    </div>
+        <#break>
+      <#case 'bad_credentials'>
     <div class="alert alert-error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       Incorrect username or password
     </div>
+        <#break>
+    </#switch>
     </#if>
+    
     <div class="control-group">
       <label class="control-label" for="username">Username</label>
       <div class="controls">

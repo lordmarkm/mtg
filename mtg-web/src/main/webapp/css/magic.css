@@ -1,0 +1,11 @@
+.replacable-image-container {
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.expansion-symbol-placeholder {
+  border: 1px dashed #8B8A8A;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}

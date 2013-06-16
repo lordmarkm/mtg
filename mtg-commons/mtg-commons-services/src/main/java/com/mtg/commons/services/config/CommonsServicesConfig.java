@@ -29,7 +29,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  */
 
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource({"classpath:db.properties","classpath:mvc.properties"})
 @EnableJpaRepositories(basePackages="com.mtg.commons.services", repositoryImplementationPostfix="CustomImpl")
 @EnableTransactionManagement
 public class CommonsServicesConfig {

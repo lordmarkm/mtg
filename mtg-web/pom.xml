@@ -27,7 +27,11 @@
       <groupId>mtg-security</groupId>
       <artifactId>mtg-security-services</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>mtg-parser</groupId>
+      <artifactId>mtg-parser-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!-- SPRING -->
     <dependency>
       <groupId>org.springframework</groupId>

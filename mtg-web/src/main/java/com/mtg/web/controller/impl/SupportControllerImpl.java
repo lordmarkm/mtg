@@ -10,7 +10,17 @@ public class SupportControllerImpl extends GenericController implements SupportC
 
 	@Override
 	public ModelAndView faq() {
-		return mav("faq");
+		return mav("support/faq");
+	}
+
+	@Override
+	public ModelAndView upcoming() {
+		return mav("support/upcoming");
+	}
+
+	@Override
+	public ModelAndView updates() {
+		return mav("support/updates");
 	}
 
 }

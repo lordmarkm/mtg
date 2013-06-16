@@ -1,5 +1,6 @@
 package com.mtg.web.controller.impl;
 
+import java.io.IOException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.commons.models.Image;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.BinderService;
@@ -19,6 +21,7 @@ import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AccountController;
 import com.mtg.web.dto.BinderForm;
+import com.mtg.web.dto.ImageForm;
 import com.mtg.web.dto.JSON;
 
 @Component
@@ -70,5 +73,15 @@ public class AccountControllerImpl extends GenericController implements AccountC
         
         return JSON.ok().message(owner.getName() + "/" + binder.getUrlFragment());
     }
+
+	@Override
+	public JSON uploadProfilePic(Principal principal, ImageForm form) throws IOException {
+
+		log.info("Upload profile pic requested. user={}", name(principal));
+
+		Image pic = accounts.saveProfilePic(principal.getName(), form.getData().getBytes());
+		
+		return JSON.ok().put("image", pic);
+	}
 
 }

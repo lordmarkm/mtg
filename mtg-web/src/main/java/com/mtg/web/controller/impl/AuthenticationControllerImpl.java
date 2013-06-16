@@ -30,7 +30,7 @@ public class AuthenticationControllerImpl extends GenericController implements A
     @Override
     public ModelAndView login(@PathVariable String message) {
         return mav("login")
-        		.addObject("error", message);
+        		.addObject("message", message);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AuthenticationControllerImpl extends GenericController implements A
         String password = form.getPassword();
         reg.register(username, password);
         
-        return mav("redirect:/" + username);
+        return mav("redirect:/auth/login/regsuccess");
     }
 
 }

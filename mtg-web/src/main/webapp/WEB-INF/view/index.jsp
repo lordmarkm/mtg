@@ -13,10 +13,13 @@
 <body>
   <#include "templates/navbar.jsp">
   <#include "templates/footer.jsp">
+  <#include "templates/imageupload.jsp">
     
   <div class="container">
     <div id="loadhere" class="span7"></div>
-    <div id="rightpane" class="span4"></div>
+    <div id="rightpane" class="span4">
+     <#include "templates/updates.jsp">
+    </div>
   </div>
 </body>
 

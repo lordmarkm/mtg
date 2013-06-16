@@ -46,7 +46,7 @@ $(function(){
 	$(document).on({
 		click: function(){
 			var uri = $(this).attr('href');
-			if(uri === 'javascript:;' || uri === '#' || uri.indexOf('/logout') != -1) {
+			if(!uri || uri === 'javascript:;' || uri.indexOf('#') == 0 || uri.indexOf('/logout') != -1) {
 				return;
 			}
 			go(uri);

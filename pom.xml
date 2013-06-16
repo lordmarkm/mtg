@@ -7,6 +7,14 @@
   <version>1.0</version>
   <packaging>pom</packaging>
 
+  <modules>
+    <module>mtg-commons</module>
+    <module>mtg-admin</module>
+    <module>mtg-web</module>
+    <module>mtg-security</module>
+    <module>mtg-parser</module>
+  </modules>
+
   <properties>
     <project.version>1.0</project.version>
 
@@ -208,12 +216,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <modules>
-    <module>mtg-commons</module>
-    <module>mtg-admin</module>
-    <module>mtg-web</module>
-    <module>mtg-security</module>
-  </modules>
   
   <build>
     <plugins>

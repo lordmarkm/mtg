@@ -28,6 +28,11 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 		
 		String uri = request.getRequestURI();
 
+		//ignore image request
+		if(uri.contains("/image/")) {
+			return true;
+		}
+		
 		//ignore if ajax request
 		if(null != request.getParameter(RequestParams.AJAX)) {
 			log.debug("Ignoring ajax request.");

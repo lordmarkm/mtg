@@ -15,6 +15,10 @@ public interface AuthenticationController {
     @RequestMapping("/login")
     public ModelAndView login();
 
+    /**
+     * @param message - badcredentials or regsuccess
+     * @return
+     */
     @RequestMapping("/login/{message}")
     public ModelAndView login(String message);
     
