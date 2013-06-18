@@ -21,8 +21,41 @@ var footer =  {
 	}
 }
 
+$.fn.loading = function(){
+	var loading = $('<div class="loading-modal">').prependTo(this);
+	var prog = $('<div class="loading-modal-bar progress progress-striped active">')
+		.appendTo(loading);
+	$('<div class="bar">').css('width', '100%').appendTo(prog);
+}
+
+$.fn.notloading = function(){
+	this.find('.loading-modal').remove();
+}
+
+var loadhere = {
+	ensureElement : function(){
+		if(!loadhere.elem || loadhere.elem.length === 0) {
+			loadhere.elem = $('#loadhere');
+		}
+	},
+	
+	loading : function() {
+		loadhere.ensureElement();
+		loadhere.timeout = setTimeout(function(){
+			loadhere.elem.loading();
+		}, 200);
+	},
+	
+	notloading : function() {
+		loadhere.ensureElement();
+		clearTimeout(loadhere.timeout);
+		loadhere.elem.notloading();
+	}
+}
+
 $(function(){
 	var 
+		$loadcontainer = $('#loadhere-container'), //lol loadcontainer
 		$load = $('#loadhere'),
 		$error = $('#footer-error');
 	
@@ -32,6 +65,11 @@ $(function(){
 	}
 	
 	function load(uri) {
+		//no need to show loading div if server returns really fast
+		var loadingtimeout = setTimeout(function(){
+		  $loadcontainer.loading();
+		}, 200);
+		
 		$load.load(uri + '?ajax', function(response, status, xhr) {
 			switch(status) {
 			case 'error':
@@ -40,6 +78,8 @@ $(function(){
 			default:
 				footer.success('Stop the schmucking!');
 			}
+			clearTimeout(loadingtimeout);
+			$loadcontainer.notloading();
 		});
 	}
 	

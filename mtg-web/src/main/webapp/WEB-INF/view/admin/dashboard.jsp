@@ -12,11 +12,27 @@
 <#include "parsecards-modal.jsp">
 
 <h3>Admin Details</h3>
-<p>Username: <@sec.authentication property="principal.username" />
-<p>Authorities: <@sec.authentication property="principal.authorities" />
+<dl class="dl-horizontal">
+  <dt>Username:
+  <dd><@sec.authentication property="principal.username" />
+  <dt>Authorities:
+  <dd><@sec.authentication property="principal.authorities" />
+</dl>
 
 <h3>Application Details</h3>
-<p>Image path: ${env.getProperty('images.path') }
+<dl class="dl-horizontal">
+  <dt>Image path:
+  <dd>${env.getProperty('images.path') }
+  
+  <dt>Registered users:
+  <dd>${usercount }
+  
+  <dt>Cards in database:
+  <dd>${cardcount }
+  
+  <dt>Binders in database:
+  <dd>${bindercount }
+</dl>
 
 <hr>
 

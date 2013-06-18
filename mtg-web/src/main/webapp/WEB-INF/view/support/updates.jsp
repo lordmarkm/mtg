@@ -6,11 +6,16 @@
 </h1>
 
 <dl id="updates-list">
-  <dt>June 18, 2013</dt>
-  <dd>Added view individual card page</dd>
+  <dt>June 18, 2013
+  <dd>Added card search (from the navbar)
 
   <dt>June 17, 2013</dt>
-  <dd>Added the <a href="<@spring.url '/support/upcoming' />">Upcoming Features</a> page</dd>
+  <dd>
+    <ol>
+      <li>Added the <a href="<@spring.url '/support/upcoming' />">Upcoming Features</a> page
+      <li>Added individual card page
+    </ol>
+  </dd>
   
   <dt>June 16, 2013</dt>
   <dd>

@@ -31,7 +31,7 @@ public class Card extends AbstractEntity {
 	@Embedded
 	private CardMetadata metadata;
 	
-	@OneToMany(mappedBy="card")
+	@OneToMany(mappedBy="card", orphanRemoval=true)
 	private List<Bundle> bundles;
 	
 	@Column

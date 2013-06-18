@@ -16,7 +16,9 @@
   <#include "templates/imageupload.jsp">
     
   <div class="container">
-    <div id="loadhere" class="span7"></div>
+    <div id="loadhere-container" class="span7" style="position: relative;">
+      <div id="loadhere"></div>
+    </div>
     <div id="rightpane" class="span4">
      <#include "templates/updates.jsp">
     </div>

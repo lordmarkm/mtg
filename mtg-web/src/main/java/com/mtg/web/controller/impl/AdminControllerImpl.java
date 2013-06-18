@@ -21,8 +21,11 @@ import com.mtg.commons.models.Card;
 import com.mtg.commons.models.Expansion;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.Rarities;
+import com.mtg.commons.services.BinderService;
+import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ExpansionService;
 import com.mtg.parser.services.ListParser;
+import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AdminController;
 import com.mtg.web.dto.CardForm;
 import com.mtg.web.dto.ExpansionForm;
@@ -39,6 +42,15 @@ public class AdminControllerImpl extends GenericController implements AdminContr
     private ExpansionService exps;
     
     @Resource
+    private CardService cards;
+    
+    @Resource
+    private BinderService binders;
+    
+    @Resource
+    private AccountService accounts;
+    
+    @Resource
     private ListParser parser;
     
     @Resource
@@ -51,6 +63,9 @@ public class AdminControllerImpl extends GenericController implements AdminContr
         
         return mav("admin/dashboard")
         		.addObject("env", env)
+        		.addObject("usercount", accounts.count())
+        		.addObject("cardcount", cards.count())
+        		.addObject("bindercount", binders.count())
         		.addObject("expansions", exps.findAll());
     }
 

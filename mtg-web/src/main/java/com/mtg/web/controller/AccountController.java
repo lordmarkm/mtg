@@ -28,8 +28,22 @@ public interface AccountController {
 	@RequestMapping(value = "/newbinder", method = RequestMethod.POST)
 	JSON newbinder(Principal principal, BinderForm form, BindingResult result);
 	
+	@RequestMapping(value = "/editbinder/{urlFragment}", method = RequestMethod.GET)
+	ModelAndView editbinder(Principal principal, String urlFragment);
+	
+	@ResponseBody
+	@RequestMapping(value = "/editbinder/page/{urlFragment}/{page}")
+	ModelAndView editbinderPage(Principal principal, String urlFragment, Integer page);
+	
+	@ResponseBody
+	@RequestMapping(value = "/editbinder/add/{urlFragment}/{page}/{cardId}", method = RequestMethod.POST)
+	JSON addCard(Principal principal, String urlFragment, Integer page, Long cardId);
+	
 	@ResponseBody
 	@RequestMapping(value = "/upload/profilepic")
 	JSON uploadProfilePic(Principal principal, ImageForm form) throws IOException;
 	
+	@ResponseBody
+	@RequestMapping(value = "/deletebinder/{urlFragment}")
+	JSON deleteBinder(Principal principal, String urlFragment);
 }

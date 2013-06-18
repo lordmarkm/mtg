@@ -6,6 +6,6 @@ import com.mtg.commons.models.Card;
 
 public interface CardServiceCustom {
 
-	List<String[]> toDataTableReady(List<Card> cards);
+	List<String[]> toDataTableResponse(List<Card> cards);
 	
 }

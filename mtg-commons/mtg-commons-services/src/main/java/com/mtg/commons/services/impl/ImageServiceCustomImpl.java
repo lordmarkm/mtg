@@ -1,13 +1,18 @@
 package com.mtg.commons.services.impl;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.Validate;
@@ -91,6 +96,36 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 			log.debug("Written data to file. path={}", path);
 		} finally {
 			if(null != out) out.close();
+		}
+	}
+	
+	@Override
+	public void sideloadIfNeeded(Image image) {
+		
+		if(null == image || image.getOriginalPath() == null) {
+			log.debug("Can't get image, it has no source");
+			return;
+		}
+		
+		if(image.getPath() != null) {
+			//no need to ensure image if it already exists
+			//TODO check file exists here?
+			return;
+		}
+		
+		try {
+			BufferedImage newimage = ImageIO.read(new URL(image.getOriginalPath()));
+			images.update(image, ((DataBufferByte)newimage.getRaster().getDataBuffer()).getData());
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(newimage, "jpg", baos);
+			baos.flush();
+			byte[] bytes = baos.toByteArray();
+			baos.close();
+			
+			update(image, bytes);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 

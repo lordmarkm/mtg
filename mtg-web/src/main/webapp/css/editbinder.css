@@ -1,0 +1,12 @@
+select[name="cards-table_length"] {
+  width: 70px;
+}
+
+input[aria-controls="cards-table"] {
+  width: 160px;
+}
+
+#select-binder-page {
+  width: 95px; 
+  vertical-align: top;
+}

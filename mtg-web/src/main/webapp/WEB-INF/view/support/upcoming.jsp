@@ -6,6 +6,8 @@
 </h1>
 
 <ol>
+  <li>Add binder pages
+  <li>Add flip, hide, rearrange options to binder pages
   <li>Add more information to the User Profile like meetup, contact info, etc.
 </ol>
 

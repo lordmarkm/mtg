@@ -23,20 +23,29 @@ public class Bundle {
     @GeneratedValue
     private long id;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private Card card;
     
     @ManyToOne
-    private Binder binder;
+    private BinderPage page;
     
     @Column
-    private int number;
+    private int count;
     
     @Column
     @Type(type="text")
     private String note;
 
-    public Card getCard() {
+    public Bundle() {
+    	//
+    }
+    
+    public Bundle(Card card) {
+    	this.card = card;
+    	this.count = 1;
+	}
+
+	public Card getCard() {
         return card;
     }
 
@@ -44,20 +53,12 @@ public class Bundle {
         this.card = card;
     }
 
-    public Binder getBinder() {
-        return binder;
+    public BinderPage getPage() {
+        return page;
     }
 
-    public void setBinder(Binder binder) {
-        this.binder = binder;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPage(BinderPage page) {
+        this.page = page;
     }
 
     public String getNote() {
@@ -75,5 +76,13 @@ public class Bundle {
     public void setId(long id) {
         this.id = id;
     }
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
     
 }

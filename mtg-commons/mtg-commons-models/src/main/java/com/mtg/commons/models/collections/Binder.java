@@ -1,5 +1,6 @@
 package com.mtg.commons.models.collections;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,20 +16,14 @@ import com.mtg.commons.models.magic.MagicPlayer;
 @Table(name="binders")
 public class Binder extends AbstractEntity {
 
+	public static final int PAGES = 20;
+	
     @OneToMany(cascade=CascadeType.ALL)
-    private List<Bundle> bundles;
+    private List<BinderPage> pages;
 
     @ManyToOne
     private MagicPlayer owner;
     
-    public List<Bundle> getBundles() {
-        return bundles;
-    }
-
-    public void setBundles(List<Bundle> bundles) {
-        this.bundles = bundles;
-    }
-
     public MagicPlayer getOwner() {
         return owner;
     }
@@ -36,5 +31,21 @@ public class Binder extends AbstractEntity {
     public void setOwner(MagicPlayer owner) {
         this.owner = owner;
     }
+
+	public List<BinderPage> getPages() {
+		if(null == pages || pages.isEmpty()) {
+			this.pages = new ArrayList<BinderPage>();
+			
+			//init pages 1 to PAGES
+			for(int i = 1; i < PAGES + 1; i++) {
+				pages.add(new BinderPage(this, i));
+			}
+		}
+		return pages;
+	}
+
+	public void setPages(List<BinderPage> pages) {
+		this.pages = pages;
+	}
     
 }

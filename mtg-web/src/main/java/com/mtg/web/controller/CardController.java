@@ -1,5 +1,7 @@
 package com.mtg.web.controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,7 @@ import com.mtg.web.dto.JSON;
 public interface CardController {
 
 	@RequestMapping("/{id}")
-	ModelAndView card(Principal principal, Long id);
+	ModelAndView card(Principal principal, Long id) throws MalformedURLException, IOException;
 	
 	@ResponseBody
 	@RequestMapping("/datatables/{expcode}")

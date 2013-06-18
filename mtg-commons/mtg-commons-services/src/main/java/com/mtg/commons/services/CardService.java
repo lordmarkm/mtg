@@ -1,5 +1,7 @@
 package com.mtg.commons.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +14,8 @@ public interface CardService extends PagingAndSortingRepository<Card, Long>, Car
 
 	@Query("select c from Card c where (c.expansion.code = :expcode)")
 	Page<Card> findByExpCode(@Param("expcode") String expcode, Pageable request);
+
+	@Query("from Card where name like :query")
+	List<Card> searchByName(@Param("query") String query);
 
 }

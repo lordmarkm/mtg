@@ -39,9 +39,55 @@
 </div>
 
 <h3>Binders</h3>
-<ol>
+<a class="btn btn-primary pull-right" href="/account/newbinder"><i class="icon-plus icon-white"></i> Create a binder</a>
+<div class="clearfix mb10"></div>
+
+<#if account.player.binders?has_content>
+<table class="table">
 <#list account.player.binders as binder>
-  <li><a href="<@spring.url '/u/${account.player.name }/${binder.urlFragment }' />">${binder.name }</a></li>
+  <tr>
+    <td>
+      <strong><a href="<@spring.url '/u/${account.player.name }/${binder.urlFragment }' />">${binder.name }</a></strong>
+    </td>
+    <td>
+      <a href="<@spring.url '/account/editbinder/${binder.urlFragment}' />" class="btn btn-small"><i class="icon-edit"></i> Edit</a>
+      <a href="javascript:;" class="delete-binder btn btn-small" binder-name="${binder.name }" binder-id="${binder.urlFragment }"><i class="icon-remove"></i> Delete</a>
+    </td>
+  </tr>
 </#list>
-</ol>
-<a class="btn" href="/account/newbinder">Create a binder</a>
+</table>
+<#else>
+<div class="alert alert-info">You have no binders right now</div>
+</#if>
+
+
+<script>
+var dashboardUrls = {
+		deleteBinder : '<@spring.url "/account/deletebinder/" />'
+}
+$(function(){
+	$(document).on({
+		click: function(){
+			var $btn = $(this);
+			var name = $btn.attr('binder-name');
+			var id = $btn.attr('binder-id');
+			
+			if(confirm('Are you sure you want to delete ' + name + '?')) {
+				$.post(dashboardUrls.deleteBinder + id, function(response) {
+					switch(response.status) {
+					case '200':
+						$btn.closest('tr').fadeOut();
+						break;
+					default:
+						footer.error('Error deleting ' + name);
+					}
+				}).error(function(){
+					footer.error('Error deleting ' + name);
+				});
+			}
+		}
+	}, '.delete-binder')
+});
+</script>
+
+<div class="mb50"></div>

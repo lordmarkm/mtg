@@ -1,3 +1,5 @@
+<#import "/spring.ftl" as spring />
+
 <#if card??>
 
 <h2>${card.name }</h2>
@@ -6,7 +8,7 @@
   <div class="span3">
     <div class="pull-right">
       <#if card.image?? && card.image.path??>
-      <img src="<@spring.url '/image/${card.id }' />" />
+      <img src="<@spring.url '/image/${card.image.id }' />" />
       <#elseif card.image.originalPath??>
       <img src="${card.image.originalPath }" />
       <#else>

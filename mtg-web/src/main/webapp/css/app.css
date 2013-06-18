@@ -7,7 +7,13 @@ body {
 .inline-block {display: inline-block;}
 .pointer {cursor: pointer;}
 
+.mt5 {margin-top: 5px;}
+.mt10 {margin-top: 10px;}
+.mt20 {margin-top: 20px;}
+
 .mb5 {margin-bottom: 5px;}
 .mb10 {margin-bottom: 10px;}
 .mb20 {margin-bottom: 20px;}
 .mb50 {margin-bottom: 50px;}
+
+.pt20 {padding-top: 20px;}

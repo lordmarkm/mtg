@@ -4,8 +4,9 @@
       <a class="brand" href="<@spring.url '/support/updates' />">Magic Online Binder</a>
 	    <form class="navbar-form pull-left">
 	      <div class="input-append">
-			    <input type="text" class="span2">
+			    <input id="navbar-search" type="text" autocomplete="off" class="span2">
 			    <button class="btn btn-link" style="border-color: rgb(204,204,204);"><i class="icon-search"></i></button>
+          <div id="clickery" class="hide"></div>
 		    </div>
 	    </form>
       <ul class="nav pull-right">
@@ -42,3 +43,51 @@
   </div>
 </div>
 <div class="clearfix"></div>
+
+<script>
+var navbarUrls = {
+  card   : '<@spring.url "/cards/" />',
+	search : '<@spring.url "/search/navbar?ajax" />'	
+}
+	
+$(function(){
+
+	//search
+	var 
+	 $input = $('#navbar-search'),
+	 $clickery = $('#clickery');
+	
+	$input.typeahead({
+		source: function(query, process) {
+			return $.get(navbarUrls.search, {query : query}, function(response) {
+				switch(response.status) {
+				case '200':
+					var items = [];
+					$.each(response.data, function(i, dto) {
+						switch(dto.type) {
+						case 'card':
+							items.push('<a href="' + navbarUrls.card + dto.id + '">' + dto.name + '</a>');
+							break;
+						default:
+							items.push(dto.name);
+						}
+					});
+					return process(items);
+					break;
+				default:
+					return process([]);
+				}
+				return process(response.data);
+			});
+		},
+		updater: function(item) {
+			$clickery.html('');
+			$(item).appendTo($clickery).click();
+		},
+		highlighter: function(item) {
+			return item;
+		}
+	});
+	
+});
+</script>
