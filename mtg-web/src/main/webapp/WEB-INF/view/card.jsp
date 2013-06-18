@@ -7,10 +7,8 @@
 <div class="row">
   <div class="span3">
     <div class="pull-right">
-      <#if card.image?? && card.image.path??>
+      <#if card.image??>
       <img src="<@spring.url '/image/${card.image.id }' />" />
-      <#elseif card.image.originalPath??>
-      <img src="${card.image.originalPath }" />
       <#else>
       <img src="<@spring.url '/images/no-img.jpg' />" />
       </#if>

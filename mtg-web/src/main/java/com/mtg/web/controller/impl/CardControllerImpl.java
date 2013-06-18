@@ -37,7 +37,6 @@ public class CardControllerImpl extends GenericController implements CardControl
 	@Override
 	public ModelAndView card(Principal principal, @PathVariable Long id) throws MalformedURLException, IOException {
 		Card card = cardserv.findOne(id);
-		images.sideloadIfNeeded(card.getImage());
 		
 		log.info("Card view request. user={}, id={}, name={}", name(principal), id, card != null ? card.getName() : "Not found");
 		return mav("card").addObject("card", card);

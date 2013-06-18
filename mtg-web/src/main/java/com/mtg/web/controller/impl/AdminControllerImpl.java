@@ -24,7 +24,7 @@ import com.mtg.commons.models.Rarities;
 import com.mtg.commons.services.BinderService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ExpansionService;
-import com.mtg.parser.services.ListParser;
+import com.mtg.parser.services.CardListParser;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AdminController;
 import com.mtg.web.dto.CardForm;
@@ -51,7 +51,7 @@ public class AdminControllerImpl extends GenericController implements AdminContr
     private AccountService accounts;
     
     @Resource
-    private ListParser parser;
+    private CardListParser parser;
     
     @Resource
     private Environment env;

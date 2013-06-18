@@ -16,14 +16,14 @@ import org.springframework.util.StringUtils;
 
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.Image;
-import com.mtg.parser.services.ListParser;
+import com.mtg.parser.services.CardListParser;
 
 /**
  * Parse a StarCityGames card list, such as http://sales.starcitygames.com/category.php?cat=5061&start=0
  * @author Mark
  */
 @Service
-public class SCGListParser implements ListParser {
+public class SCGListParser implements CardListParser {
 
 	private static Logger log = LoggerFactory.getLogger(SCGListParser.class);
 	

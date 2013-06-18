@@ -21,6 +21,12 @@ var footer =  {
 	}
 }
 
+$.ajaxSetup({
+	error: function(xhr, status) {
+		'Error! status: ' + status;
+	}
+});
+
 $.fn.loading = function(){
 	var loading = $('<div class="loading-modal">').prependTo(this);
 	var prog = $('<div class="loading-modal-bar progress progress-striped active">')

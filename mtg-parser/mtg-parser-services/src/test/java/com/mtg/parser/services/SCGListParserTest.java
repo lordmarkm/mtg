@@ -1,20 +1,20 @@
 package com.mtg.parser.services;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
-import org.junit.Test;
 
 import com.mtg.commons.models.Card;
 import com.mtg.parser.services.impl.SCGListParser;
 
 public class SCGListParserTest {
 
-	private ListParser parser = new SCGListParser();
+	private CardListParser parser = new SCGListParser();
 
 	//@Test
 	public void testParseOne() throws IOException {

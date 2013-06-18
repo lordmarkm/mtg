@@ -7,12 +7,22 @@
 
     <#if message??>
     <#switch message>
+      <#case 'signout_success'>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Log out successful.
+    </div>
+        <#break>
+    
+    
       <#case 'regsuccess'>
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       Registration successful. You can now Log in.
     </div>
         <#break>
+    
+    
       <#case 'bad_credentials'>
     <div class="alert alert-error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -1,7 +1,6 @@
 package com.mtg.commons.services.impl;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -9,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -45,7 +45,7 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 	}
 	
 	@Override
-	public Image update(Image image, byte[] bytes) {
+	public Image update(Image image, byte[] bytes, String extension) {
 		Validate.notNull(image);
 		
 		if(null != image.getPath()) {
@@ -54,7 +54,7 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 		
 		String filepath = null;
 		while(null == filepath || new File(filepath).exists()) {
-			filepath = folderpath + RandomStringUtils.randomAlphanumeric(10);
+			filepath = folderpath + RandomStringUtils.randomAlphanumeric(10) + "." + extension;
 		}
 		
 		try {
@@ -76,6 +76,7 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 	@Override
 	public File getFile(Image image) {
 		Validate.notNull(image);
+		sideloadIfNeeded(image);
 		return new File(image.getPath());
 	}
 	
@@ -114,19 +115,49 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 		}
 		
 		try {
-			BufferedImage newimage = ImageIO.read(new URL(image.getOriginalPath()));
-			images.update(image, ((DataBufferByte)newimage.getRaster().getDataBuffer()).getData());
-			
+			URL url = new URL(image.getOriginalPath());
+			String format = getFormat(url);
+			if(null == format) format = DEFAULT_FORMAT;
+
+			BufferedImage newimage = ImageIO.read(url);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(newimage, "jpg", baos);
+			ImageIO.write(newimage, format, baos);
 			baos.flush();
 			byte[] bytes = baos.toByteArray();
 			baos.close();
 			
-			update(image, bytes);
+			update(image, bytes, format);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public String getMimeType(URL url) throws IOException {
+		URLConnection c = url.openConnection();
+		return c.getContentType();
+	}
+	
+	protected String getFormat(URL url) throws IOException {
+		String type = getMimeType(url);
+		if("image/jpeg".equals(type)) {
+			return "jpeg";
+		} else if("image/png".equals(type)) {
+			return "png";
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void excise(Image image) {
+		if(null == image || null == image.getPath()) return;
+		
+		File f = new File(image.getPath());
+		if(f.exists()) {
+			f.delete();
+		}
+		images.delete(image);
 	}
 
 }

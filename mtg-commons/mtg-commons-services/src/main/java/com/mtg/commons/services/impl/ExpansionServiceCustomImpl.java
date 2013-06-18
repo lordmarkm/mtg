@@ -56,7 +56,7 @@ public class ExpansionServiceCustomImpl implements ExpansionServiceCustom {
 			break;
 		}
 		
-		Image supdated = images.update(symbol, image);
+		Image supdated = images.update(symbol, image, images.DEFAULT_FORMAT);
 		return supdated;
 	}
 

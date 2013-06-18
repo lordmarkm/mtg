@@ -1,0 +1,61 @@
+package com.mtg.commons.models.locations;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.core.style.ToStringCreator;
+
+import com.mtg.commons.models.AbstractEntity;
+import com.mtg.commons.models.magic.MagicPlayer;
+
+@Entity
+@Table(name="cities")
+public class City extends AbstractEntity {
+
+	@ManyToOne
+	private Country country;
+	
+	@ManyToMany
+	private List<MagicPlayer> players;
+
+	public City() {
+		//
+	}
+	
+	public City(String name, String desc) {
+		super(name, desc);
+	}
+
+	public String toString() {
+		return new ToStringCreator(this)
+			.append("name", name)
+			.append("id", id)
+			.toString();
+			
+	}
+	
+	public List<MagicPlayer> getPlayers() {
+		if(null == players) {
+			this.players = new ArrayList<MagicPlayer>();
+		}
+		return players;
+	}
+
+	public void setPlayers(List<MagicPlayer> players) {
+		this.players = players;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+	
+}

@@ -13,5 +13,12 @@ public interface AccountServiceCustom {
 	 */
 	Account update(Account account);
 	
+	/**
+	 * Update the the last login timestamp 
+	 * @param username
+	 */
+	void updateLastLogin(String username);
+	
 	Image saveProfilePic(String name, byte[] bytes);
+
 }

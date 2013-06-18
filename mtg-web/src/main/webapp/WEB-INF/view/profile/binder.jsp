@@ -10,10 +10,10 @@
 <h3>${binder.name }</h3>
 <p><@tools.nl2br string=binder.description />
 
-<#if binder.bundles?has_content>
+<#if binder.pages?has_content>
 <ol>
-  <#list binder.bundles as bundle>
-  ${bundle.card.name }
+  <#list binder.pages as page>
+  <li>${page.bundles?size }</li>
   </#list>
 </ol>
 <#else>

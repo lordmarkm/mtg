@@ -22,17 +22,20 @@ public class Account {
 	@GeneratedValue
 	private long id;
 	
-	@Column(unique=true)
+	@Column(unique=true, nullable=false)
 	private String username;
 	
-	@Column
+	@Column(nullable=false)
 	private String password;
 	
-	@Column
+	@Column(nullable=false)
 	private String authorities;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private MagicPlayer player;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private AccountInfo info;
 	
 	@Override
 	public String toString() {
@@ -83,5 +86,13 @@ public class Account {
     public void setPlayer(MagicPlayer player) {
         this.player = player;
     }
+
+	public AccountInfo getInfo() {
+		return info;
+	}
+
+	public void setInfo(AccountInfo info) {
+		this.info = info;
+	}
 	
 }

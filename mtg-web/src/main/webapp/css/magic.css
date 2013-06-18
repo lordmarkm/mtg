@@ -25,3 +25,9 @@
   width: 50%;
   margin: 30% auto;
 }
+
+.table-unstyled td {
+  margin: 0;
+  padding: 0 0 2px 8px;;
+  border: none;
+}

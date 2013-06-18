@@ -12,12 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="binderpages", uniqueConstraints={
-		@UniqueConstraint(columnNames={"binder_id", "pageNumber"})
-})
+@Table(name="binderpages")
 public class BinderPage {
 
 	@Id

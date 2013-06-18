@@ -20,7 +20,6 @@ import com.mtg.security.services.support.Roles;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.kemika.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Resource
@@ -56,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout()
 				.deleteCookies("JSESSIONID")
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/")
+				.logoutSuccessUrl("/auth/login/signout_success")
 				.permitAll()
 				.and()
 			.formLogin()

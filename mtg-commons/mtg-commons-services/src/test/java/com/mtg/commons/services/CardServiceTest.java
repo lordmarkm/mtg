@@ -25,7 +25,7 @@ public class CardServiceTest {
 	
 	@Before
 	public void reset() {
-		service.deleteAll();
+		//service.deleteAll();
 	}
 	
 	private Card wog() {

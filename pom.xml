@@ -30,6 +30,7 @@
     <joda-time.version>2.1</joda-time.version>
     <jackson.version>1.9.12</jackson.version>
     <commons.lang.version>2.3</commons.lang.version>
+    <joda.version>2.2</joda.version>
 
     <!-- VIEW -->
     <freemarker.version>2.3.14</freemarker.version>
@@ -139,6 +140,13 @@
         <version>${hibernate.validator.version}</version>
       </dependency>
 
+      <!-- JODA -->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda.version}</version>
+      </dependency>
+
       <!-- PERSISTENCE -->
       <dependency>
         <groupId>mysql</groupId>
@@ -216,7 +224,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -229,5 +237,5 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>  
+  </build>
 </project>

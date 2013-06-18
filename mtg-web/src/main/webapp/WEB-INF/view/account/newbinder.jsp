@@ -39,6 +39,10 @@
 </div>
 
 <script>
+var newbinderUrls = {
+		editbinder : '<@spring.url "/account/editbinder/" />'
+}
+
 $(function(){
 	var $form = $('#form-newbinder');
 
@@ -47,7 +51,7 @@ $(function(){
 		$.post($form.attr('action'), $form.serialize(), function(response){
 			switch(response.status) {
 			case '200':
-				window.location.href = '/u/' + response.message;
+				window.location.href = newbinderUrls.editbinder + response.message;
 				break;
 			case '500':
 				footer.error(response.message);

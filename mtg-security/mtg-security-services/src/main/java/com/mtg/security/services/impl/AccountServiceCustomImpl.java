@@ -2,13 +2,19 @@ package com.mtg.security.services.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.Validate;
+import org.joda.time.DateTime;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.ImageService;
 import com.mtg.security.models.Account;
+import com.mtg.security.models.AccountInfo;
 import com.mtg.security.services.AccountService;
 import com.mtg.security.services.AccountServiceCustom;
 
+@Transactional
 public class AccountServiceCustomImpl implements AccountServiceCustom {
 
 	@Resource
@@ -26,6 +32,21 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 	}
 
 	@Override
+	public void updateLastLogin(String username) {
+		Account account = service.findByUsername(username);
+		Validate.notNull(account);
+		
+		AccountInfo info = account.getInfo();
+		if(null == info) {
+			info = new AccountInfo();
+			info.setJoined(DateTime.now());
+			account.setInfo(info);
+		}
+		
+		info.setLastLogin(DateTime.now());
+	}
+	
+	@Override
 	public Image saveProfilePic(String name, byte[] bytes) {
 		
 		Account account = service.findByUsername(name);
@@ -37,7 +58,7 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 			player.setImage(image);
 		}
 		
-		return images.update(image, bytes);
+		return images.update(image, bytes, ImageService.DEFAULT_FORMAT);
 	}
 
 }

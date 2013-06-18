@@ -59,6 +59,10 @@
 
 </div>
 
+<div class="pull-right mt20">
+  <a class="btn btn-success" href="<@spring.url '/account/dashboard' />">Done, back to Dashboard</a>
+</div>
+
 <script>
 var editbinder = {
     binder : '${binder.urlFragment}'
