@@ -37,9 +37,6 @@ public class IconsArchiveCountryParser extends AbstractEntityService {
 	private CountryService countries;
 	
 	@Autowired
-	private ImageService images;
-	
-	@Autowired
 	private ApplicationContext appContext;
 	
 	@Autowired

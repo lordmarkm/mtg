@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.core.style.ToStringCreator;
+
 @Entity
 @Table(name="binderpages")
 public class BinderPage {
@@ -38,6 +40,14 @@ public class BinderPage {
 	public BinderPage(Binder binder, int pageNumber) {
 		this.binder = binder;
 		this.pageNumber = pageNumber;
+	}
+	
+	@Override
+	public String toString() {
+	    return new ToStringCreator(this)
+	        .append("binder", binder == null ? "None" : binder.getId())
+	        .append("page", pageNumber)
+	        .toString();
 	}
 	
 	public Binder getBinder() {

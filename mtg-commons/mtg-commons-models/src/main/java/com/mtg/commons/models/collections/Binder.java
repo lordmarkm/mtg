@@ -24,6 +24,17 @@ public class Binder extends AbstractEntity {
     @ManyToOne
     private MagicPlayer owner;
     
+    public List<BinderPage> initPages() {
+        this.pages = new ArrayList<BinderPage>();
+        
+        //init pages 1 to PAGES
+        for(int i = 1; i < PAGES + 1; i++) {
+            pages.add(new BinderPage(this, i));
+        }
+        
+        return this.pages;
+    }
+    
     public MagicPlayer getOwner() {
         return owner;
     }
@@ -33,13 +44,8 @@ public class Binder extends AbstractEntity {
     }
 
 	public List<BinderPage> getPages() {
-		if(null == pages || pages.isEmpty()) {
-			this.pages = new ArrayList<BinderPage>();
-			
-			//init pages 1 to PAGES
-			for(int i = 1; i < PAGES + 1; i++) {
-				pages.add(new BinderPage(this, i));
-			}
+		if(null == pages) {
+		    this.initPages();
 		}
 		return pages;
 	}

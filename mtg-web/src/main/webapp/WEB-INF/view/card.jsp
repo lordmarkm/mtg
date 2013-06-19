@@ -31,6 +31,10 @@
       <dt>Rarity:</dt>
       <dd>${card.rarity }</dd>
     </dl>
+    
+    <div class="pull-left">
+      <a class="btn" href="<@spring.url '/cards/find/${card.id }' />">Find in binders</a>
+    </div>
   </div>
 </div>
 

@@ -53,12 +53,16 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 		Validate.notNull(card);
 		Validate.isTrue(page != 0);
 		
-		BinderPage binderPage = pages.findPage(binder.getId(), page);
-		if(null == binderPage) {
-			List<BinderPage> pages = binder.getPages(); //initializes the list if null
-			for(BinderPage bp : pages) {
-				if(bp.getPageNumber() == page) binderPage = bp;
-			}
+		BinderPage binderPage = null;//pages.findPage(binder.getId(), page);
+		List<BinderPage> pages = binder.getPages(); //initializes the list if null
+		
+		log.debug("Pages: {}", pages);
+		
+		if(pages.isEmpty()) {
+		    pages = binder.initPages();
+		}
+		for(BinderPage bp : pages) {
+			if(bp.getPageNumber() == page) binderPage = bp;
 		}
 		
 		Validate.notNull(binderPage);
