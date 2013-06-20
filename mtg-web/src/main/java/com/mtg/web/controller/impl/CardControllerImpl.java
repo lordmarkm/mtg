@@ -21,9 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Bundle;
-import com.mtg.commons.services.BundleService;
 import com.mtg.commons.services.CardService;
-import com.mtg.commons.services.ImageService;
 import com.mtg.web.controller.CardController;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.JSON;
@@ -37,12 +35,6 @@ public class CardControllerImpl extends GenericController implements CardControl
 	@Resource
 	private CardService cardserv;
 	
-	@Resource
-	private BundleService bundleserv;
-	
-	@Resource
-	private ImageService images;
-	
 	@Override
 	public ModelAndView card(Principal principal, @PathVariable Long id) throws MalformedURLException, IOException {
 		Card card = cardserv.findOne(id);
@@ -51,6 +43,29 @@ public class CardControllerImpl extends GenericController implements CardControl
 		return mav("card").addObject("card", card);
 	}
 
+    @Override
+    public ModelAndView multipleCards(Principal principal, @PathVariable String idstring) {
+
+        log.info("View multiple card request. user={}, ids={}", name(principal), idstring);
+        
+        String[] ids = idstring.split(",");
+        List<Card> cards = new ArrayList<Card>();
+        for(String id : ids) {
+            
+            Long longId = null;
+            try {
+                longId = Long.parseLong(id);
+            } catch (NumberFormatException e) {
+                continue;
+            }
+            
+            Card found = cardserv.findOne(longId);
+            if(null != found) cards.add(found);
+
+        }
+        
+        return mav("card/multiple").addObject("cards", cards);
+    }
 	
 	@Override
 	public JSON dataTable(Principal principal, @PathVariable String expcode, @RequestParam("sEcho") int echo,

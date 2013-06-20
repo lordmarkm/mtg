@@ -32,7 +32,7 @@ public class SearchControllerImpl implements SearchController {
 		
 		log.info("Search complete. Query={}, results={}", query, res.size());
 		
-		return JSON.ok().put("data", SearchResult.transform(res));
+		return JSON.ok().put("data", SearchResult.distinctCardNameCommaSeparatedId    (res));
 	}
 
 }

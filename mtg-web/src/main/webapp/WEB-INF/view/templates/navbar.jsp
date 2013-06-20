@@ -47,6 +47,7 @@
 <script>
 var navbarUrls = {
   card   : '<@spring.url "/cards/" />',
+  multicard   : '<@spring.url "/cards/multi/" />',
 	search : '<@spring.url "/search/navbar?ajax" />'	
 }
 	
@@ -66,7 +67,12 @@ $(function(){
 					$.each(response.data, function(i, dto) {
 						switch(dto.type) {
 						case 'card':
-							items.push('<a href="' + navbarUrls.card + dto.id + '">' + dto.name + '</a>');
+							
+							if(dto.id.indexOf(',') != -1) {
+							 items.push('<a href="' + navbarUrls.multicard + dto.id + '">' + dto.name + '</a>');
+							} else {
+					     items.push('<a href="' + navbarUrls.card + dto.id + '">' + dto.name + '</a>');
+							}
 							break;
 						default:
 							items.push(dto.name);
