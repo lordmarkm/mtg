@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.locations.City;
@@ -31,6 +33,9 @@ public class MagicPlayer extends AbstractEntity {
     @ManyToMany(mappedBy = "players")
 	private List<Meetup> meetups;
 
+	@Type(type="text")
+    private String contact;
+    
     public List<Binder> getBinders() {
         if(null == binders) {
             binders = new ArrayList<Binder>();
@@ -70,6 +75,14 @@ public class MagicPlayer extends AbstractEntity {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
     
 }

@@ -2,7 +2,7 @@
 
 <h3>Choose a meetup</h3>
 
-<#if meetup?has_content>
+<#if meetups?has_content>
 <table id="add-meetups-table" class="table">
   <thead>
     <tr>

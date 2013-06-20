@@ -49,29 +49,8 @@ public interface AccountController {
 	@RequestMapping(value = "/deletebinder/{urlFragment}")
 	JSON deleteBinder(Principal principal, String urlFragment);
 	
-	@RequestMapping(value = "/addcity", method = RequestMethod.GET)
-	ModelAndView addCity(Principal principal);
+	@ResponseBody
+	@RequestMapping(value = "/editcontact")
+	JSON editContact(Principal principal, String contact);
 
-	@ResponseBody
-	@RequestMapping(value = "/addcity", method = RequestMethod.POST)
-	JSON addCity(Principal principal, AddCityForm form, BindingResult result);
-	
-	@ResponseBody
-	@RequestMapping(value = "/removecity/{cityId}", method = RequestMethod.POST)
-	JSON removeCity(Principal principal, Long cityId);
-	
-	@RequestMapping(value = "/addmeetup", method = RequestMethod.GET)
-	ModelAndView addMeetup(Principal principal);
-
-	@ResponseBody
-	@RequestMapping(value = "/addmeetup", method = RequestMethod.POST)
-	JSON addMeetup(Principal principal, AddMeetupForm form, BindingResult result);
-	
-	@ResponseBody
-	@RequestMapping(value = "/removemeetup/{meetupId}", method = RequestMethod.POST)
-	JSON removeMeetup(Principal principal, Long meetupId);
-	
-	@ResponseBody
-	@RequestMapping(value = "/selectflag/{countryId}", method = RequestMethod.POST)
-	JSON selectFlag(Principal principal, Long countryId);
 }

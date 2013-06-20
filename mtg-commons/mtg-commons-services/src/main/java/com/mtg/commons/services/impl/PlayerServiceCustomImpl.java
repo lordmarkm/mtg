@@ -106,7 +106,7 @@ public class PlayerServiceCustomImpl implements PlayerServiceCustom {
 		service.save(player);
 		
 		city.getPlayers().remove(player);
-		if(city.getPlayers().size() == 0) {
+		if(city.getPlayers().size() == 0 && city.getMeetups().size() == 0) {
 			cities.delete(city);
 		} else {
 			cities.save(city);

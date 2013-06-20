@@ -1,5 +1,8 @@
 <#import "/spring.ftl" as spring />
+<#import "../templates/tools.ftl" as tools />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
+
+<#include "editcontact-modal.jsp">
 
 <h3>Account Details</h3>
 <dl>
@@ -100,8 +103,10 @@
       </tr>
       <tr>
         <th>Contact</th>
-        <td></td>
-        <td><button class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</button></td>
+        <td id="player-contact">
+          <div title="${account.player.contact! }" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;"><@tools.nl2br string=account.player.contact! /></div>
+        </td>
+        <td><button id="edit-contact" class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</button></td>
       </tr>
     </table>
   </div>
@@ -149,7 +154,8 @@ var dashboardUrls = {
 		selectFlag : '<@spring.url "/account/selectflag/" />',
 		removeCity : '<@spring.url "/account/removecity/" />',
 		removeMeetup : '<@spring.url "/account/removemeetup/" />',
-		deleteBinder : '<@spring.url "/account/deletebinder/" />'
+		deleteBinder : '<@spring.url "/account/deletebinder/" />',
+		editContact : '<@spring.url "/account/editcontact" />'
 }
 $(function(){
   //fromNow on joined and lastlogin
@@ -214,6 +220,13 @@ $(function(){
         footer.error('Could not remove meetup');
       }
     });
+  });
+  
+  //edit contact
+  var $editContact = $('#edit-contact');
+  
+  $editContact.click(function(){
+	  
   });
   
   //delete binder

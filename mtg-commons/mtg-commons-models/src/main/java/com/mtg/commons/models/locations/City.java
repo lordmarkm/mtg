@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
@@ -23,6 +24,9 @@ public class City extends AbstractEntity {
 	@ManyToMany
 	private List<MagicPlayer> players;
 
+	@OneToMany(mappedBy="city")
+	private List<Meetup> meetups;
+	
 	public City() {
 		//
 	}
@@ -56,6 +60,17 @@ public class City extends AbstractEntity {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public List<Meetup> getMeetups() {
+		if(null == meetups) {
+			this.meetups = new ArrayList<Meetup>();
+		}
+		return meetups;
+	}
+
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
 	}
 	
 }

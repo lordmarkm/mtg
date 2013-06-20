@@ -20,6 +20,7 @@ import com.mtg.commons.models.Card;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ImageService;
 import com.mtg.web.controller.CardController;
+import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.JSON;
 import com.mtg.web.support.DataTables;
 

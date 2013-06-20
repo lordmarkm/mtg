@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.web.controller.BrowseController;
+import com.mtg.web.controller.GenericController;
 
 @Component
 public class BrowseControllerImpl extends GenericController implements BrowseController {

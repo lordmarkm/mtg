@@ -15,6 +15,7 @@ import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.services.BinderService;
 import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
+import com.mtg.web.controller.GenericController;
 import com.mtg.web.controller.ProfileController;
 
 @Component

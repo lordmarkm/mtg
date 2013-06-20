@@ -3,6 +3,7 @@ package com.mtg.web.controller.impl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.web.controller.GenericController;
 import com.mtg.web.controller.SupportController;
 
 @Component

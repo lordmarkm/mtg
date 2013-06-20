@@ -17,7 +17,7 @@ public interface PlayerServiceCustom {
 			Long countryId);
 
 	/**
-	 * Removes city from player's list of cities, then if the city has no more players, deletes it
+	 * Removes city from player's list of cities, then if the city has no more players and no meetups, deletes 
 	 */
 	void removeCity(MagicPlayer player, Long cityId);
 

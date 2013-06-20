@@ -27,6 +27,7 @@ import com.mtg.commons.services.ExpansionService;
 import com.mtg.parser.services.CardListParser;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AdminController;
+import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.CardForm;
 import com.mtg.web.dto.ExpansionForm;
 import com.mtg.web.dto.ImageForm;

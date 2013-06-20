@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.security.services.RegistrationService;
 import com.mtg.web.controller.AuthenticationController;
+import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.AccountForm;
 
 @Component
