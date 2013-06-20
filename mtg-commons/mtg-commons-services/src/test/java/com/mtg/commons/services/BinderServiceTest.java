@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -24,6 +25,10 @@ import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.collections.BinderPage;
 import com.mtg.commons.models.collections.Bundle;
+import com.mtg.commons.models.locations.City;
+import com.mtg.commons.models.locations.Country;
+import com.mtg.commons.models.locations.Meetup;
+import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.config.CommonsServicesConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,7 +48,19 @@ public class BinderServiceTest {
     private PageService pages;
     
     @Resource
+    private PlayerService players;
+    
+    @Resource
     private DataSource ds;
+    
+    @Resource
+    private CountryService countries;
+    
+    @Resource
+    private CityService cities;
+    
+    @Resource
+    private MeetupService meetups;
     
     @Before
     public void init() {
@@ -103,8 +120,8 @@ public class BinderServiceTest {
     	
     	int PAGE = 2;
     	
-    	Card card = wog();
-    	Binder binder = white();
+    	Card card = Util.wog();
+    	Binder binder = Util.white();
     	
     	Card pCard = cards.save(card);
     	Binder pBind = binders.save(binder);
@@ -135,8 +152,8 @@ public class BinderServiceTest {
     	
     	int PAGE = 2;
     	
-    	Card card = wog();
-    	Binder binder = white();
+    	Card card = Util.wog();
+    	Binder binder = Util.white();
     	
     	Card pCard = cards.save(card);
     	Binder pBind = binders.save(binder);
@@ -159,18 +176,54 @@ public class BinderServiceTest {
     	binders.delete(pBind.getId());
     }
     
-    private Binder white() {
-    	Binder binder = new Binder();
-    	binder.setName("Whites");
-    	binder.setDescription("White cards");
-    	return binder;
+    @Test
+    @Transactional
+    public void testFindByCountry() {
+    	Country ph = countries.save(Util.phils());
+    	MagicPlayer p = players.save(Util.cornboy());
+    	Binder b = binders.save(Util.white());
+    	
+    	ph.getPlayers().add(p);
+    	p.setCountry(ph);
+
+    	p.getBinders().add(b);
+    	b.setOwner(p);
+    	
+    	List<Binder> phBinds = binders.findByCountry(ph.getId());
+    	assertEquals(1, phBinds.size());
     }
     
-	private Card wog() {
-		Card card = new Card();
-		card.setName("Wrath of God");
-		card.setDescription("Destroy all creatures. They can't be regenerated");
-		return card;
-	}
+    @Test
+    @Transactional
+    public void testFindByCity() {
+    	City c = cities.save(Util.dgte());
+    	MagicPlayer p = players.save(Util.cornboy());
+    	Binder b = binders.save(Util.white());
+    	
+    	c.getPlayers().add(p);
+    	p.getCities().add(c);
+    	
+    	p.getBinders().add(b);
+    	b.setOwner(p);
+    	
+    	List<Binder> dgteBinds = binders.findByCity(c.getId());
+    	assertEquals(1, dgteBinds.size());
+    }
     
+    @Test
+    @Transactional
+    public void testFindBymeetup() {
+    	Meetup m = meetups.save(Util.titan());
+    	MagicPlayer p = players.save(Util.cornboy());
+    	Binder b = binders.save(Util.white());
+    	
+    	m.getPlayers().add(p);
+    	p.getMeetups().add(m);
+    	
+    	p.getBinders().add(b);
+    	b.setOwner(p);
+    	
+    	List<Binder> titanBinds = binders.findByMeetup(m.getId());
+    	assertEquals(1, titanBinds.size());
+    }
 }

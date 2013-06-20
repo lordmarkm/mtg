@@ -16,6 +16,7 @@ public interface BrowseController {
 
 	/**
 	 * Return the "main" page, whatever it is
+	 * 6/20/2013 - I think it should be the "latest posts" page, which doesn't exist yet
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView browse(Principal principal, String uri);

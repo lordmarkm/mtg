@@ -6,6 +6,15 @@
   </h2>
 
   <dl id="updates-list">
+    <dt>June 21, 2013
+    <dd>Users can now browse binders and filter by location
+    <dt>June 20, 2013
+    <dd>
+      <ol>
+        <li>Users can now edit Contact Info
+        <li>On card search, cards with the same name are now displayed as one result, and then displayed as a table when clicked
+        <li>It is now possible to find cards in binders by going to the card's page and then clicking Find in Binders
+      </ol>
     <dt>June 18, 2013
     <dd>Added card search (from the navbar)
     

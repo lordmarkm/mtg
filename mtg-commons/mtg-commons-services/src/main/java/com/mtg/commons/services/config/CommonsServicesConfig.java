@@ -10,6 +10,7 @@ import org.hibernate.ejb.HibernatePersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -30,6 +31,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @PropertySource({"classpath:db.properties","classpath:mvc.properties"})
+@ComponentScan("com.mtg.commons.services")
 @EnableJpaRepositories(basePackages="com.mtg.commons.services", repositoryImplementationPostfix="CustomImpl")
 @EnableTransactionManagement
 public class CommonsServicesConfig {

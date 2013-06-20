@@ -6,6 +6,7 @@ body {
 
 .inline-block {display: inline-block;}
 .pointer {cursor: pointer;}
+.center {text-align: center;}
 
 .mt5 {margin-top: 5px;}
 .mt10 {margin-top: 10px;}

@@ -18,5 +18,7 @@ public interface PlayerService extends JpaRepository<MagicPlayer, Long>, PlayerS
 	@Transactional
 	@Query("update MagicPlayer m set m.contact = :contact where m.name = :name")
 	void setContact(@Param("name") String name, @Param("contact") String contact);
-	
+
+	@Deprecated //really shouldn't be deleting players
+	void delete(MagicPlayer p);
 }

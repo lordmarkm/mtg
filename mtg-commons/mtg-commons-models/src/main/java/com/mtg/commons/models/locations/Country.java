@@ -13,6 +13,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.Image;
+import com.mtg.commons.models.magic.MagicPlayer;
 
 /**
  * http://www.customicondesign.com/free-icons/flag-icon-set/all-in-one-country-flag-icon-set/
@@ -20,7 +21,7 @@ import com.mtg.commons.models.Image;
 
 @Entity
 @Table(name="countries")
-public class Country extends AbstractEntity {
+public class Country extends AbstractEntity implements Location {
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Image flag;
@@ -28,12 +29,20 @@ public class Country extends AbstractEntity {
 	@OneToMany(mappedBy="country")
 	private List<City> cities;
 
+	@OneToMany(mappedBy="country")
+	private List<MagicPlayer> players;
+	
 	@Override
 	public String toString() {
 		return new ToStringCreator(this)
 			.append("name", name)
 			.append("cities", cities)
 			.toString();
+	}
+	
+	@Override
+	public Location getParent() {
+		return null;
 	}
 	
 	public Image getFlag() {
@@ -53,6 +62,18 @@ public class Country extends AbstractEntity {
 
 	public void setCities(List<City> cities) {
 		this.cities = cities;
+	}
+
+	@Override
+	public List<MagicPlayer> getPlayers() {
+		if(null == players) {
+			this.players = new ArrayList<MagicPlayer>();
+		}
+		return players;
+	}
+
+	public void setPlayers(List<MagicPlayer> players) {
+		this.players = players;
 	}
 	
 	

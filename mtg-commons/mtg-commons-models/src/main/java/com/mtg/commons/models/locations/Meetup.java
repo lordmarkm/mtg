@@ -13,7 +13,7 @@ import com.mtg.commons.models.magic.MagicPlayer;
 
 @Entity
 @Table(name="meetups")
-public class Meetup extends AbstractEntity {
+public class Meetup extends AbstractEntity implements Location {
 
 	@ManyToOne
 	private City city;
@@ -21,6 +21,7 @@ public class Meetup extends AbstractEntity {
 	@ManyToMany
 	private List<MagicPlayer> players;
 
+	@Override
 	public List<MagicPlayer> getPlayers() {
 		if(null == players) {
 			players = new ArrayList<MagicPlayer>();
@@ -28,6 +29,11 @@ public class Meetup extends AbstractEntity {
 		return players;
 	}
 
+	@Override
+	public Location getParent() {
+		return city;
+	}
+	
 	public void setPlayers(List<MagicPlayer> players) {
 		this.players = players;
 	}
