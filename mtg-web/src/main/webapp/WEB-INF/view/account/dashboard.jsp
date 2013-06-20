@@ -104,7 +104,9 @@
       <tr>
         <th>Contact</th>
         <td id="player-contact">
-          <div title="${account.player.contact! }" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;"><@tools.nl2br string=account.player.contact! /></div>
+          <div title="${account.player.contact! }" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">
+            <@tools.nl2br string=account.player.contact! />
+          </div>
         </td>
         <td><button id="edit-contact" class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</button></td>
       </tr>

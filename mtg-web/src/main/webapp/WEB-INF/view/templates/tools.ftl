@@ -1,3 +1,9 @@
 <#macro nl2br string>
-  ${string?html?replace('\n','<br/>')}
+  ${string?replace('\n','<br/>')}
+</#macro>
+
+<#macro flag country>
+  <#if country.flag??>
+  <img class="tinyflag" title="${country.name}" src="/image/${country.flag.id}" />
+  </#if>
 </#macro>

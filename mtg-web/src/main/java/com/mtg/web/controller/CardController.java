@@ -22,4 +22,6 @@ public interface CardController {
 	@RequestMapping("/datatables/{expcode}")
 	JSON dataTable(Principal principal, String expcode, int echo, int start, int length);
 	
+	@RequestMapping("/find/{id}")
+	ModelAndView findCardInBinders(Principal principal, Long id);
 }

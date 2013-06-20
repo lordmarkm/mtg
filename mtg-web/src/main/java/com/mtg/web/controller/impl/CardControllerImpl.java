@@ -3,9 +3,12 @@ package com.mtg.web.controller.impl;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.Card;
+import com.mtg.commons.models.collections.Bundle;
+import com.mtg.commons.services.BundleService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ImageService;
 import com.mtg.web.controller.CardController;
@@ -31,6 +36,9 @@ public class CardControllerImpl extends GenericController implements CardControl
 	
 	@Resource
 	private CardService cardserv;
+	
+	@Resource
+	private BundleService bundleserv;
 	
 	@Resource
 	private ImageService images;
@@ -60,5 +68,27 @@ public class CardControllerImpl extends GenericController implements CardControl
 				.put(DataTables.TOTAL_DISPLAY_RECORDS, page.getTotalElements())
 				.put(DataTables.DATA, cardserv.toDataTableResponse(page.getContent()));
 	}
+
+
+    @Override
+    public ModelAndView findCardInBinders(Principal principal, @PathVariable Long id) {
+        
+        Card card = cardserv.findOne(id);
+        
+        List<Bundle> bundles = null;
+        if(null != card) {
+            List<Card> cards = cardserv.findByName(card.getName());
+            Validate.notEmpty(cards);
+            
+            bundles = new ArrayList<Bundle>();
+            for (Card match : cards) {
+                bundles.addAll(match.getBundles());
+            }
+        }
+        
+        return mav("card/find-in-binders")
+                .addObject("card", card)
+                .addObject("bundles", bundles);
+    }
 
 }

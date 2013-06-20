@@ -18,4 +18,5 @@ public interface CardService extends PagingAndSortingRepository<Card, Long>, Car
 	@Query("from Card where name like :query")
 	List<Card> searchByName(@Param("query") String query);
 
+	List<Card> findByName(String name);
 }

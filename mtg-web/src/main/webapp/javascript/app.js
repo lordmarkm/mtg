@@ -98,7 +98,13 @@ $(function(){
 	
 	$(document).on({
 		click: function(){
-			var uri = $(this).attr('href');
+			var a = $(this);
+			
+			if(a.attr('target') === '_blank') {
+				return;
+			}
+			
+			var uri = a.attr('href');
 			if(!uri || uri === 'javascript:;' || uri.indexOf('#') == 0 || uri.indexOf('/logout') != -1) {
 				return;
 			}
