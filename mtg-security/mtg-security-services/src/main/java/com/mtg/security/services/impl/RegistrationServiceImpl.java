@@ -4,12 +4,9 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.joda.time.DateTime;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import com.mtg.commons.models.magic.MagicPlayer;
-import com.mtg.mail.dto.Email;
-import com.mtg.mail.service.MailSender;
 import com.mtg.mail.service.MailSenderService;
 import com.mtg.security.models.Account;
 import com.mtg.security.models.AccountInfo;
@@ -25,9 +22,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     
     @Resource
     private MailSenderService mailer;
-    
-    @Resource
-    private TaskExecutor taskExecutor;
     
     @Override
     public Account register(String username, String password, String email) {
@@ -47,16 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         account.setPlayer(player);
         account.setInfo(info);
 
-        Email welcome = new Email();
-        welcome.getModel().put("message", "Welcome to MtG Binder! We will be getting a better welcome email soon!");
-        welcome.getModel().put("name", username);
-        welcome.setRecipient(email);
-        welcome.setSender("mtgbinder@gmail.com");
-        welcome.setSubject("Welcome to MtG Binder!");
-        welcome.setTemplate("welcome.ftl");
-        
-        MailSender thread = new MailSender(welcome, mailer);
-        taskExecutor.execute(thread);
+        mailer.sendWelcomeEmail(account);
         
         return accounts.save(account);
         

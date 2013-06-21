@@ -15,6 +15,10 @@ public abstract class GenericController {
 		return null == principal ? "Anonymous" : principal.getName();
 	}
 
+	protected ModelAndView mav() {
+		return new ModelAndView();
+	}
+	
 	protected ModelAndView mav(String viewname) {
 		return new ModelAndView(viewname);
 	}

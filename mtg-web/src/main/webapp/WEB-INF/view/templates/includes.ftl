@@ -3,6 +3,7 @@
   <link rel="shortcut icon" href="<@spring.url '/images/favicon.ico?v=2' />"> 
   
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="<@spring.url '/libs/plugolabs/css/fam-icons.css' />" />
   <link rel="stylesheet" href="<@spring.url '/css/app.css' />" />
   <link rel="stylesheet" href="<@spring.url '/css/magic.css' />" />
   

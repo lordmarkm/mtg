@@ -5,11 +5,19 @@
 <#include "editcontact-modal.jsp">
 
 <h3>Account Details</h3>
-<dl>
+<dl class="dl-horizontal">
   <dt>Username</dt>
   <dd><@sec.authentication property="principal.username" /></dd>
   <dt>Authorities</dt>
   <dd><@sec.authentication property="principal.authorities" /></dd>
+  <dt>Email
+  <dd>${account.info.email! } &nbsp;&nbsp;  
+    <#if account.info.authenticated>
+      <i class="fam-accept"></i><strong><small>Verified!</small></strong>
+    <#else>
+      <button id="btn-resend-verification" class="btn btn-mini btn-success"><i class="icon-envelope icon-white"></i> Resend verification</button>
+    </#if>
+  </dd>
 </dl>
 
 <h3>Magic Profile</h3>
@@ -33,7 +41,7 @@
       </li>
     </ul>
   </div>
-  <div class="span6 pull-right">
+  <div class="span7 pull-right">
     <table class="table">
       <tr>
         <th>Name</th>
@@ -160,6 +168,13 @@ var dashboardUrls = {
 		editContact : '<@spring.url "/account/editcontact" />'
 }
 $(function(){
+	//resend verification
+	var $btnReverify = $('#btn-resend-verification');
+	
+	$btnReverify.click(function(){
+		
+	});
+	
   //fromNow on joined and lastlogin
   var $joined = $('#account-info-joined');
   var $lastLogin = $('#account-info-lastlogin');

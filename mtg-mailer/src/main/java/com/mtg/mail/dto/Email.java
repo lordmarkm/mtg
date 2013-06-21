@@ -12,7 +12,7 @@ public class Email {
     private String message;
     private String subject;
     private String template;
-    private Map<String, Object> model = new HashMap<String, Object>();
+    private Map<String, Object> model;
     
     @Override
     public String toString() {

@@ -20,5 +20,7 @@ public interface AccountServiceCustom {
 	void updateLastLogin(String username);
 	
 	Image saveProfilePic(String name, byte[] bytes);
+	
+	boolean authenticate(String name);
 
 }

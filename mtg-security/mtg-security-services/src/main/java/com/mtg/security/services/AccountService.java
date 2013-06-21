@@ -13,4 +13,7 @@ public interface AccountService extends JpaRepository<Account, Long>, AccountSer
 	@Query("from Account a where a.info.email = :email")
     Account findByEmail(@Param("email") String email);
 
+	@Query("from Account a where a.info.authenticationCode = :auth")
+	Account findByAuthenticationCode(@Param("auth") String authenticationCode);
+
 }

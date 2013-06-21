@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
@@ -25,6 +27,13 @@ public class MailConfiguration {
     @Resource
     private Environment env;
 
+    @Bean
+    public TaskExecutor taskExecutor() {
+        SimpleAsyncTaskExecutor taskExecutor = new SimpleAsyncTaskExecutor();
+        taskExecutor.setConcurrencyLimit(10);
+        return taskExecutor;
+    }
+    
     @Bean
     public MailSender mailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

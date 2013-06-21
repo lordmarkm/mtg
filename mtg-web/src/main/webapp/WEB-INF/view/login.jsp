@@ -29,6 +29,12 @@
       Incorrect username or password
     </div>
         <#break>
+      
+      <#default>
+    <div class="alert alert-${type }">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      ${message }
+    </div>
     </#switch>
     </#if>
     

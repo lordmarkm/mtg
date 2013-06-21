@@ -43,10 +43,5 @@ public class ConfigTest {
     
     @Test
     public void testRelativePath() throws IOException {
-        ClassPathResource r = new ClassPathResource("/");
-        log.info("Path={}", r.getFile().getPath());
-        
-        ClassPathResource q = new ClassPathResource("testmail.ftl");
-        log.info("Path={}", q.getFile().getPath());
     }
 }

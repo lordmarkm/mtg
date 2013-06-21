@@ -19,10 +19,10 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 
 	@Resource
 	private AccountService service;
-	
+
 	@Resource
 	private ImageService images;
-	
+
 	@Override
 	public Account update(Account account) {
 		Account old = service.findOne(account.getId());
@@ -35,30 +35,51 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 	public void updateLastLogin(String username) {
 		Account account = service.findByUsername(username);
 		Validate.notNull(account);
-		
+
 		AccountInfo info = account.getInfo();
 		if(null == info) {
 			info = new AccountInfo();
 			info.setJoined(DateTime.now());
 			account.setInfo(info);
 		}
-		
+
 		info.setLastLogin(DateTime.now());
 	}
-	
+
 	@Override
 	public Image saveProfilePic(String name, byte[] bytes) {
-		
+
 		Account account = service.findByUsername(name);
 		MagicPlayer player = account.getPlayer();
 		Image image = player.getImage();
-		
+
 		if(null == image) {
 			image = new Image();
 			player.setImage(image);
 		}
-		
+
 		return images.update(image, bytes, ImageService.DEFAULT_FORMAT);
+	}
+
+	@Override
+	public boolean authenticate(String authenticationCode) {
+		Validate.notNull(authenticationCode);
+
+		Account account = service.findByAuthenticationCode(authenticationCode);
+		if(null == account) {
+			//false if authentication code nonexistent
+			return false;
+		}
+		
+		AccountInfo info = account.getInfo();
+		if(info.getAuthenticated()) {
+			//false if already authenticated
+			return false;
+		}
+
+		info.setAuthenticated(Boolean.TRUE);
+		info.setAuthenticationCode(null);
+		return true;
 	}
 
 }

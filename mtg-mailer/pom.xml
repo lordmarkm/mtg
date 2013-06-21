@@ -15,7 +15,12 @@
 	<name>Mtg :: Mailer</name>
 
 	<dependencies>
-	
+	  <!-- PROJECT -->
+    <dependency>
+      <groupId>mtg-security</groupId>
+      <artifactId>mtg-security-models</artifactId>
+    </dependency>
+  
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
