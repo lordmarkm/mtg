@@ -2,6 +2,7 @@ package com.mtg.security.services.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,15 @@ public class RegistrationServiceImpl implements RegistrationService {
     private AccountService accounts;
     
     @Override
-    public Account register(String username, String password) {
+    public Account register(String username, String password, String email) {
         
         MagicPlayer player = new MagicPlayer();
         player.setName(username);
         
         AccountInfo info = new AccountInfo();
         info.setJoined(DateTime.now());
+        info.setEmail(email);
+        info.setAuthenticationCode(RandomStringUtils.randomAlphanumeric(15));
         
         Account account = new Account();
         account.setUsername(username);
@@ -35,6 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         account.setInfo(info);
 
         return accounts.save(account);
+        
     }
 
 }

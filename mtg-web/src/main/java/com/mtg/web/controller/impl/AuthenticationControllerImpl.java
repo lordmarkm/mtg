@@ -10,10 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.security.services.AccountService;
 import com.mtg.security.services.RegistrationService;
 import com.mtg.web.controller.AuthenticationController;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.AccountForm;
+import com.mtg.web.dto.JSON;
 
 @Component
 public class AuthenticationControllerImpl extends GenericController implements AuthenticationController {
@@ -22,6 +24,9 @@ public class AuthenticationControllerImpl extends GenericController implements A
     
     @Resource
     private RegistrationService reg;
+    
+    @Resource
+    private AccountService accounts;
     
     @Override
     public ModelAndView login() {
@@ -40,21 +45,38 @@ public class AuthenticationControllerImpl extends GenericController implements A
                 .addObject("form", new AccountForm());
     }
 
+    //TODO put validation in a validator lol
     @Override
-    public ModelAndView register(@Valid AccountForm form, BindingResult result) {
+    public JSON register(@Valid AccountForm form, BindingResult result) {
         
         log.info("Registration request received. form={}", form);
         
         if(result.hasErrors()) {
-            return mav("register")
-                    .addObject("form", form);
+            return JSON.error(result.getAllErrors().iterator().next().getDefaultMessage());
         }
         
         String username = form.getUsername();
-        String password = form.getPassword();
-        reg.register(username, password);
         
-        return mav("redirect:/auth/login/regsuccess");
+        if(accounts.findByUsername(username) != null) {
+            return JSON.error("Username " + username + " is already in use.");
+        }
+        
+        String password = form.getPassword();
+        String confirmPw = form.getConfirmpw();
+        
+        if(!password.equals(confirmPw)) {
+            return JSON.error("Passwords must match.");
+        }
+        
+        String email = form.getEmail();
+        
+        if(accounts.findByEmail(email) != null) {
+            return JSON.error(email + " is already in use.");
+        }
+        
+        reg.register(username, password, email);
+        
+        return JSON.ok();
     }
 
 }

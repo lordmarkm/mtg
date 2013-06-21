@@ -10,12 +10,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
 
-@Component
+@Service
 public class MtgUserDetailsService implements UserDetailsService {
 
 	@Resource

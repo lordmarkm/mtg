@@ -25,6 +25,15 @@ public class AccountInfo {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime lastLogin;
 
+	@Column
+	private Boolean authenticated = Boolean.FALSE;
+	
+	@Column
+	private String email;
+	
+	@Column
+	private String authenticationCode;
+	
 	public DateTime getJoined() {
 		return joined;
 	}
@@ -48,5 +57,29 @@ public class AccountInfo {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+    public Boolean getAuthenticated() {
+        return authenticated;
+    }
+
+    public void setAuthenticated(Boolean authenticated) {
+        this.authenticated = authenticated;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAuthenticationCode() {
+        return authenticationCode;
+    }
+
+    public void setAuthenticationCode(String authenticationCode) {
+        this.authenticationCode = authenticationCode;
+    }
 	
 }

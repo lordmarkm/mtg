@@ -32,6 +32,12 @@
       <artifactId>mtg-parser-services</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>mtg-mailer</groupId>
+      <artifactId>mtg-mailer</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
     <!-- SPRING -->
     <dependency>
       <groupId>org.springframework</groupId>

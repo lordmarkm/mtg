@@ -20,6 +20,7 @@ import com.mtg.security.services.support.Roles;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan("com.mtg.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Resource

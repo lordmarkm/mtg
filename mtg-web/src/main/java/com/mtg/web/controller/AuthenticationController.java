@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.web.dto.AccountForm;
+import com.mtg.web.dto.JSON;
 
 @Controller
 @RequestMapping("/auth")
@@ -25,7 +27,8 @@ public interface AuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register();
 
+    @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(AccountForm form, BindingResult result);
+    public JSON register(AccountForm form, BindingResult result);
 
 }

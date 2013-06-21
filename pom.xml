@@ -13,6 +13,7 @@
     <module>mtg-web</module>
     <module>mtg-security</module>
     <module>mtg-parser</module>
+    <module>mtg-mailer</module>
   </modules>
 
   <properties>
