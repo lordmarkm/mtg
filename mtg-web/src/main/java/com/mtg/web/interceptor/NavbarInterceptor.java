@@ -1,11 +1,20 @@
 package com.mtg.web.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.security.services.AccountService;
 
 /**
  * Make available to every page the information required by the navbar, since it's always there
@@ -14,11 +23,28 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
 public class NavbarInterceptor extends HandlerInterceptorAdapter {
+	
+	private static Logger log = LoggerFactory.getLogger(NavbarInterceptor.class);
+	
+	@Resource
+	private AccountService accounts;
+	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handler, ModelAndView mav) throws Exception {
 	
-		if(mav != null) {
+		//TODO I THINK the only time navbar image is ever loaded is with  a OnePageInterceptor redirect. Not sure though
+		String uri = request.getParameter("uri");
+		boolean hasUri = uri != null && uri.length() > 0;
+		
+		if(mav != null && hasUri) {
+			Object auth = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(null != auth && auth instanceof User) {
+				log.info("Injecting account for navbar.");
+				User user = (User)auth;
+				MagicPlayer mp = accounts.findByUsername(user.getUsername()).getPlayer();
+				mav.addObject("navimage", mp.getImage());
+			}
 		}
 		
 	}

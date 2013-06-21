@@ -19,4 +19,7 @@ public interface CardService extends PagingAndSortingRepository<Card, Long>, Car
 	List<Card> searchByName(@Param("query") String query);
 
 	List<Card> findByName(String name);
+	
+	@Deprecated
+	void delete(Card card);
 }

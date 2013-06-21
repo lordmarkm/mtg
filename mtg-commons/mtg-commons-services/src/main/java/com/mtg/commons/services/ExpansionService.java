@@ -8,4 +8,7 @@ public interface ExpansionService extends JpaRepository<Expansion, Long>, Expans
 
 	Expansion findByCode(String code);
 
+	
+	@Deprecated//use excise(e) instead
+	void delete(Expansion e);
 }

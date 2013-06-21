@@ -1,3 +1,25 @@
+#binder-carousel {
+}
+
+.navbar-thumb {
+  max-width: 25px;
+  max-height: 25px;
+}
+
+.clip80 {
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filtered-binders-moment {
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .tinyflag {
 	width: 15px;
 	vertical-align: middle;

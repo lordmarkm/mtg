@@ -16,7 +16,7 @@ import com.mtg.commons.models.magic.MagicPlayer;
 
 @Entity
 @Table(name="cities")
-public class City extends AbstractEntity {
+public class City extends AbstractEntity implements Location {
 
 	@ManyToOne
 	private Country country;
@@ -35,6 +35,7 @@ public class City extends AbstractEntity {
 		super(name, desc);
 	}
 
+	@Override
 	public String toString() {
 		return new ToStringCreator(this)
 			.append("name", name)
@@ -43,6 +44,12 @@ public class City extends AbstractEntity {
 			
 	}
 	
+	@Override
+	public Location getParent() {
+		return country;
+	}
+	
+	@Override
 	public List<MagicPlayer> getPlayers() {
 		if(null == players) {
 			this.players = new ArrayList<MagicPlayer>();

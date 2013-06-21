@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mtg.web.dto.AddCityForm;
-import com.mtg.web.dto.AddMeetupForm;
 import com.mtg.web.dto.BinderForm;
 import com.mtg.web.dto.ImageForm;
 import com.mtg.web.dto.JSON;
