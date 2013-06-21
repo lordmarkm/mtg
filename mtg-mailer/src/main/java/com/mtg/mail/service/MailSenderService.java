@@ -7,5 +7,6 @@ import com.mtg.mail.dto.Email;
 public interface MailSenderService {
 
     public void sendMail(Email email) throws IOException;
+//    void sendMimeMail(Email email) throws IOException;
     
 }

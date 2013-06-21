@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.mtg.mail.dto.Email;
 import com.mtg.mail.service.MailSenderService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {MailConfiguration.class})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = {MailConfiguration.class})
 public class MailSenderTest {
 
     @Resource
@@ -26,12 +26,6 @@ public class MailSenderTest {
     
     //@Test
     public void sendFromGoogle() throws IOException {
-        //required for gmail, not sure about prod mail server
-        Properties javaMailProperties = new Properties();
-        javaMailProperties.put("mail.smtp.auth", "true");
-        javaMailProperties.put("mail.smtp.starttls.enable", "true");
-        ((JavaMailSenderImpl)springSender).setJavaMailProperties(javaMailProperties);
-        
         //sends actual email from gmail account
         Email email = new Email();
         email.setRecipient("lordmarkm@gmail.com");

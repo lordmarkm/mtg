@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.Validate;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -39,6 +41,11 @@ public class MailSenderServiceImpl implements MailSenderService {
         Validate.notNull(email.getSubject());
     }
 
+//    @Override
+//    public void sendMimeMail(Email email) throws IOException {
+//        MimeMessagePreparator helper = new MimeMessageHelper();
+//    }
+    
     @Override
     public void sendMail(Email email) throws IOException {
         

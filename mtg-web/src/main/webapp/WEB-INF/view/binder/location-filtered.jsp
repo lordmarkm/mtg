@@ -32,7 +32,7 @@ All the binders
   <tbody>
     <#list binders as binder>
     <tr>
-      <td>${binder.name }</td>
+      <td><a href="<@spring.url '/u/${binder.owner.name }/${binder.urlFragment }' />">${binder.name }</a></td>
       <td><@tools.nl2br string=binder.description /></td>
       <td>${binder.cardCount() }</td>
       <td><div class="filtered-binders-moment">${binder.lastModified }</div></td>

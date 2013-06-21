@@ -1,6 +1,7 @@
 package com.mtg.mail.config;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
@@ -31,6 +32,12 @@ public class MailConfiguration {
         mailSender.setHost(env.getProperty("mail.smtp.host"));
         mailSender.setUsername(env.getProperty("mail.smtp.username"));
         mailSender.setPassword(env.getProperty("mail.smtp.password"));
+        
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.auth", env.getProperty("mail.smtp.auth"));
+        javaMailProperties.put("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
+        mailSender.setJavaMailProperties(javaMailProperties);
+        
         return mailSender;
     }
     
@@ -38,7 +45,8 @@ public class MailConfiguration {
     public Configuration config() throws IOException, TemplateException {
         FreeMarkerConfigurationFactoryBean configFactory = new FreeMarkerConfigurationFactoryBean();
         configFactory.setTemplateLoaderPath(env.getProperty("mail.templatedir"));
-        Configuration config = configFactory.createConfiguration();;
+        configFactory.setPreferFileSystemAccess(false);
+        Configuration config = configFactory.createConfiguration();
         Validate.notNull(config);
         return config;
     }

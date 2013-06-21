@@ -1,69 +1,74 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>mtg-security</groupId>
-    <artifactId>mtg-security</artifactId>
-    <version>1.0</version>
-  </parent>
-  <artifactId>mtg-security-services</artifactId>
-  <name>MtG :: Security :: Services</name>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>mtg-security</groupId>
+		<artifactId>mtg-security</artifactId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>mtg-security-services</artifactId>
+	<name>MtG :: Security :: Services</name>
 
-  <!-- Additional repository for spring-security-javaconfig -->
-  <repositories>
-    <repository>
-      <id>spring-libs-snapshot</id>
-      <name>Spring Snapshot Repository</name>
-      <url>http://repo.springsource.org/snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+	<!-- Additional repository for spring-security-javaconfig -->
+	<repositories>
+		<repository>
+			<id>spring-libs-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>http://repo.springsource.org/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
-  <dependencies>
-    <!-- PROJECT -->
-    <dependency>
-      <groupId>mtg-security</groupId>
-      <artifactId>mtg-security-models</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>mtg-commons</groupId>
-      <artifactId>mtg-commons-services</artifactId>
-    </dependency>
-    
-    <!-- Spring Security + Javaconfig -->
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-javaconfig</artifactId>
-      <version>1.0.0.CI-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-expression</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
+	<dependencies>
+		<!-- PROJECT -->
+		<dependency>
+			<groupId>mtg-security</groupId>
+			<artifactId>mtg-security-models</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mtg-commons</groupId>
+			<artifactId>mtg-commons-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mtg-mailer</groupId>
+			<artifactId>mtg-mailer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Spring Security + Javaconfig -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-javaconfig</artifactId>
+			<version>1.0.0.CI-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
-    <!-- TEST -->
-    <dependency>
-      <groupId>mtg-commons</groupId>
-      <artifactId>mtg-commons-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>2.2.8</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+		<!-- TEST -->
+		<dependency>
+			<groupId>mtg-commons</groupId>
+			<artifactId>mtg-commons-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
