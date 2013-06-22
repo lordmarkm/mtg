@@ -19,7 +19,7 @@ public class MailSenderThread implements Runnable {
     @Override
     public void run() {
         try {
-        	log.info("Sending email to newly registered user. email={}", email.getRecipient());
+        	log.info("Sending email. recipient={}", email.getRecipient());
             service.sendMimeMail(email);
         } catch (Exception e) {
             log.error("Error sending mail. But nothing will be done about it. email={}", email, e);

@@ -3,6 +3,7 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
 <#include "editcontact-modal.jsp">
+<#include "resendverification-modal.jsp">
 
 <h3>Account Details</h3>
 <dl class="dl-horizontal">
@@ -83,7 +84,7 @@
           <table class="table-condensed table-unstyled">
             <#list account.player.cities as city>
             <tr>
-              <td>${city.name }</td>
+              <td class="city-name">${city.name }</td>
               <td>
                 <i city-id="${city.id }" class="remove-city icon-remove pointer"></i>
               </td>
@@ -91,7 +92,7 @@
             </#list>
           </table>
         </td>
-        <td nowrap="nowrap"><a href="<@spring.url '/account/addcity' />" class="btn btn-primary btn-mini"><i class="icon-plus icon-white"></i> Add</a></td>
+        <td nowrap="nowrap"><a id="btn-addcity" href="<@spring.url '/account/addcity' />" class="btn btn-primary btn-mini"><i class="icon-plus icon-white"></i> Add</a></td>
       </tr>
       <tr>
         <th>Meetups</th>
@@ -99,7 +100,7 @@
           <table class="table-condensed table-unstyled">
             <#list account.player.meetups as meetup>
             <tr>
-              <td>${meetup.name }</td>
+              <td class="meetup-name">${meetup.name }</td>
               <td>
                 <i meetup-id="${meetup.id }" class="remove-meetup icon-remove pointer"></i>
               </td>
@@ -107,7 +108,7 @@
             </#list>
           </table>
         </td>
-        <td nowrap="nowrap"><a href="<@spring.url '/account/addmeetup' />" class="btn btn-primary btn-mini"><i class="icon-plus icon-white"></i> Add</a></td>
+        <td nowrap="nowrap"><a id="btn-addmeetup" href="<@spring.url '/account/addmeetup' />" class="btn btn-primary btn-mini"><i class="icon-plus icon-white"></i> Add</a></td>
       </tr>
       <tr>
         <th>Contact</th>
@@ -123,13 +124,13 @@
 </div>
 
 <h3>Binders</h3>
-<a class="btn btn-primary pull-right" href="/account/newbinder"><i class="icon-plus icon-white"></i> Create a binder</a>
+<a  id="btn-addbinder" class="btn btn-primary pull-right" href="/account/newbinder"><i class="icon-plus icon-white"></i> Create a binder</a>
 <div class="clearfix mb10"></div>
 
 <#if account.player.binders?has_content>
 <table class="table">
 <#list account.player.binders as binder>
-  <tr>
+  <tr class="tr-binder">
     <td>
       <strong><a href="<@spring.url '/u/${account.player.name }/${binder.urlFragment }' />">${binder.name }</a></strong>
     </td>
@@ -165,14 +166,31 @@ var dashboardUrls = {
 		removeCity : '<@spring.url "/account/removecity/" />',
 		removeMeetup : '<@spring.url "/account/removemeetup/" />',
 		deleteBinder : '<@spring.url "/account/deletebinder/" />',
-		editContact : '<@spring.url "/account/editcontact" />'
+		editContact : '<@spring.url "/account/editcontact" />',
+		resendVerification : '<@spring.url "/account/verify/resend" />'
 }
+
+var dashboardConstants = {
+		maxCities : 3,
+		maxMeetups: 5,
+		maxBinders: 3
+}
+
 $(function(){
 	//resend verification
 	var $btnReverify = $('#btn-resend-verification');
 	
 	$btnReverify.click(function(){
-		
+		$.post(dashboardUrls.resendVerification, function(response){
+			switch(response.status) {
+			case '200':
+				$('#resendverification-modal').modal('show');
+				$btnReverify.hide();
+				break;
+			default:
+				footer.error('Error resending verification email.');
+			}
+		});
 	});
 	
   //fromNow on joined and lastlogin
@@ -207,6 +225,19 @@ $(function(){
 	  });
   });
   
+  //locations
+  var 
+    $btnAddCity = $('#btn-addcity'),
+    $btnAddMeetup = $('#btn-addmeetup');
+  
+  //limit locations per user
+  if($('td .city-name').length >= dashboardConstants.maxCities) {
+	  $btnAddCity.hide();
+  }
+  if($('td .meetup-name').length >= dashboardConstants.maxMeetups) {
+	  $btnAddMeetup.hide();
+  }
+  
   //remove city
   $('.remove-city').click(function(){
 	  var $i = $(this);
@@ -216,6 +247,7 @@ $(function(){
 		  switch(response.status) {
 		  case '200':
 			  $i.closest('tr').fadeOut();
+			  $btnAddCity.show();
 			  break;
 			default:
 				footer.error('Could not remove city');
@@ -232,6 +264,7 @@ $(function(){
       switch(response.status) {
       case '200':
         $i.closest('tr').fadeOut();
+        $btnAddMeetup.show();
         break;
       default:
         footer.error('Could not remove meetup');
@@ -239,12 +272,11 @@ $(function(){
     });
   });
   
-  //edit contact
-  var $editContact = $('#edit-contact');
-  
-  $editContact.click(function(){
-	  
-  });
+  //binder management
+  var $btnAddbinder = $('#btn-addbinder');
+  if($('.tr-binder').length >= dashboardConstants.maxBinders) {
+	  $btnAddbinder.hide();
+  }
   
   //delete binder
   $(document).on({
@@ -258,6 +290,7 @@ $(function(){
 					switch(response.status) {
 					case '200':
 						$btn.closest('tr').fadeOut();
+						$btnAddbinder.show();
 						break;
 					default:
 						footer.error('Error deleting ' + name);

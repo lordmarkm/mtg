@@ -30,7 +30,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  */
 
 @Configuration
-@PropertySource({"classpath:db.properties","classpath:mvc.properties"})
+@PropertySource({"classpath:db.properties","classpath:mvc.properties","classpath:app.properties"})
 @ComponentScan("com.mtg.commons.services")
 @EnableJpaRepositories(basePackages="com.mtg.commons.services", repositoryImplementationPostfix="CustomImpl")
 @EnableTransactionManagement

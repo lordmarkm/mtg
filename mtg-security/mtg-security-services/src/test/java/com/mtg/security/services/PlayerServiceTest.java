@@ -15,16 +15,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import testconfig.TestPersistenceConfig;
+
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.PlayerService;
 import com.mtg.commons.services.config.CommonsServicesConfig;
-import com.mtg.security.config.PersistenceConfig;
 import com.mtg.security.models.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CommonsServicesConfig.class, PersistenceConfig.class})
+@ContextConfiguration(classes = {CommonsServicesConfig.class, TestPersistenceConfig.class})
 public class PlayerServiceTest {
 	
 	private static Logger log = LoggerFactory.getLogger(PlayerServiceTest.class);

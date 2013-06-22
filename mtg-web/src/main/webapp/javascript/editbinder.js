@@ -123,7 +123,10 @@ $(function(){
 				switch(response.status) {
 				case '200':
 					loadBinderPage(page);
-					footer.success('Success!');
+					footer.success(response.message);
+					break;
+				case '500':
+					footer.error(response.message);
 					break;
 				default:
 					footer.error('Error!');
@@ -131,4 +134,23 @@ $(function(){
 			});
 		}
 	}, '.btn.binder-add');
+	
+	//increment, decrement, delete bundle
+	$(document).on({
+		click: function(){
+			var $bundle = $(this).attr('disabled', 'disabled').addClass('disabled');
+			var op = $bundle.attr('bundle-op');
+			var id = $bundle.closest('tr').attr('bundle-id');
+			var page = parseInt($page.val());
+			$.post(editbinderUrls.bundleOp + op + '/' + id, function(response) {
+				switch(response.status) {
+				case '200':
+					loadBinderPage(page);
+					break;
+				default:
+					footer.error('Error!');
+				}
+			});
+		}
+	}, '.bundle-operation');
 });

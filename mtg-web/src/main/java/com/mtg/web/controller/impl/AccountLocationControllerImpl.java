@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.AddCityForm;
 import com.mtg.web.dto.AddMeetupForm;
 import com.mtg.web.dto.JSON;
+import com.mtg.web.support.Propkeys;
 
 @Component
 public class AccountLocationControllerImpl extends GenericController implements AccountLocationController {
@@ -45,6 +47,9 @@ public class AccountLocationControllerImpl extends GenericController implements 
 	
 	@Resource
 	private MeetupService meetups;
+	
+	@Resource
+	private Environment env;
 	
 	private MagicPlayer player(Principal principal) {
 		return accounts.findByUsername(principal.getName()).getPlayer();
@@ -69,6 +74,14 @@ public class AccountLocationControllerImpl extends GenericController implements 
 		}
 		
 		MagicPlayer player = player(principal);
+		
+		String maxCities = env.getProperty(Propkeys.maxCities);
+		Validate.notNull(maxCities);
+		
+		int max = Integer.valueOf(maxCities);
+		if(player.getCities().size() >= max) {
+			return JSON.ok();
+		}
 		
 		Long id = form.getCityId();
 		if(null != form.getCityId()) {
@@ -120,6 +133,14 @@ public class AccountLocationControllerImpl extends GenericController implements 
 		}
 		
 		MagicPlayer player = player(principal);
+		
+		String maxMeetups = env.getProperty(Propkeys.maxMeetups);
+		Validate.notNull(maxMeetups);
+		
+		int max = Integer.valueOf(maxMeetups);
+		if(player.getMeetups().size() >= max) {
+			return JSON.ok();
+		}
 		
 		Long id = form.getMeetupId();
 		if(null != id) {

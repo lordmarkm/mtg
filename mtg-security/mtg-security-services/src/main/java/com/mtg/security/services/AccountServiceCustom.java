@@ -23,4 +23,10 @@ public interface AccountServiceCustom {
 	
 	boolean authenticate(String name);
 
+	/**
+	 * Resend verification email if user email not verified
+	 * @return email address
+	 */
+	String resendVerification(String name);
+
 }

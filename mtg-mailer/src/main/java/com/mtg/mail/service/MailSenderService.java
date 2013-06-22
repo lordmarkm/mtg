@@ -13,5 +13,6 @@ public interface MailSenderService {
 
     void sendMimeMail(Email email) throws IOException, MessagingException, TemplateException;
 	void sendWelcomeEmail(Account account);
+	void resendVerificationEmail(Account account);
     
 }

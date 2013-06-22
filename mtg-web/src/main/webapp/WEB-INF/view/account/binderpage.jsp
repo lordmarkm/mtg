@@ -15,13 +15,13 @@
       <td>${bundle.card.name }</td>
       <td>${bundle.count }</td>
       <td nowrap="nowrap">
-        <button class="btn btn-primary btn-mini bundle-increment" title="Increment">
+        <button class="btn btn-primary btn-mini bundle-operation" bundle-op="increment" title="Increment">
           <i class="icon-plus-sign icon-white"></i>
         </button>
-        <button class="btn btn-warning btn-mini bundle-decrement" title="Decrement">
+        <button class="btn btn-warning btn-mini bundle-operation" bundle-op="decrement" title="Decrement">
           <i class="icon-minus-sign icon-white"></i>
         </button>
-        <button class="btn btn-danger btn-mini bundle-delete" title="Delete">
+        <button class="btn btn-danger btn-mini bundle-operation" bundle-op="delete" title="Delete">
           <i class="icon-remove icon-white"></i>
         </button>
       </td>

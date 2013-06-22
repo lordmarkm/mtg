@@ -11,13 +11,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.collections.BinderPage;
+import com.mtg.commons.models.collections.Bundle;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.BinderService;
+import com.mtg.commons.services.BundleService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ExpansionService;
 import com.mtg.commons.services.PageService;
@@ -27,6 +31,7 @@ import com.mtg.web.controller.AccountBinderController;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.BinderForm;
 import com.mtg.web.dto.JSON;
+import com.mtg.web.support.BundleOperation;
 
 @Component
 public class AccountBinderControllerImpl extends GenericController implements AccountBinderController {
@@ -50,6 +55,9 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
 	
 	@Resource
 	private CardService cards;
+	
+	@Resource
+	private BundleService bundles;
 	
 	private MagicPlayer player(Principal principal) {
 		return accounts.findByUsername(principal.getName()).getPlayer();
@@ -116,9 +124,12 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
 		Binder binder = binders.findByOwnerAndUrlFragment(player.getName(), urlFragment);
 		Card card = cards.findOne(cardId);
 		
-		binders.addCard(binder, page, card);
-
-		return JSON.ok();
+		Bundle newbundle = binders.addCard(binder, page, card);
+		if(null == newbundle) {
+			return JSON.error("Page is full");
+		}
+		
+		return JSON.ok().message(card.getName() + " added");
 	}
 	
 	@Override
@@ -130,6 +141,22 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
 		Validate.notNull(binder);
 		binders.excise(binder);
 		
+		return JSON.ok();
+	}
+
+	@Override
+	public JSON bundleOperation(@PathVariable BundleOperation operation, @PathVariable Long id) {
+		switch(operation) {
+		case increment:
+			bundles.increment(id);
+			break;
+		case decrement:
+			bundles.decrement(id);
+			break;
+		case delete:
+			bundles.excise(id);
+			break;
+		}
 		return JSON.ok();
 	}
 }

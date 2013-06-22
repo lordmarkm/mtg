@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.web.dto.BinderForm;
 import com.mtg.web.dto.JSON;
+import com.mtg.web.support.BundleOperation;
 
 @Controller
 @RequestMapping("/account")
@@ -36,4 +37,8 @@ public interface AccountBinderController {
 	@ResponseBody
 	@RequestMapping(value = "/deletebinder/{urlFragment}")
 	JSON deleteBinder(Principal principal, String urlFragment);
+	
+	@ResponseBody
+	@RequestMapping(value = "/editbinder/bundle/{operation}/{id}")
+	JSON bundleOperation(BundleOperation operation, Long id);
 }

@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.Image;
@@ -39,6 +41,12 @@ public class AccountControllerImpl extends GenericController implements AccountC
 	
 	private MagicPlayer player(Principal principal) {
 		return accounts.findByUsername(principal.getName()).getPlayer();
+	}
+	
+	@Override
+	public JSON resendVerification(Principal principal) {
+		String email = accounts.resendVerification(principal.getName());
+		return JSON.ok().put("email", email);
 	}
 	
 	@Override

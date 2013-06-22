@@ -21,7 +21,7 @@ import com.mtg.web.support.DbMessageSource;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.mtg.web")
-@PropertySource("classpath:mvc.properties")
+@PropertySource({"classpath:app.properties", "classpath:mvc.properties"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired

@@ -9,6 +9,7 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.Card;
@@ -17,6 +18,7 @@ import com.mtg.commons.models.collections.BinderPage;
 import com.mtg.commons.models.collections.Bundle;
 import com.mtg.commons.models.locations.Location.Type;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.service.support.Propkeys;
 import com.mtg.commons.services.AbstractEntityService;
 import com.mtg.commons.services.BinderService;
 import com.mtg.commons.services.BinderServiceCustom;
@@ -41,9 +43,19 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
     @Resource
     private ImageService images;
     
+    @Resource
+    private Environment env;
+    
     @Override
     public Binder create(MagicPlayer owner, Binder binder) {
         
+    	String maxBindersStr = env.getProperty(Propkeys.maxBinders);
+    	Validate.notNull(maxBindersStr);
+    	Integer maxBinders = Integer.parseInt(maxBindersStr);
+    	if(owner.getBinders().size() >= maxBinders) {
+    		return null;
+    	}
+    	
         if(null != bindserv.findByOwnerAndUrlFragment(owner.getName(), urlfragment(binder.getName()))) {
             log.error("Reject duplicate binder name. owner={}, name={}", owner.getName(), binder.getName());
             return null;
@@ -79,6 +91,14 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 		
 		Validate.notNull(binderPage);
 		
+		//limit bundles per page
+		String maxBundlesStr = env.getProperty(Propkeys.maxBundles);
+		Validate.notNull(maxBundlesStr);
+		Integer maxBundles = Integer.valueOf(maxBundlesStr);
+		if(binderPage.getBundles().size() >= maxBundles) {
+			return null;
+		}
+		
 		Bundle bundle = new Bundle(card);
 		bundle.setPage(binderPage);
 		
@@ -87,7 +107,7 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 		
 		binder.setLastModified(DateTime.now());
 		
-		return null;
+		return bundle;
 	}
 
 	@SuppressWarnings("deprecation")

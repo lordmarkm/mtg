@@ -5,6 +5,7 @@ import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +27,10 @@ public interface AccountController {
 	@RequestMapping(value = "/editcontact")
 	JSON editContact(Principal principal, String contact);
 
+	@ResponseBody
+	@RequestMapping(value = "/verify/resend", method = RequestMethod.POST)
+	JSON resendVerification(Principal principal);
+	
 	/**
 	 * If activation is successful, display success message, else error msg
 	 * If user is authenticated, display just the msg. otherwise, display the login page

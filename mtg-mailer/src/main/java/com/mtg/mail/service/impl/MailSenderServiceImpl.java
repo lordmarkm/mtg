@@ -62,7 +62,6 @@ public class MailSenderServiceImpl implements MailSenderService {
     	Validate.notNull(email.getModel().get("name"));
     	
     	String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, email.getModel());
-    	log.info("About to send this content [{}]", content);
     	message.setContent(content, "text/html");
     	
     	MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -73,30 +72,54 @@ public class MailSenderServiceImpl implements MailSenderService {
     	mailSender.send(message);
     }
     
+    private Email assembleEmail(Account account) {
+    	Email email = new Email();
+
+        email.setRecipient(account.getInfo().getEmail());
+        email.setSender("mtgbinder@gmail.com");
+        return email;
+    }
+    
 	@Override
 	public void sendWelcomeEmail(Account account) {
+        Email welcome = assembleEmail(account);
+        welcome.setSubject("Welcome to MtG Binder!");
+        welcome.setTemplate("welcome.ftl");
+        
+		String baseUrl = env.getProperty("app.base.url");
+		String activationPath = env.getProperty("app.activation.path");
+		Validate.notNull(baseUrl);
+		Validate.notNull(activationPath);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+        model.put("activationLink", baseUrl + activationPath + account.getInfo().getAuthenticationCode());
+        model.put("name", account.getUsername());
+        welcome.setModel(model);
+        
+        MailSenderThread thread = new MailSenderThread(welcome, this);
+        taskExecutor.execute(thread);
+	}
+	
+	@Override
+	public void resendVerificationEmail(Account account) {
+		log.info("About to resend email verification mail. user={}", account.getUsername());
+		
+		Email resend = assembleEmail(account);
+		resend.setSubject("Mtg Binder email verification");
+		resend.setTemplate("verify.ftl");
 		
 		String baseUrl = env.getProperty("app.base.url");
 		String activationPath = env.getProperty("app.activation.path");
 		Validate.notNull(baseUrl);
 		Validate.notNull(activationPath);
 		
-        Email welcome = new Email();
-        Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = new HashMap<String, Object>();
         model.put("activationLink", baseUrl + activationPath + account.getInfo().getAuthenticationCode());
         model.put("name", account.getUsername());
-
-        welcome.setModel(model);
-        welcome.setRecipient(account.getInfo().getEmail());
-        welcome.setSender("mtgbinder@gmail.com");
-        welcome.setSubject("Welcome to MtG Binder!");
-        welcome.setTemplate("welcome.ftl");
+        resend.setModel(model);
         
-        log.info("Model: " + welcome.getModel());
-        
-        MailSenderThread thread = new MailSenderThread(welcome, this);
+        MailSenderThread thread = new MailSenderThread(resend, this);
         taskExecutor.execute(thread);
-        
 	}
 
 
