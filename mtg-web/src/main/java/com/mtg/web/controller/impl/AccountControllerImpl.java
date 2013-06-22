@@ -9,11 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CountryService;
@@ -55,6 +55,7 @@ public class AccountControllerImpl extends GenericController implements AccountC
 			ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")
 					.addObject("type", "success")
 					.addObject("message", "Verification successful. Your e-mail address is now verified.");
+			
 			return mav;
 		} else {
 			ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")

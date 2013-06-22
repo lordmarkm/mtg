@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.security.services.AccountService;
 
 @Component
@@ -20,6 +22,9 @@ public class MtgAuthenticationSuccessListener implements ApplicationListener<Int
 	@Resource
 	private AccountService accounts;
 	
+	@Resource
+	private AuditLogger audit;
+	
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
 		
@@ -28,6 +33,8 @@ public class MtgAuthenticationSuccessListener implements ApplicationListener<Int
 
 		User user = (User) auth.getPrincipal();
 		accounts.updateLastLogin(user.getUsername());
+		
+		audit.log(AuditableEvent.user_login, user.getUsername());
 	}
 
 }

@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.security.services.AccountService;
 import com.mtg.security.services.RegistrationService;
 import com.mtg.web.controller.AuthenticationController;
@@ -27,6 +29,9 @@ public class AuthenticationControllerImpl extends GenericController implements A
     
     @Resource
     private AccountService accounts;
+    
+    @Resource
+    private AuditLogger audit;
     
     @Override
     public ModelAndView login() {
@@ -75,6 +80,8 @@ public class AuthenticationControllerImpl extends GenericController implements A
         }
         
         reg.register(username, password, email);
+        
+        audit.log(AuditableEvent.user_register, username);
         
         return JSON.ok();
     }

@@ -39,6 +39,11 @@
 			<artifactId>mtg-mailer</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+    <dependency>
+      <groupId>mtg-audit</groupId>
+      <artifactId>mtg-audit</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 		
 		<!-- Spring Security + Javaconfig -->
 		<dependency>

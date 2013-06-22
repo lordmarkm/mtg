@@ -7,6 +7,8 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.ImageService;
@@ -28,6 +30,9 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
     @Resource
     private MailSenderService mailer;
 	
+	@Resource
+	private AuditLogger audit;
+    
 	@Override
 	public Account update(Account account) {
 		Account old = service.findOne(account.getId());
@@ -82,6 +87,8 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 			return false;
 		}
 
+		audit.log(AuditableEvent.user_verify, account.getUsername() + " - " + info.getEmail());
+		
 		info.setAuthenticated(Boolean.TRUE);
 		info.setAuthenticationCode(null);
 		return true;

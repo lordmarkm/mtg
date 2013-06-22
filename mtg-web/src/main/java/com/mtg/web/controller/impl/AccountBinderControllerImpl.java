@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.collections.BinderPage;
@@ -59,6 +59,9 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
 	@Resource
 	private BundleService bundles;
 	
+	@Resource
+	private AuditLogger audit;
+	
 	private MagicPlayer player(Principal principal) {
 		return accounts.findByUsername(principal.getName()).getPlayer();
 	}
@@ -87,6 +90,8 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
         if(null == binder) {
             return JSON.error("Duplicate binder name not accepted");
         }
+        
+        audit.log(AuditableEvent.binder_create, name(principal) + " - " + binder.getName());
         
         return JSON.ok().message(binder.getUrlFragment());
     }

@@ -1,14 +1,26 @@
 <configuration debug="true">
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="AUDITFILE" class="ch.qos.logback.core.FileAppender">
+    <file>C:/Users/Mark/Desktop/dev/mtg/audit.log</file>
+    <append>true</append>
+    <encoder>
+      <pattern>%d{dd-MM-yy HH:mm} %msg%n</pattern>
+    </encoder>
+  </appender>
   
-    <logger name="com.mtg" level="debug" />
- 
-    <root level="info">
-       <appender-ref ref="STDOUT" />
-    </root>
+  <logger name="audit" level="info">
+    <appender-ref ref="AUDITFILE" />
+  </logger>
+  
+  <logger name="com.mtg" level="debug" />
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
 </configuration>

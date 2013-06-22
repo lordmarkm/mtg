@@ -14,6 +14,7 @@
     <module>mtg-security</module>
     <module>mtg-parser</module>
     <module>mtg-mailer</module>
+    <module>mtg-audit</module>
   </modules>
 
   <properties>
