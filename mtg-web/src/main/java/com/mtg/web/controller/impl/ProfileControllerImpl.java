@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.collections.Binder;
+import com.mtg.commons.models.collections.BinderPage;
 import com.mtg.commons.services.BinderService;
 import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
@@ -30,13 +31,18 @@ public class ProfileControllerImpl extends GenericController implements ProfileC
 	private BinderService binders;
 	
 	@Override
+	public ModelAndView ownprofile(Principal principal) {
+		return profile(principal, principal.getName());
+	}
+	
+	@Override
 	public ModelAndView profile(Principal principal, @PathVariable String username) {
 		
 		log.info("Profile page requested. username={}, requestor={}", username, name(principal));
 		
 		Account user = accounts.findByUsername(username);
 		
-		return mav("profile")
+		return mav("profile/profile")
 				.addObject("user", user);
 	}
 
@@ -50,8 +56,19 @@ public class ProfileControllerImpl extends GenericController implements ProfileC
         log.info("Binder view requested. user={}, owner={}, binder={}", name(principal), username, bindername);
         
         Binder binder = binders.findByOwnerAndUrlFragment(username, bindername);
-
+        
+        Boolean hascards = false;
+        if(null != binder) {
+	        for(BinderPage page : binder.getPages()) {
+	        	if(page.getBundles().size() > 0) {
+	        		hascards = true;
+	        		break;
+	        	}
+	        }
+        }
+        
         return mav("profile/binder")
+        		.addObject("hascards", hascards)
                 .addObject("binder", binder);
     }
 

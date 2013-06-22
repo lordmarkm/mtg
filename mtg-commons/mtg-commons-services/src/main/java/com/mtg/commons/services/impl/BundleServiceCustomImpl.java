@@ -3,6 +3,7 @@ package com.mtg.commons.services.impl;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.Card;
@@ -25,6 +26,9 @@ public class BundleServiceCustomImpl implements BundleServiceCustom {
 		//disassociate from binderpage
 		BinderPage page = bundle.getPage();
 		page.getBundles().remove(bundle);
+		
+		//mark binder as modified
+		page.getBinder().setLastModified(DateTime.now());
 		
 		//disassociate from card
 		Card card = bundle.getCard();

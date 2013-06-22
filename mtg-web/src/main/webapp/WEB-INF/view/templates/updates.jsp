@@ -6,6 +6,13 @@
   </h2>
 
   <dl id="updates-list">
+    <dt>June 22, 2013
+    <dd>
+      <ol>
+        <li>Added the Want list
+        <li>Added email verification
+      </ol>
+    </dd>
     <dt>June 21, 2013
     <dd>Users can now browse binders and filter by location
     <dt>June 20, 2013

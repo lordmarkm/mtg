@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/u")
 public interface ProfileController {
 
+	@RequestMapping(method = RequestMethod.GET)
+	ModelAndView ownprofile(Principal principal);
+	
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
 	ModelAndView profile(Principal principal, String username);
 

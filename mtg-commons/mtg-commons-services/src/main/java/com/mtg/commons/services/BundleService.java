@@ -12,11 +12,11 @@ import com.mtg.commons.models.collections.Bundle;
 public interface BundleService extends JpaRepository<Bundle, Long>, BundleServiceCustom {
 
 	@Modifying
-	@Query("update Bundle b set b.count = b.count + 1 where b.id = :id")
+	@Query("update Bundle b set b.count = b.count + 1, b.lastModified = now() where b.id = :id")
 	void increment(@Param("id") Long id);
 
 	@Modifying
-	@Query("update Bundle b set b.count = b.count - 1 where b.id = :id")
+	@Query("update Bundle b set b.count = b.count - 1, b.lastModified = now() where b.id = :id")
 	void decrement(@Param("id") Long id);
 
 }

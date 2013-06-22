@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.collections.Bundle;
+import com.mtg.commons.models.collections.Wanted;
 
 /**
  * This card represents a conceptual card, rather than a concrete one. You can have 1000 paper
@@ -33,6 +34,9 @@ public class Card extends AbstractEntity {
 	
 	@OneToMany(mappedBy="card", orphanRemoval=true)
 	private List<Bundle> bundles;
+	
+	@OneToMany(mappedBy="card", orphanRemoval=true)
+	private List<Wanted> wanteds;
 	
 	@Column
 	private String cost;
@@ -122,6 +126,17 @@ public class Card extends AbstractEntity {
 
 	public void setMetadata(CardMetadata metadata) {
 		this.metadata = metadata;
+	}
+
+	public List<Wanted> getWanteds() {
+		if(null == wanteds) {
+			this.wanteds = new ArrayList<Wanted>();
+		}
+		return wanteds;
+	}
+
+	public void setWanteds(List<Wanted> wanteds) {
+		this.wanteds = wanteds;
 	}
 
 }

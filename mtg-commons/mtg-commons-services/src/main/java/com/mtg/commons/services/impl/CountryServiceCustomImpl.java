@@ -22,6 +22,7 @@ public class CountryServiceCustomImpl extends AbstractEntityService implements C
 	private CountryService service;
 	
 	@Override
+	@SuppressWarnings("deprecation") //only excise(..) may call delete(..) and get away with it
 	public void excise(Country country) {
 		images.excise(country.getImage());
 		images.excise(country.getFlag());

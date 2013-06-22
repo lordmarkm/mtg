@@ -26,6 +26,7 @@ import com.mtg.security.models.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {CommonsServicesConfig.class, TestPersistenceConfig.class})
+@Transactional //rollback after every test
 public class PlayerServiceTest {
 	
 	private static Logger log = LoggerFactory.getLogger(PlayerServiceTest.class);
@@ -50,7 +51,6 @@ public class PlayerServiceTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testAddCity() {
 		Account a = Util.account();
 		Account s = accounts.save(a);
@@ -85,7 +85,6 @@ public class PlayerServiceTest {
 	}
 	
 	@Test
-	@Transactional
 	public void testRemoveCity() {
 		Account a = Util.account();
 		Account s = accounts.save(a);

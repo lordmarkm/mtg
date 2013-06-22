@@ -5,30 +5,13 @@
 <div class="alert alert-error">
   Binder not found
 </div>
+<#elseif !hascards>
+<div class="alert alert-info">
+  There is nothing in this binder
+</div>
 <#else>
 
-<style>
-.thumbnails {
-  margin-left: 20px !important;
-  padding-top: 40px;
-}
-.thumbnail {
-  height: 260px;
-}
-.card-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-}
-.carousel-indicators li {
-  background-color: #999999;
-  cursor: pointer;
-}
-.carousel-indicators .active {
-  background-color: #0088CC;
-}
-</style>
+<link rel="stylesheet" href="<@spring.url '/css/binder.css' />" />
 
 <h3>${binder.name }</h3>
 <p><@tools.nl2br string=binder.description />

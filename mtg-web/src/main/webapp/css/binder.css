@@ -1,0 +1,20 @@
+.thumbnails {
+  margin-left: 20px !important;
+  padding-top: 40px;
+}
+.thumbnail {
+  height: 260px;
+}
+.card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+.carousel-indicators li {
+  background-color: #999999;
+  cursor: pointer;
+}
+.carousel-indicators .active {
+  background-color: #0088CC;
+}

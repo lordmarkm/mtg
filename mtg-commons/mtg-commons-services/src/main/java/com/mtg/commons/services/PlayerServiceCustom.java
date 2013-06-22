@@ -48,4 +48,10 @@ public interface PlayerServiceCustom {
 	 */
 	void removeFlag(MagicPlayer player);
 
+	/**
+	 * Wantlist ops
+	 * @return true if add successful, false if already in wantlist
+	 */
+	boolean addToWantlist(MagicPlayer player, Long id);
+
 }

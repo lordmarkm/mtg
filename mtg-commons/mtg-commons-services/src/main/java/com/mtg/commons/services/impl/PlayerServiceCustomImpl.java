@@ -1,16 +1,22 @@
 package com.mtg.commons.services.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mtg.commons.models.Card;
+import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
 import com.mtg.commons.services.MeetupService;
@@ -33,6 +39,9 @@ public class PlayerServiceCustomImpl implements PlayerServiceCustom {
 	
 	@Resource
 	private MeetupService meetups;
+	
+	@Resource
+	private CardService cards;
 	
 	private boolean addCity(MagicPlayer player, City city) {
 		Validate.notNull(city);
@@ -173,6 +182,29 @@ public class PlayerServiceCustomImpl implements PlayerServiceCustom {
 	public void removeFlag(MagicPlayer player) {
 		player.setCountry(null);
 		service.save(player);
+	}
+
+	@Override
+	public boolean addToWantlist(MagicPlayer player, Long id) {
+		Card card = cards.findOne(id);
+		
+		Validate.notNull(player);
+		Validate.notNull(card);
+		
+		List<Wanted> wantlist = player.getWanted();
+		for(Wanted wanted : wantlist) {
+			if(wanted.getCard().equals(card)) return false;
+		}
+		
+		Wanted wanted = new Wanted(card);
+		wanted.setWanter(player);
+		wanted.setCount(1);
+		wanted.setLastModified(DateTime.now());
+		
+		wantlist.add(wanted);
+		service.save(player);
+		
+		return true;
 	}
 
 }

@@ -4,6 +4,7 @@
 
 <#include "editcontact-modal.jsp">
 <#include "resendverification-modal.jsp">
+<#include "deletebinder-modal.jsp">
 
 <h3>Account Details</h3>
 <dl class="dl-horizontal">
@@ -130,7 +131,7 @@
 <#if account.player.binders?has_content>
 <table class="table">
 <#list account.player.binders as binder>
-  <tr class="tr-binder">
+  <tr class="tr-binder" binder-id="${binder.urlFragment }">
     <td>
       <strong><a href="<@spring.url '/u/${account.player.name }/${binder.urlFragment }' />">${binder.name }</a></strong>
     </td>
@@ -145,54 +146,47 @@
 <div class="alert alert-info">You have no binders right now</div>
 </#if>
 
-<h3>Want list</h3>
-<#if wantlist?has_content>
-<#else>
-<div class="alert alert-info">You are not looking for any cards</div>
-</#if>
-
-<h3>Bookmarks</h3>
-<#if bookmarks?has_content>
-<#else>
-<div class="alert alert-info">You haven't bookmarked any cards</div>
-</#if>
+<div id="wantlist-container"></div>
 
 <div class="mb50"></div>
 
 <script>
 var dashboardUrls = {
-		image : '<@spring.url "/image/" />',
-		selectFlag : '<@spring.url "/account/selectflag/" />',
-		removeCity : '<@spring.url "/account/removecity/" />',
-		removeMeetup : '<@spring.url "/account/removemeetup/" />',
-		deleteBinder : '<@spring.url "/account/deletebinder/" />',
-		editContact : '<@spring.url "/account/editcontact" />',
-		resendVerification : '<@spring.url "/account/verify/resend" />'
+    image : '<@spring.url "/image/" />',
+    selectFlag : '<@spring.url "/account/selectflag/" />',
+    removeCity : '<@spring.url "/account/removecity/" />',
+    removeMeetup : '<@spring.url "/account/removemeetup/" />',
+    deleteBinder : '<@spring.url "/account/deletebinder/" />',
+    editContact : '<@spring.url "/account/editcontact" />',
+    resendVerification : '<@spring.url "/account/verify/resend" />',
+    wantlist: '<@spring.url "/account/wantlist?ajax" />',
+    wantedOp: '<@spring.url "/account/wantlist/" />',
+    editWantedNote : '<@spring.url "/account/wantlist/editnote/" />'
 }
 
 var dashboardConstants = {
-		maxCities : 3,
-		maxMeetups: 5,
-		maxBinders: 3
+    maxCities : 3,
+    maxMeetups: 5,
+    maxBinders: 3
 }
 
 $(function(){
-	//resend verification
-	var $btnReverify = $('#btn-resend-verification');
-	
-	$btnReverify.click(function(){
-		$.post(dashboardUrls.resendVerification, function(response){
-			switch(response.status) {
-			case '200':
-				$('#resendverification-modal').modal('show');
-				$btnReverify.hide();
-				break;
-			default:
-				footer.error('Error resending verification email.');
-			}
-		});
-	});
-	
+  //resend verification
+  var $btnReverify = $('#btn-resend-verification');
+  
+  $btnReverify.click(function(){
+    $.post(dashboardUrls.resendVerification, function(response){
+      switch(response.status) {
+      case '200':
+        $('#resendverification-modal').modal('show');
+        $btnReverify.hide();
+        break;
+      default:
+        footer.error('Error resending verification email.');
+      }
+    });
+  });
+  
   //fromNow on joined and lastlogin
   var $joined = $('#account-info-joined');
   var $lastLogin = $('#account-info-lastlogin');
@@ -206,23 +200,23 @@ $(function(){
       $flag = $('#dashboard-flag');
   
   $selectFlag.change(function(){
-	  var countryId = $(this).val();
-	  $.post(dashboardUrls.selectFlag + countryId + '?ajax', function(response){
-		  switch(response.status) {
-		  case '200':
-			  if(response.flag) {
-				  loadhere.loading();
-			    $flag.attr('src', dashboardUrls.image + response.flag.id).load(function(){
-			    	loadhere.notloading();
-			    });
-			  } else {
-				  $flag.attr('src', '');
-			  }
-			  break;
-			default:
-				footer.error('Error changing flag');
-		  }
-	  });
+    var countryId = $(this).val();
+    $.post(dashboardUrls.selectFlag + countryId + '?ajax', function(response){
+      switch(response.status) {
+      case '200':
+        if(response.flag) {
+          loadhere.loading();
+          $flag.attr('src', dashboardUrls.image + response.flag.id).load(function(){
+            loadhere.notloading();
+          });
+        } else {
+          $flag.attr('src', '');
+        }
+        break;
+      default:
+        footer.error('Error changing flag');
+      }
+    });
   });
   
   //locations
@@ -232,27 +226,27 @@ $(function(){
   
   //limit locations per user
   if($('td .city-name').length >= dashboardConstants.maxCities) {
-	  $btnAddCity.hide();
+    $btnAddCity.hide();
   }
   if($('td .meetup-name').length >= dashboardConstants.maxMeetups) {
-	  $btnAddMeetup.hide();
+    $btnAddMeetup.hide();
   }
   
   //remove city
   $('.remove-city').click(function(){
-	  var $i = $(this);
-	  var cityId = $i.attr('city-id');
-	  
-	  $.post(dashboardUrls.removeCity + cityId + '?ajax', function(response) {
-		  switch(response.status) {
-		  case '200':
-			  $i.closest('tr').fadeOut();
-			  $btnAddCity.show();
-			  break;
-			default:
-				footer.error('Could not remove city');
-		  }
-	  });
+    var $i = $(this);
+    var cityId = $i.attr('city-id');
+    
+    $.post(dashboardUrls.removeCity + cityId + '?ajax', function(response) {
+      switch(response.status) {
+      case '200':
+        $i.closest('tr').fadeOut();
+        $btnAddCity.show();
+        break;
+      default:
+        footer.error('Could not remove city');
+      }
+    });
   });
   
   //remove meetup
@@ -275,34 +269,10 @@ $(function(){
   //binder management
   var $btnAddbinder = $('#btn-addbinder');
   if($('.tr-binder').length >= dashboardConstants.maxBinders) {
-	  $btnAddbinder.hide();
+    $btnAddbinder.hide();
   }
   
-  //delete binder
-  $(document).on({
-		click: function(){
-			var $btn = $(this);
-			var name = $btn.attr('binder-name');
-			var id = $btn.attr('binder-id');
-			
-			bootbox.confirm('Are you sure you want to delete ' + name + '?', function(result) {
-				if(result === true) {
-	       $.post(dashboardUrls.deleteBinder + id, function(response) {
-           switch(response.status) {
-           case '200':
-             $btn.closest('tr').fadeOut();
-             $btnAddbinder.show();
-             break;
-           default:
-             footer.error('Error deleting ' + name);
-           }
-         }).error(function(){
-           footer.error('Error deleting ' + name);
-         });
-				}
-			});
-			
-		}
-	}, '.delete-binder')
+  //init wantlist
+  $('#wantlist-container').load(dashboardUrls.wantlist);
 });
 </script>

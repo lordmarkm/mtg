@@ -1,4 +1,5 @@
 <#import "/spring.ftl" as spring />
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
 <#if card??>
 
@@ -33,7 +34,10 @@
     </dl>
     
     <div class="pull-left">
-      <a class="btn" href="<@spring.url '/cards/find/${card.id }' />">Find in binders</a>
+      <a class="btn" href="<@spring.url '/cards/find/${card.id }' />"><i class="icon-search"></i> Find in binders</a>
+      <@sec.authorize access="isAuthenticated()">
+      <button id="btn-wantlist-add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add to want list</button>
+      </@sec.authorize>
     </div>
   </div>
 </div>
@@ -50,3 +54,29 @@
   margin-left: 110px;
 }
 </style>
+
+<script>
+var cardUrls = {
+		wantlistAdd : '<@spring.url "/account/wantlist/add/${card.id}" />'
+}
+var cardConstants = {
+		name : '${card.name!?js_string}'
+}
+
+$(function(){
+	$('#btn-wantlist-add').click(function(){
+		$.post(cardUrls.wantlistAdd, function(response) {
+			switch(response.status) {
+			case '200':
+				bootbox.alert(cardConstants.name + ' added to your want list!');
+				break;
+			case '500':
+				bootbox.alert(cardConstants.name + ' was already in your want list');
+				break;
+			default:
+				footer.error('Error adding to wantlist!');
+			}
+		});
+	});
+});
+</script>

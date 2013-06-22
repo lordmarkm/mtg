@@ -101,6 +101,7 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 		
 		Bundle bundle = new Bundle(card);
 		bundle.setPage(binderPage);
+		bundle.setLastModified(DateTime.now());
 		
 		card.getBundles().add(bundle);
 		binderPage.getBundles().add(bundle);

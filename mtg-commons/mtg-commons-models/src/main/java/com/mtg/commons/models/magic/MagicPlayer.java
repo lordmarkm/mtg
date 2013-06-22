@@ -3,6 +3,7 @@ package com.mtg.commons.models.magic;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.Type;
 
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.collections.Binder;
+import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
@@ -33,6 +35,9 @@ public class MagicPlayer extends AbstractEntity {
     @ManyToMany(mappedBy = "players")
 	private List<Meetup> meetups;
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    private List<Wanted> wanted;
+    
 	@Type(type="text")
     private String contact;
     
@@ -84,5 +89,14 @@ public class MagicPlayer extends AbstractEntity {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-    
+
+	public List<Wanted> getWanted() {
+		return wanted;
+	}
+
+	public void setWanted(List<Wanted> wanted) {
+		this.wanted = wanted;
+	}
+
+
 }

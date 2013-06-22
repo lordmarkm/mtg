@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import testconfig.TestPersistenceConfig;
 
@@ -24,6 +25,7 @@ import com.mtg.security.models.AccountInfo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {CommonsServicesConfig.class, TestPersistenceConfig.class})
+@Transactional 
 public class AccountServiceTest {
 
 	private static Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
@@ -38,7 +40,7 @@ public class AccountServiceTest {
 	@Resource
 	private CityService cities;
 	
-	@Before
+	@After
 	public void clear() {
 		accounts.deleteAll();
 	}

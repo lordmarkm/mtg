@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mtg.audit.service.AuditLogger;
-import com.mtg.audit.support.AuditableEvent;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CountryService;

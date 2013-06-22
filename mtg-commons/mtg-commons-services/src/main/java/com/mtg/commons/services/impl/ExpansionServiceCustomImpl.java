@@ -14,6 +14,7 @@ import com.mtg.commons.models.Rarities;
 import com.mtg.commons.services.ExpansionService;
 import com.mtg.commons.services.ExpansionServiceCustom;
 import com.mtg.commons.services.ImageService;
+import com.mtg.commons.services.ImageServiceCustom;
 
 @Transactional
 public class ExpansionServiceCustomImpl implements ExpansionServiceCustom {
@@ -56,7 +57,7 @@ public class ExpansionServiceCustomImpl implements ExpansionServiceCustom {
 			break;
 		}
 		
-		Image supdated = images.update(symbol, image, images.DEFAULT_FORMAT);
+		Image supdated = images.update(symbol, image, ImageServiceCustom.DEFAULT_FORMAT);
 		return supdated;
 	}
 

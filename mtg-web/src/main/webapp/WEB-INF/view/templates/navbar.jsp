@@ -34,6 +34,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="<@spring.url '/account/dashboard' />">Account Dashboard</a></li>
+            <li><a href="<@spring.url '/u' />">User profile</a></li>
             <@sec.authorize access="hasRole('ROLE_ADMIN')">
             <li><a href="<@spring.url '/admin/dashboard' />">Admin Dashboard</a>
             </@sec.authorize>

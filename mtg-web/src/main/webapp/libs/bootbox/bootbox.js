@@ -96,8 +96,9 @@ var bootbox = window.bootbox || (function(document, $) {
         });
     };
 
-    that.confirm = function(/*str, labelCancel, labelOk, cb*/) {
+    that.confirm = function(/*str, header, labelCancel, labelOk, cb*/) {
         var str         = "",
+        	header		= null,
             labelCancel = _translate('CANCEL'),
             labelOk     = _translate('CONFIRM'),
             cb          = null;
@@ -107,30 +108,37 @@ var bootbox = window.bootbox || (function(document, $) {
                 str = arguments[0];
                 break;
             case 2:
-                str = arguments[0];
-                if (typeof arguments[1] == 'function') {
-                    cb = arguments[1];
-                } else {
-                    labelCancel = arguments[1];
-                }
-                break;
+            	str = arguments[0];
+            	header = arguments[1];
+            	break;
             case 3:
-                str         = arguments[0];
-                labelCancel = arguments[1];
+                str = arguments[0];
+                header = arguments[1];
                 if (typeof arguments[2] == 'function') {
                     cb = arguments[2];
                 } else {
-                    labelOk = arguments[2];
+                    labelCancel = arguments[2];
                 }
                 break;
             case 4:
                 str         = arguments[0];
-                labelCancel = arguments[1];
-                labelOk     = arguments[2];
-                cb          = arguments[3];
+                header      = arguments[1];
+                labelCancel = arguments[2];
+                if (typeof arguments[3] == 'function') {
+                    cb = arguments[3];
+                } else {
+                    labelOk = arguments[3];
+                }
+                break;
+            case 5:
+                str         = arguments[0];
+                header      = arguments[1];
+                labelCancel = arguments[2];
+                labelOk     = arguments[3];
+                cb          = arguments[4];
                 break;
             default:
-                throw new Error("Incorrect number of arguments: expected 1-4");
+                throw new Error("Incorrect number of arguments: expected 1-5");
         }
 
         var cancelCallback = function() {
@@ -159,7 +167,8 @@ var bootbox = window.bootbox || (function(document, $) {
             "callback": confirmCallback
         }], {
             // escape key bindings
-            "onEscape": cancelCallback
+            "onEscape": cancelCallback,
+            "header"  : header
         });
     };
 
