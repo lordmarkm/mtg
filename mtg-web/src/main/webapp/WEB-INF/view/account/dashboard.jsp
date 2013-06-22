@@ -285,20 +285,23 @@ $(function(){
 			var name = $btn.attr('binder-name');
 			var id = $btn.attr('binder-id');
 			
-			if(confirm('Are you sure you want to delete ' + name + '?')) {
-				$.post(dashboardUrls.deleteBinder + id, function(response) {
-					switch(response.status) {
-					case '200':
-						$btn.closest('tr').fadeOut();
-						$btnAddbinder.show();
-						break;
-					default:
-						footer.error('Error deleting ' + name);
-					}
-				}).error(function(){
-					footer.error('Error deleting ' + name);
-				});
-			}
+			bootbox.confirm('Are you sure you want to delete ' + name + '?', function(result) {
+				if(result === true) {
+	       $.post(dashboardUrls.deleteBinder + id, function(response) {
+           switch(response.status) {
+           case '200':
+             $btn.closest('tr').fadeOut();
+             $btnAddbinder.show();
+             break;
+           default:
+             footer.error('Error deleting ' + name);
+           }
+         }).error(function(){
+           footer.error('Error deleting ' + name);
+         });
+				}
+			});
+			
 		}
 	}, '.delete-binder')
 });
