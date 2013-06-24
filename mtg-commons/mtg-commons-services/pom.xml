@@ -9,6 +9,37 @@
   <artifactId>mtg-commons-services</artifactId>
   <name>MtG :: Commons :: Services</name>
 
+  <!-- 
+    Purpose of the <profiles> and <build> nodes: differentiate the images directory between 
+    windows and linux machines. Windows is default.
+   -->
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <images.path.test>C:/Users/Mark/Desktop/dev/mtg-test/</images.path.test>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux</id>
+      <properties>
+        <images.path.test>/home/mbmartinez/Desktop/mtg-test/</images.path.test>
+      </properties>
+    </profile>
+  </profiles>
+  
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
+
   <dependencies>
 
     <!-- MtG -->
@@ -74,4 +105,5 @@
     </dependency>
 
   </dependencies>
+  
 </project>
