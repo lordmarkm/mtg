@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mtg.commons.models.locations.Location;
 
 @Controller
-@RequestMapping("/binders")
+@RequestMapping({"/binders","/b"})
 public interface BinderController {
 
 	@RequestMapping(value = "/browse")

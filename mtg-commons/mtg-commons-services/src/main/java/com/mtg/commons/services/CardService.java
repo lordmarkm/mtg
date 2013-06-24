@@ -22,4 +22,8 @@ public interface CardService extends PagingAndSortingRepository<Card, Long>, Car
 	
 	@Deprecated
 	void delete(Card card);
+
+	@Query("from Card c where c.expansion.code = :expcode and c.name like :search")
+	Page<Card> searchByExpCode(@Param("expcode") String expcode, @Param("search") String search,
+			Pageable pageRequest);
 }

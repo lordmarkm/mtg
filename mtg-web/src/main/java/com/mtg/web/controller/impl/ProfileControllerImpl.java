@@ -32,6 +32,9 @@ public class ProfileControllerImpl extends GenericController implements ProfileC
 	
 	@Override
 	public ModelAndView ownprofile(Principal principal) {
+		if(null == principal) {
+			return new ModelAndView("redirect:/auth/login");
+		}
 		return profile(principal, principal.getName());
 	}
 	

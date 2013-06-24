@@ -1,5 +1,6 @@
 <#import "/spring.ftl" as spring />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#import "../templates/magic.ftl" as magic />
 
 <#if card??>
 
@@ -21,7 +22,7 @@
       <dd>${card.name }
       
       <dt>Mana Cost:</dt>
-      <dd>${card.cost }</dd>
+      <dd class="pd2"><@magic.castingcost cost=card.costArray() /></dd>
       
       <dt>Types:</dt>
       <dd>${card.supertype } <#if card.subtype??>- ${card.subtype }</#if></dd>

@@ -10,7 +10,8 @@
 		    </div>
 	    </form>
       <ul class="nav pull-right">
-         <li><a href="<@spring.url '/binders/browse' />">Browse binders</a>
+         <li><a href="<@spring.url '/cards/browse' />">Cards</a></li>
+         <li><a href="<@spring.url '/binders/browse' />">Binders</a></li>
          <li><a href="<@spring.url '/support/faq' />">FAQ</a></li>
          <li class="dropdown">
           <@sec.authorize access="isAnonymous()">

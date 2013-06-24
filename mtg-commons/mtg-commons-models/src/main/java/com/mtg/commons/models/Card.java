@@ -2,6 +2,8 @@ package com.mtg.commons.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -67,19 +69,35 @@ public class Card extends AbstractEntity {
 	}
 	
 	public String[] costArray() {
+		if(null == cost) {
+			return new String[]{};
+		} else if(cost.contains("{")) {
+			return parseComplex(cost);
+		} else {
+			return cost.split("(?!^)");
+		}
+	}
+	
+	private String[] parseComplex(final String costString) {
+		String complexCostPattern = "\\{(.*?)\\}";
+		String simpleCost = costString.replaceAll(complexCostPattern, "");
 		
-		if(null == cost || cost.length() == 0) {
-			return 
+		StringBuilder simpleCostString = new StringBuilder();
+		char[] simpleCostArray = simpleCost.toCharArray();
+		for(char c : simpleCostArray) {
+			simpleCostString.append("{" + c + "}");
 		}
 		
-		cost.split("{*}");
+		String splitcost = costString.replace(simpleCost, simpleCostString.toString());
 		
-		List<String> costList = new ArrayList<String>();
-		StringBuilder b = new StringBuilder();
+		Pattern p = Pattern.compile(complexCostPattern);
+		Matcher m = p.matcher(splitcost);
 		
-		for(Character c : cost.toCharArray()) {
-			
+		List<String> costArray = new ArrayList<String>();
+		while(m.find()) {
+			costArray.add(m.group(1));
 		}
+		return costArray.toArray(new String[costArray.size()]);
 	}
 	
     public Expansion getExpansion() {

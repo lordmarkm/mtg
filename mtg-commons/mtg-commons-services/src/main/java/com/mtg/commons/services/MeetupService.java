@@ -13,7 +13,7 @@ public interface MeetupService extends JpaRepository<Meetup, Long> {
 	void delete(Meetup m);
 	
 	@Query("from Meetup m where size(m.players) > 0 and m.banned != true")
-	List<Country> findOccupiedNotBanned();
+	List<Meetup> findOccupiedNotBanned();
 	
 	/**
 	 * Find by Meetup.urlFragment

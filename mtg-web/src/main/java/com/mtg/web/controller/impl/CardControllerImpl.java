@@ -16,7 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.Card;
@@ -40,7 +40,7 @@ public class CardControllerImpl extends GenericController implements CardControl
 		Card card = cardserv.findOne(id);
 		
 		log.info("Card view request. user={}, id={}, name={}", name(principal), id, card != null ? card.getName() : "Not found");
-		return mav("card").addObject("card", card);
+		return mav("card/card").addObject("card", card);
 	}
 
     @Override
@@ -68,15 +68,25 @@ public class CardControllerImpl extends GenericController implements CardControl
     }
 	
 	@Override
-	public JSON dataTable(Principal principal, @PathVariable String expcode, @RequestParam("sEcho") int echo,
-			@RequestParam("iDisplayStart") int start, @RequestParam("iDisplayLength") int length) {
+	public JSON dataTable(Principal principal, @PathVariable String expcode, WebRequest request) {
+		
+		int echo = getInt(request, DataTables.ECHO);
+		int start = getInt(request, DataTables.START);
+		int length = getInt(request, DataTables.LENGTH);
+		String search = getString(request, DataTables.SEARCH, false);
 		
 		log.debug("Datatable request for cards. user={}, expcode={}, start={}, length={}",
 				name(principal), expcode, start, length);
 
-		Pageable request = new PageRequest(start/length, length);
-		Page<Card> page = cardserv.findByExpCode(expcode, request);
-
+		Pageable pageRequest = new PageRequest(start/length, length);
+		
+		Page<Card> page = null;
+		if(null == search || search.length() == 0) {
+			page = cardserv.findByExpCode(expcode, pageRequest);
+		} else {
+			page = cardserv.searchByExpCode(expcode, "%" + search + "%", pageRequest);
+		}
+		
 		return JSON.ok()
 				.put(DataTables.ECHO, echo)
 				.put(DataTables.TOTAL_RECORDS, page.getTotalElements())
@@ -85,7 +95,7 @@ public class CardControllerImpl extends GenericController implements CardControl
 	}
 
 
-    @Override
+	@Override
     public ModelAndView findCardInBinders(Principal principal, @PathVariable Long id) {
         
         Card card = cardserv.findOne(id);

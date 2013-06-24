@@ -85,7 +85,7 @@
           <table class="table-condensed table-unstyled">
             <#list account.player.cities as city>
             <tr>
-              <td class="city-name"><a href="<@spring.url '/c/${city.urlFragment }' />">${city.name }</a></td>
+              <td class="city-name"><a href="<@spring.url '/ct/${city.urlFragment }' />">${city.name }</a></td>
               <td>
                 <i city-id="${city.id }" class="remove-city icon-remove pointer"></i>
               </td>

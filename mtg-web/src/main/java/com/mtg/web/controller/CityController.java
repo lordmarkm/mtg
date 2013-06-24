@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/c/")
+@RequestMapping({"/cities","/ct"})
 public interface CityController {
 
 	@RequestMapping(method = RequestMethod.GET)

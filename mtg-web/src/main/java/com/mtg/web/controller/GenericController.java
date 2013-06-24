@@ -7,6 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class GenericController {
@@ -33,6 +34,24 @@ public abstract class GenericController {
 		src = src.replaceAll("\n", "br2nl");
 		src = Jsoup.clean(src, Whitelist.basic());
 		return src.replaceAll("br2nl", "\n"); 
+	}
+	
+	protected int getInt(WebRequest request, String paramName) {
+		String strVal = request.getParameter(paramName);
+		Validate.notNull(strVal, paramName + " not found in request!");
+		return Integer.parseInt(strVal);
+	}
+	
+	protected String getString(WebRequest request, String paramName) {
+		return getString(request, paramName, true);
+	}
+	
+    protected String getString(WebRequest request, String paramName, boolean notnull) {
+		String strVal = request.getParameter(paramName);
+		if(notnull) {
+			Validate.notNull(strVal, paramName + " not found in request!");
+		}
+		return strVal;
 	}
 	
 }
