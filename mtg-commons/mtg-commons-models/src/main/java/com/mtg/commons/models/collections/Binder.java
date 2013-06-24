@@ -36,7 +36,7 @@ public class Binder extends AbstractEntity {
     	int count = 0;
     	for(BinderPage page : getPages()) {
     		for(Bundle bundle : page.getBundles()) {
-    			count += bundle.getCount();
+    			if(bundle.getCount() > 0) count += bundle.getCount(); //tread negative counts as 0
     		}
     	}
     	return count;

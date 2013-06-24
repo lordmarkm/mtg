@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.admin.services.support.BannableType;
 import com.mtg.commons.models.Rarities;
 import com.mtg.web.dto.CardForm;
 import com.mtg.web.dto.ExpansionForm;
@@ -39,4 +40,9 @@ public interface AdminController {
     @ResponseBody
     @RequestMapping(value = "/parsecards")
     JSON parseCards(Principal principal, ParseCardsForm form, BindingResult result) throws IOException;
+    
+    @ResponseBody
+    @RequestMapping(value = "/ban/{type}/{id}", method = RequestMethod.POST)
+    JSON ban(Principal principal, BannableType type, Long id);
+    
 }

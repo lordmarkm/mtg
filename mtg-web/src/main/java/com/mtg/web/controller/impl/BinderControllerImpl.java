@@ -64,8 +64,8 @@ public class BinderControllerImpl extends GenericController implements BinderCon
 		return mav("binder/browse")
 				.addObject("player", player)
 				.addObject("countries", countries.findOccupied())
-				.addObject("cities", cities.findOccupied())
-				.addObject("meetups", meetups.findOccupied());
+				.addObject("cities", cities.findOccupiedNotBanned())
+				.addObject("meetups", meetups.findOccupiedNotBanned());
 	}
 
 	@Override
@@ -77,6 +77,7 @@ public class BinderControllerImpl extends GenericController implements BinderCon
 		List<Binder> binders = bindserv.filterByLocation(filterType, id);
 		
 		return mav("binder/location-filtered")
+				.addObject("type", filterType)
 				.addObject("location", location)
 				.addObject("binders", binders);
 	}

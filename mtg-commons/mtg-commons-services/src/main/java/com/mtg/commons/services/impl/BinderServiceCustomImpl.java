@@ -1,6 +1,7 @@
 package com.mtg.commons.services.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -123,29 +124,10 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 
 	@Override
 	public List<Binder> filterByLocation(Type type, Long id) {
-		
-		if(type == Type.all && id == 0) {
-			return bindserv.findAll();
-		}
-		
 		Validate.notNull(type);
-		Validate.notNull(id);
-		Validate.isTrue(id != 0);
-		
-//		List<MagicPlayer> players = locations.getPlayers(type, id);
-//		
-//		List<Binder> binders = new ArrayList<Binder>();
-//		for(MagicPlayer player : players) {
-//			binders.addAll(player.getBinders());
-//		}
-
-		//TODO use these instead to be ready for PageRequests
-		//country - from Binder b where b.owner.country = :country
-		//city    - from Binder b where :city in elements(b.owner.cities)
-		//meetup  - from Binder b where :meetup in elements(b.owner.meetups)
 		
 		List<Binder> binders = new ArrayList<Binder>();
-		
+
 		switch(type) {
 		case meetup:
 			binders = bindserv.findByMeetup(id);
@@ -156,8 +138,16 @@ public class BinderServiceCustomImpl extends AbstractEntityService implements Bi
 		case country:
 			binders = bindserv.findByCountry(id);
 			break;
+		case all:
+			binders = bindserv.findAll();
+			break;
 		default:
 			throw new IllegalArgumentException("Illegal location type: " + type);
+		}
+		
+		for(Iterator<Binder> i = binders.iterator(); i.hasNext();) {
+			Binder binder = i.next();
+			if(binder.cardCount() < 1) i.remove();
 		}
 		
 		return binders;

@@ -13,6 +13,10 @@
       <groupId>mtg-commons</groupId>
       <artifactId>mtg-commons-services</artifactId>
     </dependency>
+    <dependency>
+      <groupId>mtg-security</groupId>
+      <artifactId>mtg-security-services</artifactId>
+    </dependency>
   </dependencies>
   
 </project>

@@ -13,6 +13,7 @@ public interface Location {
 		meetup
 	}
 
+	long getId();
 	Location getParent();
 	List<MagicPlayer> getPlayers();
 	

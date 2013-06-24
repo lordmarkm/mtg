@@ -1,24 +1,24 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
 
-<#if binders?has_content>
-
 <h3>
-
-<#if location??>
-<#if location.parent??>
-<#if location.parent.parent??>
-<small>${location.parent.parent.name } ></small>
-</#if>
-<small>${location.parent.name } ></small>
-</#if>
-${location.name }
-<#else>
-All the binders
-</#if>
-
+  <#if location??>
+    <#if location.parent??>
+      <#if location.parent.parent??>
+      <small>${location.parent.parent.name } ></small>
+      </#if>
+    <small>${location.parent.name } ></small>
+    </#if>
+    ${location.name?html } 
+    <#if type == 'city' || type=='meetup'>
+    <button class="btn btn-danger btn-ban" type="${type }" location-id="${location.id }"><i class="fam-world-delete"></i> Delete this ${type }</button>
+    </#if>
+  <#else>
+  All the binders
+  </#if>
 </h3>
 
+<#if binders?has_content>
 <table id="filtered-binders-table">
   <thead>
     <tr>
@@ -50,11 +50,31 @@ All the binders
 
 <script>
 $(function(){
+	urls = {
+			ban : '<@spring.url "/admin/ban/" />'
+	}
+	
 	$('#filtered-binders-table').dataTable();
 	$('.filtered-binders-moment').each(function(){
 		var $td = $(this);
 		var time = moment($td.text()).fromNow();
 		$td.text(time).attr('title', time);
+	});
+	
+	$('.btn-ban').click(function(){
+		var $btn = $(this);
+		var type = $btn.attr('type');
+		var id = $btn.attr('location-id');
+		
+		$.post(urls.ban + type + '/' + id, function(response) {
+			switch(response.status) {
+			case '200':
+			case '500':
+				bootbox.alert(response.message);
+			default:
+				footer.error(response.message);
+			}
+		});
 	});
 });
 </script>

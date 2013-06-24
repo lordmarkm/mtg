@@ -16,6 +16,7 @@ import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.services.AbstractEntityService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
@@ -24,7 +25,7 @@ import com.mtg.commons.services.PlayerService;
 import com.mtg.commons.services.PlayerServiceCustom;
 
 @Transactional
-public class PlayerServiceCustomImpl implements PlayerServiceCustom {
+public class PlayerServiceCustomImpl extends AbstractEntityService implements PlayerServiceCustom {
 	
 	private static Logger log = LoggerFactory.getLogger(PlayerServiceCustomImpl.class);
 	
@@ -95,6 +96,7 @@ public class PlayerServiceCustomImpl implements PlayerServiceCustom {
 		city.setName(cityName);
 		city.setDescription(cityDesc);
 		city.setCountry(country);
+		city.setUrlFragment(urlfragment(cityName));
 		
 		if(addCity(player, city)) {
 			cities.save(city); //needs separate save, there is no cascade player->city
@@ -144,6 +146,7 @@ public class PlayerServiceCustomImpl implements PlayerServiceCustom {
 		meetup.setName(meetupName);
 		meetup.setDescription(meetupDesc);
 		meetup.setCity(city);
+		meetup.setUrlFragment(urlfragment(meetupName));
 		
 		if(addMeetup(player, meetup)) {
 			meetups.save(meetup);

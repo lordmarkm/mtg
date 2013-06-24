@@ -17,10 +17,15 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.admin.services.AdminService;
+import com.mtg.admin.services.support.BannableType;
+import com.mtg.audit.service.AuditLogger;
+import com.mtg.audit.support.AuditableEvent;
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.Expansion;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.Rarities;
+import com.mtg.commons.service.support.OpResult;
 import com.mtg.commons.services.BinderService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ExpansionService;
@@ -52,10 +57,16 @@ public class AdminControllerImpl extends GenericController implements AdminContr
     private AccountService accounts;
     
     @Resource
+    private AdminService admin;
+    
+    @Resource
     private CardListParser parser;
     
     @Resource
     private Environment env;
+    
+    @Resource
+    private AuditLogger audit;
     
     @Override
     public ModelAndView dashboard(Principal principal) {
@@ -121,6 +132,17 @@ public class AdminControllerImpl extends GenericController implements AdminContr
 		exps.setCards(exp, cards);
 		
 		return JSON.ok();
+	}
+
+	@Override
+	public JSON ban(Principal principal, @PathVariable BannableType type, @PathVariable Long id) {
+
+		log.info("Ban request received. admin={}, type={}, id={}", name(principal), type, id);
+		
+		OpResult result = admin.ban(type, id);
+		audit.log(AuditableEvent.admin_ban, name(principal) + " - " + result.getMessage());
+		
+		return JSON.translate(result);
 	}
 
 

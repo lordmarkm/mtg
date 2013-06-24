@@ -1,7 +1,6 @@
 package com.mtg.web.dto;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.Set;
 

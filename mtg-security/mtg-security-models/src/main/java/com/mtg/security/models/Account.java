@@ -37,6 +37,9 @@ public class Account {
 	@OneToOne(cascade = CascadeType.ALL)
 	private AccountInfo info;
 	
+	@Column
+	private boolean banned = false;
+	
 	@Override
 	public String toString() {
 		return new ToStringCreator(this)
@@ -93,6 +96,14 @@ public class Account {
 
 	public void setInfo(AccountInfo info) {
 		this.info = info;
+	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
 	}
 	
 }

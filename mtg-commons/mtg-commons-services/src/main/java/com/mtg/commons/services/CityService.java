@@ -13,7 +13,12 @@ public interface CityService extends JpaRepository<City, Long> {
 	@Deprecated //use excise(City) instead
 	void delete(City city);
 	
-	@Query("from City c where size(c.players) > 0")
-	List<Country> findOccupied();
+	@Query("from City c where size(c.players) > 0 and c.banned != true")
+	List<Country> findOccupiedNotBanned();
+
+	@Query("from City c where c.banned != true")
+	List<City> findAllNotBanned();
+
+	City findByUrlFragment(String cityUrl);
 	
 }

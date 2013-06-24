@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +20,15 @@ import com.mtg.security.services.AccountService;
 @Service
 public class MtgUserDetailsService implements UserDetailsService {
 
+	private static Logger log = LoggerFactory.getLogger(MtgUserDetailsService.class);
+	
 	@Resource
 	private AccountService accounts;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		log.info("Checking username [{}]", username);
 		
 		Account account = accounts.findByUsername(username);
 		if(null == account) {
@@ -36,6 +42,7 @@ public class MtgUserDetailsService implements UserDetailsService {
 		}
 		
 		UserDetails ud = new User(account.getUsername(), account.getPassword(), authorities);
+		log.info("Found: {}", ud);
 		return ud;
 	}
 

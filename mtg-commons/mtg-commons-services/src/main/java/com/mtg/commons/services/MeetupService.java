@@ -13,7 +13,7 @@ public interface MeetupService extends JpaRepository<Meetup, Long> {
 	@Deprecated//use excise(m) instead
 	void delete(Meetup m);
 	
-	@Query("from Meetup m where size(m.players) > 0")
-	List<Country> findOccupied();
+	@Query("from Meetup m where size(m.players) > 0 and m.banned != true")
+	List<Country> findOccupiedNotBanned();
 	
 }

@@ -66,6 +66,22 @@ public class Card extends AbstractEntity {
 			.toString();
 	}
 	
+	public String[] costArray() {
+		
+		if(null == cost || cost.length() == 0) {
+			return 
+		}
+		
+		cost.split("{*}");
+		
+		List<String> costList = new ArrayList<String>();
+		StringBuilder b = new StringBuilder();
+		
+		for(Character c : cost.toCharArray()) {
+			
+		}
+	}
+	
     public Expansion getExpansion() {
         return expansion;
     }

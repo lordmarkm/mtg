@@ -5,6 +5,7 @@ public enum AuditableEvent {
 	admin_expansion_add,
 	admin_expansion_delete,
 	admin_expansion_parse,
+	admin_ban,
 	
 	user_register,
 	user_verify,

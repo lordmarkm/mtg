@@ -37,7 +37,11 @@
       <artifactId>mtg-audit</artifactId>
       <version>${project.version}</version>
     </dependency>
-    
+    <dependency>
+      <groupId>mtg-admin</groupId>
+      <artifactId>mtg-admin-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     
     <!-- SPRING -->
     <dependency>

@@ -3,6 +3,7 @@ package com.mtg.commons.models.locations;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -26,6 +27,9 @@ public class City extends AbstractEntity implements Location {
 
 	@OneToMany(mappedBy="city")
 	private List<Meetup> meetups;
+	
+	@Column
+	private boolean banned = false;
 	
 	public City() {
 		//
@@ -78,6 +82,14 @@ public class City extends AbstractEntity implements Location {
 
 	public void setMeetups(List<Meetup> meetups) {
 		this.meetups = meetups;
+	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
 	}
 	
 }
