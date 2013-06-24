@@ -56,7 +56,7 @@
           <table class="table-condensed table-unstyled">
             <#list user.player.cities as city>
             <tr>
-              <td class="city-name">${city.name }</td>
+              <td class="city-name"><a href="<@spring.url '/c/${city.urlFragment }' />">${city.name }</a></td>
             </tr>
             </#list>
           </table>
@@ -68,7 +68,7 @@
           <table class="table-condensed table-unstyled">
             <#list user.player.meetups as meetup>
             <tr>
-              <td class="meetup-name">${meetup.name }</td>
+              <td class="meetup-name"><a href="<@spring.url '/m/${meetup.urlFragment }' />">${meetup.name }</a></td>
             </tr>
             </#list>
           </table>

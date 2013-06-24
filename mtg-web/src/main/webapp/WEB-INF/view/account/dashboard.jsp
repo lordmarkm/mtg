@@ -85,7 +85,7 @@
           <table class="table-condensed table-unstyled">
             <#list account.player.cities as city>
             <tr>
-              <td class="city-name">${city.name }</td>
+              <td class="city-name"><a href="<@spring.url '/c/${city.urlFragment }' />">${city.name }</a></td>
               <td>
                 <i city-id="${city.id }" class="remove-city icon-remove pointer"></i>
               </td>
@@ -101,7 +101,7 @@
           <table class="table-condensed table-unstyled">
             <#list account.player.meetups as meetup>
             <tr>
-              <td class="meetup-name">${meetup.name }</td>
+              <td class="meetup-name"><a href="<@spring.url '/m/${meetup.urlFragment }' />">${meetup.name }</a></td>
               <td>
                 <i meetup-id="${meetup.id }" class="remove-meetup icon-remove pointer"></i>
               </td>
