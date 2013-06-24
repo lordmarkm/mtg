@@ -7,7 +7,7 @@
   </appender>
 
   <appender name="AUDITFILE" class="ch.qos.logback.core.FileAppender">
-    <file>C:/Users/Mark/Desktop/dev/mtg/audit.log</file>
+    <file>${audit.log.file}</file>
     <append>true</append>
     <encoder>
       <pattern>%d{dd-MM-yy HH:mm} %msg%n</pattern>

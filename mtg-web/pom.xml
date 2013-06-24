@@ -11,6 +11,45 @@
   <packaging>war</packaging>
   <name>MtG :: Web</name>
 
+  <!-- 
+    Differentiate the image directory and audit log file between linux and windows machines
+    Windows profile is default.
+   -->
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <images.path>C:/Users/Mark/Desktop/dev/mtg/</images.path>
+        <audit.log.file>C:/Users/Mark/Desktop/dev/mtg/audit.log</audit.log.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux</id>
+      <properties>
+        <images.path>/home/mbmartinez/Desktop/mtg/</images.path>
+        <audit.log.file>/home/mbmartinez/Desktop/mtg/audit.log</audit.log.file>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <!-- PROJECT -->
     <dependency>
@@ -141,14 +180,5 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>
