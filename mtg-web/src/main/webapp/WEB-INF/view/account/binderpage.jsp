@@ -24,6 +24,9 @@
         <button class="btn btn-danger btn-mini bundle-operation" bundle-op="delete" title="Delete">
           <i class="icon-remove icon-white"></i>
         </button>
+        <button class="btn btn-success btn-mini edit-note" title="${bundle.note! }">
+          <i class="icon-edit icon-white"></i>
+        </button>
       </td>
     </tr>
     </#list>

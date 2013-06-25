@@ -89,6 +89,7 @@ $(function(){
 				footer.error('Error loading ' + uri + ': ' + xhr.status + '-' + xhr.statusText);
 				break;
 			default:
+				window.scrollTo(0,0);
 				footer.success('Stop the schmucking!');
 			}
 			clearTimeout(loadingtimeout);
@@ -117,6 +118,8 @@ $(function(){
 	
 	if(page.target) {
 		go(page.target);
+	} else {
+		go(page.welcome);
 	}
 	
 	$(window).bind('popstate', function(e) {

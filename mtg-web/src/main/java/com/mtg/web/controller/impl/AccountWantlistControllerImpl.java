@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.PlayerService;
 import com.mtg.commons.services.WantedService;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AccountWantlistController;
 import com.mtg.web.controller.GenericController;
+import com.mtg.web.dto.DtoMaker;
 import com.mtg.web.dto.JSON;
 import com.mtg.web.support.BundleOperation;
 
@@ -76,7 +78,7 @@ public class AccountWantlistControllerImpl extends GenericController implements 
 			break;
 		}
 		
-		return JSON.ok();
+		return JSON.ok().put("wanted", DtoMaker.transform(wanteds.findOne(id)));
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class AccountWantlistControllerImpl extends GenericController implements 
 		
 		wanteds.editnote(id,  note);
 
-		return JSON.ok();
+		return JSON.ok().put("wanted", DtoMaker.transform(wanteds.findOne(id)));
 	}
 
 }

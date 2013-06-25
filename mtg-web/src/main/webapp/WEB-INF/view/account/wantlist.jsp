@@ -16,10 +16,10 @@
   <tbody>
     <#list player.wanted as wanted>
     <tr wanted-id="${wanted.id }">
-      <td>${wanted.card.name }</td>
+      <td><a href="<@spring.url '/cards/${wanted.card.id }' />" target="_blank">${wanted.card.name }</a></td>
       <td>${wanted.card.expansion.name }</td>
-      <td>${wanted.count }</td>
-      <td>${wanted.note! }</td>
+      <td class="wanted-count">${wanted.count }</td>
+      <td class="wanted-note">${wanted.note! }</td>
       <td>
         <button class="btn btn-primary btn-mini wanted-operation" wanted-op="increment" title="Increment">
           <i class="icon-plus-sign icon-white"></i>

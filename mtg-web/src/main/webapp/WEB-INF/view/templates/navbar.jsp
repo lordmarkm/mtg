@@ -1,7 +1,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="<@spring.url '/support/updates' />">Magic Online Binder</a>
+      <a class="brand" href="<@spring.url '/support/welcome' />">Magic Online Binder</a>
 	    <form class="navbar-form pull-left">
 	      <div class="input-append">
 			    <input id="navbar-search" type="text" autocomplete="off" class="span2" placeholder="Search for cards">

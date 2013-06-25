@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.audit.service.AuditLogger;
@@ -164,4 +165,14 @@ public class AccountBinderControllerImpl extends GenericController implements Ac
 		}
 		return JSON.ok();
 	}
+
+    @Override
+    public JSON editBundleNote(@PathVariable Long id, @RequestParam String note) {
+        
+        log.info("Update bundle note request. bundle id={}, note={}", id, note);
+        
+        bundles.editNote(id, basic(note));
+        
+        return JSON.ok();
+    }
 }

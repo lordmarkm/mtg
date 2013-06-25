@@ -153,4 +153,29 @@ $(function(){
 			});
 		}
 	}, '.bundle-operation');
+
+	//edit note
+	$(document).on({
+		click: function(){
+			var $btn = $(this).attr('disabled', 'disabled').addClass('disabled');
+			var id = $btn.closest('tr').attr('bundle-id');
+			var page = parseInt($page.val());
+			var note = $btn.attr('title');
+			bootbox.prompt('Edit note for card slot', 'Cancel', 'Update note', function(result) {
+				if(null == result) {
+					$btn.removeAttr('disabled').removeClass('disabled');
+					return;
+				}
+				$.post(editbinderUrls.editBundleNote + id, {note:result}, function(response){
+					switch(response.status){
+					case '200':
+						loadBinderPage(page);
+						break;
+					default:
+						footer.error('Error editing note!');
+					}
+				});
+			}, note);
+		}
+	}, '.edit-note');
 });

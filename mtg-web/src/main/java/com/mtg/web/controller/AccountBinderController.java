@@ -41,4 +41,8 @@ public interface AccountBinderController {
 	@ResponseBody
 	@RequestMapping(value = "/editbinder/bundle/{operation}/{id}")
 	JSON bundleOperation(BundleOperation operation, Long id);
+	
+	@ResponseBody
+	@RequestMapping(value = "/editbinder/bundle/editnote/{id}")
+	JSON editBundleNote(Long id, String note);
 }

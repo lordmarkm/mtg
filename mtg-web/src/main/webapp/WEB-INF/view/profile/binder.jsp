@@ -32,9 +32,18 @@
         <#assign bundle=page.bundles[slot]>
         <li class="span2" title="${bundle.card.name }">
           <div class="thumbnail">
-            <img src="<@spring.url '/image/${bundle.card.image.id }' />" />
-            <div class="card-name">${bundle.card.name }</div>
-            <div class="center"><strong>(${bundle.count })</strong></div>
+            <a href="<@spring.url '/cards/${bundle.card.id }' />" target="_blank">
+              <img src="<@spring.url '/image/${bundle.card.image.id }' />" />
+            </a>
+            <a href="<@spring.url '/cards/${bundle.card.id }' />" target="_blank">
+              <div class="card-name">${bundle.card.name }</div>
+            </a>
+            <div class="center">
+              <strong>(${bundle.count })</strong>
+              <#if bundle.note?? && (bundle.note?length > 0)>
+               - ${bundle.note!?html }
+              </#if>
+            </div>
           </div>
         </li>
         <#else>
@@ -54,6 +63,6 @@
   <a class="carousel-control left" href="#binder-carousel" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#binder-carousel" data-slide="next">&rsaquo;</a>
 </div>
-  
+
 </#if>
 

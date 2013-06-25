@@ -68,10 +68,11 @@ var editbinder = {
     binder : '${binder.urlFragment}'
 }
 var editbinderUrls = {
-      cardsDt  : '<@spring.url "/cards/datatables/" />',
-      getPage  : '<@spring.url "/account/editbinder/page/" />',
-      addCard  : '<@spring.url "/account/editbinder/add/" />',
-      bundleOp : '<@spring.url "/account/editbinder/bundle/" />'
+      cardsDt        : '<@spring.url "/cards/datatables/" />',
+      getPage        : '<@spring.url "/account/editbinder/page/" />',
+      addCard        : '<@spring.url "/account/editbinder/add/" />',
+      bundleOp       : '<@spring.url "/account/editbinder/bundle/" />',
+      editBundleNote : '<@spring.url "/account/editbinder/bundle/editnote/" />'
 }
 </script>
 <script src="<@spring.url '/javascript/editbinder.js' />"></script>

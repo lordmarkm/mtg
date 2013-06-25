@@ -9,6 +9,11 @@ import com.mtg.web.controller.SupportController;
 @Component
 public class SupportControllerImpl extends GenericController implements SupportController {
 
+    @Override
+    public ModelAndView welcome() {
+        return mav("support/welcome");
+    }
+    
 	@Override
 	public ModelAndView faq() {
 		return mav("support/faq");

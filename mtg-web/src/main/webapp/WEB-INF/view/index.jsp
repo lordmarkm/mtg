@@ -27,7 +27,8 @@
 
 <script>
 var page = {
-		target : '${target?if_exists}'
+		target : '${target?if_exists}',
+		welcome: '<@spring.url "/support/welcome" />'
 }
 </script>
 

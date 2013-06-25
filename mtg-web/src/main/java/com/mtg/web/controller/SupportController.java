@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/support")
 public interface SupportController {
 
+    @RequestMapping("/welcome")
+    ModelAndView welcome();
+    
 	@RequestMapping("/faq")
 	ModelAndView faq();
 	
@@ -20,5 +23,5 @@ public interface SupportController {
 	
 	@RequestMapping("/updates")
 	ModelAndView updates();
-	
+
 }

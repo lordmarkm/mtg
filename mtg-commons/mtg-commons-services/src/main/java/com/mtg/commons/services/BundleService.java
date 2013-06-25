@@ -19,4 +19,8 @@ public interface BundleService extends JpaRepository<Bundle, Long>, BundleServic
 	@Query("update Bundle b set b.count = b.count - 1, b.lastModified = now() where b.id = :id")
 	void decrement(@Param("id") Long id);
 
+	@Modifying
+	@Query("update Bundle b set b.note = :note, b.lastModified = now() where b.id = :id")
+    void editNote(@Param("id") Long id, @Param("note") String note);
+
 }

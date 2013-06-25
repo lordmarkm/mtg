@@ -56,7 +56,7 @@
           <table class="table-condensed table-unstyled">
             <#list user.player.cities as city>
             <tr>
-              <td class="city-name"><a href="<@spring.url '/c/${city.urlFragment }' />">${city.name }</a></td>
+              <td class="city-name"><a href="<@spring.url '/ct/${city.urlFragment }' />">${city.name }</a></td>
             </tr>
             </#list>
           </table>
@@ -134,7 +134,7 @@
   <tbody>
     <#list user.player.wanted as wanted>
     <tr wanted-id="${wanted.id }">
-      <td>${wanted.card.name }</td>
+      <td><a href="<@spring.url '/cards/${wanted.card.id }' />" target="_blank">${wanted.card.name }</a></td>
       <td>${wanted.card.expansion.name }</td>
       <td>${wanted.count }</td>
       <td>${wanted.note!?html }</td>
