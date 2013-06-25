@@ -73,11 +73,10 @@ $(function(){
 		$error = $('#footer-error');
 	
 	function go(uri) {
-		history.pushState({uri: uri}, null, uri);
-		load(uri);
+		load(uri, true);
 	}
 	
-	function load(uri) {
+	function load(uri, push) {
 		//no need to show loading div if server returns really fast
 		var loadingtimeout = setTimeout(function(){
 		  $loadcontainer.loading();
@@ -91,6 +90,9 @@ $(function(){
 			default:
 				window.scrollTo(0,0);
 				footer.success('Stop the schmucking!');
+				if(push) {
+					history.pushState({uri: uri}, null, uri);
+				}
 			}
 			clearTimeout(loadingtimeout);
 			$loadcontainer.notloading();
@@ -105,8 +107,12 @@ $(function(){
 				return;
 			}
 			
+			if(a.hasClass('no-intercept')) {
+				return;
+			}
+			
 			var uri = a.attr('href');
-			if(!uri || uri === 'javascript:;' || uri.indexOf('#') == 0 || uri.indexOf('/logout') != -1) {
+			if(!uri || uri === 'javascript:;' || uri.indexOf('#') == 0) {//mostly for apis
 				return;
 			}
 			go(uri);
@@ -123,6 +129,6 @@ $(function(){
 	}
 	
 	$(window).bind('popstate', function(e) {
-		load(e.originalEvent.state.uri);
+		load(e.originalEvent.state.uri, false);
 	});
 });

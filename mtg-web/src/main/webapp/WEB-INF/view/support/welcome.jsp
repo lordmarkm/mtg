@@ -26,7 +26,7 @@ expansion.
 <h4>III. Create your own online binder</h4>
 <p>In order to make your own online binder, you need to <a href="<@spring.url '/auth/register'/>">Register</a>
 and <a href="/auth/login">Sign in</a>. Once you are signed in to the site, you gain access to your
-<a href="/account/dashboard">Account dashboard</a>.
+<a class="no-intercept" href="/account/dashboard">Account dashboard</a>.
 
 <p>From there, you can
   <ul>

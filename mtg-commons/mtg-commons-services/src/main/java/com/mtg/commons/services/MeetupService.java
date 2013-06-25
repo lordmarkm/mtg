@@ -19,5 +19,8 @@ public interface MeetupService extends JpaRepository<Meetup, Long> {
 	 * Find by Meetup.urlFragment
 	 */
     Meetup findByUrlFragment(String url);
+
+    @Query("from Meetup m where m.banned != true")
+	List<Meetup> findAllNotBanned();
 	
 }

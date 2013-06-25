@@ -1,7 +1,5 @@
 package com.mtg.web.interceptor;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.mtg.web.support.RequestParams;
@@ -23,11 +22,7 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 	
 	static Logger log = LoggerFactory.getLogger(OnePageInterceptor.class);
 	
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-		
-		String uri = request.getRequestURI();
-
+	private boolean shouldIgnore(HttpServletRequest request, String uri) {
 		//ignore image request
 		if(uri.contains("/image/")) {
 			return true;
@@ -35,7 +30,7 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 		
 		//ignore if ajax request
 		if(null != request.getParameter(RequestParams.AJAX)) {
-			log.debug("Ignoring ajax request.");
+			log.debug("Ignoring ajax request: {}", request.getRequestURI());
 			return true;
 		}
 		
@@ -63,9 +58,30 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 		
-		log.info("Redirecting to index page with target uri={}", uri);
-		response.sendRedirect("/?uri=" + uri);
-		
 		return false;
 	}
+	
+	@Override
+	public void postHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler, ModelAndView mav) throws Exception {
+	
+		String uri = request.getRequestURI();
+		if(!shouldIgnore(request, uri)) {
+			log.debug("Setting view name to index. Adding original URI as target. uri={}", uri);
+			mav.setViewName("index");
+			mav.addObject("target", uri);
+		}
+	
+	}	
+	
+//	@Override
+//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+//		
+//		String uri = request.getRequestURI();
+//
+//		log.info("Redirecting to index page with target uri={}", uri);
+//		response.sendRedirect("/?uri=" + uri);
+//		
+//		return false;
+//	}
 }
