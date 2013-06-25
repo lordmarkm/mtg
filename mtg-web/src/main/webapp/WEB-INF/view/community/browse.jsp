@@ -34,7 +34,7 @@ ul.nav > li {
   <li><a href="<@spring.url '/ct/${city.urlFragment }' />">${city.name }</a></li>
   </#list>
   
-  <#list relatedMeetups as meetups>
+  <#list relatedMeetups as meetup>
   <li><a href="<@spring.url '/m/${meetup.urlFragment }' />">${meetup.name }</a></li>
   </#list>
   </ul>

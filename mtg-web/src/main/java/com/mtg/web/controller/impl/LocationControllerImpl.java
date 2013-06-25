@@ -114,7 +114,7 @@ public class LocationControllerImpl extends GenericController implements Locatio
 				for(City cCity : city.getCountry().getCities()) {
 					if(relatedCities.size() >= RELATED_SIZE) break;
 					if(cCity.isBanned()) continue;
-					if(player.getCities().contains(city)) continue;
+					if(player.getCities().contains(cCity)) continue;
 				
 					relatedCities.add(cCity);
 				}
