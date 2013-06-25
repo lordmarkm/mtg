@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Bundle;
 import com.mtg.commons.services.CardService;
+import com.mtg.commons.services.ExpansionService;
 import com.mtg.web.controller.CardController;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.JSON;
@@ -34,6 +35,17 @@ public class CardControllerImpl extends GenericController implements CardControl
 	
 	@Resource
 	private CardService cardserv;
+	
+	@Resource
+	private ExpansionService expansions;
+	
+	@Override
+	public ModelAndView browse(Principal principal) {
+	    log.info("Card browse page requested. user={}", name(principal));
+	    
+	    return mav("card/browse")
+	            .addObject("expansions", expansions.findAll());
+	}
 	
 	@Override
 	public ModelAndView card(Principal principal, @PathVariable Long id) throws MalformedURLException, IOException {
@@ -67,6 +79,31 @@ public class CardControllerImpl extends GenericController implements CardControl
         return mav("card/multiple").addObject("cards", cards);
     }
 	
+    @Override
+    public JSON dataTable(Principal principal, WebRequest request) {
+        int echo = getInt(request, DataTables.ECHO);
+        int start = getInt(request, DataTables.START);
+        int length = getInt(request, DataTables.LENGTH);
+        String search = getString(request, DataTables.SEARCH, false);
+        
+        log.debug("Datatable request for cards. user={}, start={}, length={}",
+                name(principal), start, length);
+        
+        Pageable pageRequest = new PageRequest(start/length, length);
+        Page<Card> page = null;
+        if(null == search || search.length() == 0) {
+            page = cardserv.findAll(pageRequest);
+        } else {
+            page = cardserv.searchAll("%" + search + "%", pageRequest);
+        }
+        
+        return JSON.ok()
+                .put(DataTables.ECHO, echo)
+                .put(DataTables.TOTAL_RECORDS, page.getTotalElements())
+                .put(DataTables.TOTAL_DISPLAY_RECORDS, page.getTotalElements())
+                .put(DataTables.DATA, cardserv.toDataTableResponse(page.getContent()));
+    }
+    
 	@Override
 	public JSON dataTable(Principal principal, @PathVariable String expcode, WebRequest request) {
 		

@@ -16,8 +16,15 @@ import com.mtg.web.dto.JSON;
 @RequestMapping({"/cards","/c"})
 public interface CardController {
 
+    @RequestMapping("/browse")
+    ModelAndView browse(Principal principal);
+    
 	@RequestMapping("/{id}")
 	ModelAndView card(Principal principal, Long id) throws MalformedURLException, IOException;
+	
+	@ResponseBody
+	@RequestMapping("/datatables")
+	JSON dataTable(Principal principal, WebRequest request);
 	
 	@ResponseBody
 	@RequestMapping("/datatables/{expcode}")
