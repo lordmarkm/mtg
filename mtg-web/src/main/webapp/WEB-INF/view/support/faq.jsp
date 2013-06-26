@@ -1,5 +1,7 @@
 <#import "/spring.ftl" as spring />
 
+<span id="active-navbar-class" class="hide">faq</span>
+
 <p>Why did the chicken cross the road?
 <p>To get to the other side!
 <h4>What is Lorem Ipsum?</h4>

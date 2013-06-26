@@ -72,6 +72,51 @@
         <img src="<@spring.url '/images/mana/16.png' />" alt="16" />
         <#break>
       <#-- TODO split costs -->
+      <#case 'b/g'>
+        <img src="<@spring.url '/images/mana/bg.png' />" alt="B/G" />
+        <#break>
+      <#case 'b/r'>
+        <img src="<@spring.url '/images/mana/br.png' />" alt="B/R" />
+        <#break>
+      <#case 'g/u'>
+        <img src="<@spring.url '/images/mana/gu.png' />" alt="G/U" />
+        <#break>
+      <#case 'g/w'>
+        <img src="<@spring.url '/images/mana/gw.png' />" alt="G/W" />
+        <#break>       
+      <#case 'r/g'>
+        <img src="<@spring.url '/images/mana/rg.png' />" alt="R/G" />
+        <#break>        
+      <#case 'r/w'>
+        <img src="<@spring.url '/images/mana/rw.png' />" alt="R/W" />
+        <#break>        
+      <#case 'u/b'>
+        <img src="<@spring.url '/images/mana/ub.png' />" alt="U/B" />
+        <#break>
+      <#case 'u/r'>
+        <img src="<@spring.url '/images/mana/ur.png' />" alt="U/R" />
+        <#break>        
+      <#case 'w/b'>
+        <img src="<@spring.url '/images/mana/wb.png' />" alt="W/B" />
+        <#break>        
+      <#case 'w/u'>
+        <img src="<@spring.url '/images/mana/wu.png' />" alt="W/U" />
+        <#break>
+      <#case '2b'>
+        <img src="<@spring.url '/images/mana/2b.png' />" alt="2/B" />
+        <#break>
+      <#case '2g'>
+        <img src="<@spring.url '/images/mana/2g.png' />" alt="2/G" />
+        <#break>        
+      <#case '2r'>
+        <img src="<@spring.url '/images/mana/2r.png' />" alt="2/R" />
+        <#break>        
+      <#case '2u'>
+        <img src="<@spring.url '/images/mana/2u.png' />" alt="2/U" />
+        <#break>        
+      <#case '2w'>
+        <img src="<@spring.url '/images/mana/wu.png' />" alt="2/W />
+        <#break>        
       <#default>
         ${symbol}
     </#switch>

@@ -1,4 +1,6 @@
-#binder-carousel {
+.profile-image {
+	max-width: 230px !important;
+	max-height: 230px !important;
 }
 
 .navbar-thumb {

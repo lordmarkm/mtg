@@ -15,8 +15,8 @@
   </thead>
   <tbody>
     <#list player.wanted as wanted>
-    <tr wanted-id="${wanted.id }">
-      <td><a href="<@spring.url '/cards/${wanted.card.id }' />" target="_blank">${wanted.card.name }</a></td>
+    <tr wanted-id="${wanted.id?c }">
+      <td><a href="<@spring.url '/cards/${wanted.card.id?c }' />" target="_blank">${wanted.card.name }</a></td>
       <td>${wanted.card.expansion.name }</td>
       <td class="wanted-count">${wanted.count }</td>
       <td class="wanted-note">${wanted.note! }</td>
@@ -33,7 +33,7 @@
         <button class="btn btn-success btn-mini wanted-editnote" title="Edit note">
           <i class="icon-edit icon-white"></i>
         </button>
-        <a href="<@spring.url '/cards/find/${wanted.card.id }' />" class="btn btn-mini" title="Find in binders">
+        <a href="<@spring.url '/cards/find/${wanted.card.id?c }' />" class="btn btn-mini" title="Find in binders">
           <i class="icon-search"></i>
         </a>
       </td>

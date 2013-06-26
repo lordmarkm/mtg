@@ -10,8 +10,11 @@ ul.nav > li {
 }
 </style>
 
+<span id="active-navbar-class" class="hide">communities</span>
+
 <#if player?? && (player.country?? || (player.cities?size > 0) || (player.meetups?size > 0))>
 <h4>Your communities</h4>
+
   <ul class="nav nav-pills">
   <#if player.country??>
   <li><a href="<@spring.url '/cy/${player.country.urlFragment }' />"><@tools.flag country=player.country />${player.country.name }</a></li>

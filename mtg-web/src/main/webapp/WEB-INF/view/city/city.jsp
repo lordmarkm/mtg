@@ -1,6 +1,8 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
 
+<span id="active-navbar-class" class="hide">communities</span>
+
 <#if city.banned>
 <div class="alert alert-error">This city has been banned</div>
 <#elseif (city.players?size == 0)>
@@ -17,7 +19,7 @@
   <tbody>
     <#list city.players as player>
     <tr>
-      <td>${player.name }</td>
+      <td><a href="/u/${player.name }">${player.name }</a></td>
       <td>
         <ul class="unstyled">
         <#list player.binders as binder>

@@ -11,7 +11,7 @@
 
   <tbody>
     <#list page.bundles as bundle>
-    <tr bundle-id="${bundle.id }">
+    <tr bundle-id="${bundle.id?c }">
       <td>${bundle.card.name }</td>
       <td>${bundle.count }</td>
       <td nowrap="nowrap">

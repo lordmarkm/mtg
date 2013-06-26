@@ -36,4 +36,10 @@ public interface ImageServiceCustom {
 	 * @param image
 	 */
 	void excise(Image image);
+	
+	/**
+	 * Reload from original source
+	 */
+    Image refresh(Long id);
+
 }

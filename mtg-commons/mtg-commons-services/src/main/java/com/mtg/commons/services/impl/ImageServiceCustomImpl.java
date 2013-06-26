@@ -81,6 +81,7 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 	}
 	
 	private void deleteFile(String path) {
+	    log.debug("Deleting image file. path={}", path);
 		File file = new File(path);
 		if(file.exists()) {
 			file.delete();
@@ -159,5 +160,18 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 		}
 		images.delete(image);
 	}
+
+    @Override
+    public Image refresh(Long id) {
+        Image image = images.findOne(id);
+        Validate.notNull(image);
+        
+        deleteFile(image.getPath());
+        image.setPath(null);
+        
+        sideloadIfNeeded(image);
+        
+        return image;
+    }
 
 }

@@ -1,5 +1,7 @@
 <#import "/spring.ftl" as spring />
 
+<span id="active-navbar-class" class="hide">cards</span>
+
 <h3>All the cards</h3>
 
 <select id="select-expansion">

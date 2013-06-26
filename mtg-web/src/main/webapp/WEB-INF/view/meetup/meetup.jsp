@@ -1,7 +1,8 @@
 <#import "/spring.ftl" as spring />
 
-<#if meetup??>
+<span id="active-navbar-class" class="hide">communities</span>
 
+<#if meetup??>
 
 <h3>${meetup.name }</h3>
 

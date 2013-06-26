@@ -48,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
 		Account account = accounts.findOne(id);
 		Validate.notNull(account);
 		
-		if(Roles.hasRole(account, Roles.ADMIN)) {
+		if(Roles.hasRole(account, Roles.ROLE_ADMIN)) {
 			return OpResult.error("Can't ban an admin.");
 		}
 		

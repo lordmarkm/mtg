@@ -32,10 +32,10 @@
         <#assign bundle=page.bundles[slot]>
         <li class="span2" title="${bundle.card.name }">
           <div class="thumbnail">
-            <a href="<@spring.url '/cards/${bundle.card.id }' />" target="_blank">
-              <img src="<@spring.url '/image/${bundle.card.image.id }' />" />
+            <a href="<@spring.url '/cards/${bundle.card.id?c }' />" target="_blank">
+              <img src="<@spring.url '/image/${bundle.card.image.id?c }' />" />
             </a>
-            <a href="<@spring.url '/cards/${bundle.card.id }' />" target="_blank">
+            <a href="<@spring.url '/cards/${bundle.card.id?c }' />" target="_blank">
               <div class="card-name">${bundle.card.name }</div>
             </a>
             <div class="center">

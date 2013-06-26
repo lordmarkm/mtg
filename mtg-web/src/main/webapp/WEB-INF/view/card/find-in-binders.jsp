@@ -1,10 +1,12 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
 
+<span id="active-navbar-class" class="hide">cards</span>
+
 <#if card?? && bundles?has_content>
 
 <h3>
-  <a href="<@spring.url '/cards/${card.id}' />">${card.name }</a>
+  <a href="<@spring.url '/cards/${card.id?c }' />">${card.name }</a>
   <br />
   <small>In Binders</small>
 </h3>
@@ -22,7 +24,7 @@
   <tbody>
     <#list bundles as bundle>
     <tr>
-      <td><a href="<@spring.url '/cards/${bundle.card.id }' />" target="_blank">${bundle.card.name }</a></td>
+      <td><a href="<@spring.url '/cards/${bundle.card.id?c }' />" target="_blank">${bundle.card.name }</a></td>
       <td>${bundle.card.expansion.name }</td>
       <td>
         <@tools.flag country=bundle.page.binder.owner.country! />

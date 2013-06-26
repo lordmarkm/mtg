@@ -2,6 +2,8 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "../templates/tools.ftl" as tools />
 
+<span id="active-navbar-class" class="hide">binders</span>
+
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <@sec.authorize access="isAuthenticated()">
@@ -25,20 +27,20 @@
         </li>
         <#if player.country??>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/country/${player.country.id }' />">${player.country.name }</a>
+          <a href="<@spring.url '/binders/browse/country/${player.country.id?c }' />">${player.country.name }</a>
         </li>  
         </#if>
         <#if player.cities?has_content>
         <#list player.cities as city>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/city/${city.id }' />">${city.name }</a>
+          <a href="<@spring.url '/binders/browse/city/${city.id?c }' />">${city.name }</a>
         </li>
         </#list>
         </#if>       
         <#if player.meetups?has_content>
         <#list player.meetups as meetup>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/meetup/${meetup.id }' />">${meetup.name }</a>
+          <a href="<@spring.url '/binders/browse/meetup/${meetup.id?c }' />">${meetup.name }</a>
         </li>
         </#list>
         </#if>    
@@ -49,7 +51,7 @@
       <ul class="nav nav-pills">
         <#list meetups as meetup>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/meetup/${meetup.id }' />">${meetup.name }</a>
+          <a href="<@spring.url '/binders/browse/meetup/${meetup.id?c }' />">${meetup.name }</a>
         </li>
         </#list>
       </ul>
@@ -58,7 +60,7 @@
       <ul class="nav nav-pills">
         <#list cities as city>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/city/${city.id }' />">${city.name }</a>
+          <a href="<@spring.url '/binders/browse/city/${city.id?c }' />">${city.name }</a>
         </li>
         </#list>
       </ul>
@@ -67,7 +69,7 @@
       <ul class="nav nav-pills">
         <#list countries as country>
         <li class="li-loc-filter">
-          <a href="<@spring.url '/binders/browse/country/${country.id }' />">${country.name }</a>
+          <a href="<@spring.url '/binders/browse/country/${country.id?c }' />">${country.name }</a>
         </li>  
         </#list>
       </ul>    

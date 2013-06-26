@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.mtg.commons.models.Image;
 import com.mtg.commons.services.ImageService;
 import com.mtg.web.controller.ImageController;
+import com.mtg.web.dto.JSON;
 
 @Component
 public class ImageControllerImpl implements ImageController {
@@ -34,5 +36,13 @@ public class ImageControllerImpl implements ImageController {
 		}
 		return null;
 	}
+
+    @Override
+    public JSON refresh(@PathVariable Long id) {
+        log.debug("Image refresh requested. image id={}", id);
+        
+        Image image = images.refresh(id);
+        return JSON.ok().put("image", image);
+    }
 	
 }

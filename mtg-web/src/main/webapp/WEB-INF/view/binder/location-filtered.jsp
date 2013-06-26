@@ -1,4 +1,5 @@
 <#import "/spring.ftl" as spring />
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "../templates/tools.ftl" as tools />
 
 <h3>
@@ -9,10 +10,12 @@
       </#if>
     <small>${location.parent.name } ></small>
     </#if>
-    ${location.name?html } 
+    ${location.name?html }
+    <@sec.authorize access='hasRole("ROLE_ADMIN")'>
     <#if type == 'city' || type=='meetup'>
-    <button class="btn btn-danger btn-ban" type="${type }" location-id="${location.id }"><i class="fam-world-delete"></i> Delete this ${type }</button>
+    <button class="btn btn-danger btn-ban" type="${type }" location-id="${location.id?c }"><i class="fam-world-delete"></i> Delete this ${type }</button>
     </#if>
+    </@sec.authorize>
   <#else>
   All the binders
   </#if>

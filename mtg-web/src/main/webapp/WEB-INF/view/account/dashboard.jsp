@@ -31,9 +31,9 @@
           <div class="replacable-image-container" upload-url="<@spring.url '/account/upload/profilepic' />"
            upload-title="Change profile picture">
             <#if account.player.image??>
-            <img alt="300x200" src="<@spring.url '/image/${account.player.image.id }' />" />
+            <img class="profile-image" alt="${account.player.name }" src="<@spring.url '/image/${account.player.image.id?c }' />" />
             <#else>
-            <img alt="300x200" src="<@spring.url '/images/no-img.jpg' />" />
+            <img alt="${account.player.name }" src="<@spring.url '/images/no-img.jpg' />" />
             </#if>
           </div>
           <div class="caption">
@@ -87,7 +87,7 @@
             <tr>
               <td class="city-name"><a href="<@spring.url '/ct/${city.urlFragment }' />">${city.name }</a></td>
               <td>
-                <i city-id="${city.id }" class="remove-city icon-remove pointer"></i>
+                <i city-id="${city.id?c }" class="remove-city icon-remove pointer"></i>
               </td>
             </tr>
             </#list>
@@ -103,7 +103,7 @@
             <tr>
               <td class="meetup-name"><a href="<@spring.url '/m/${meetup.urlFragment }' />">${meetup.name }</a></td>
               <td>
-                <i meetup-id="${meetup.id }" class="remove-meetup icon-remove pointer"></i>
+                <i meetup-id="${meetup.id?c }" class="remove-meetup icon-remove pointer"></i>
               </td>
             </tr>
             </#list>

@@ -1,6 +1,8 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
 
+<span id="active-navbar-class" class="hide">communities</span>
+
 <h3>City list</h3>
 <table class="table table-striped">
 <thead>

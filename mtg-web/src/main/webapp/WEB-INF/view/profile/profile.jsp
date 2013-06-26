@@ -2,10 +2,12 @@
 <#import "../templates/tools.ftl" as tools />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
+<#if !user.banned>
+
 <h3>
   Magic Profile - ${user.player.name }
   <@sec.authorize access="hasRole('ROLE_ADMIN')">
-  <button class="btn btn-danger"><i class="fam-user-delete"></i> Ban user</button>
+  <button id="btn-ban-user" class="btn btn-danger"><i class="fam-user-delete"></i> Ban user</button>
   </@sec.authorize>
 </h3>
 
@@ -15,9 +17,9 @@
       <li>
         <div class="thumbnail">
             <#if user.player.image??>
-            <img alt="300x200" src="<@spring.url '/image/${user.player.image.id }' />" />
+            <img class="profile-image" alt="${user.player.name }" src="<@spring.url '/image/${user.player.image.id?c }' />" />
             <#else>
-            <img alt="300x200" src="<@spring.url '/images/no-img.jpg' />" />
+            <img alt="${user.player.name }" src="<@spring.url '/images/no-img.jpg' />" />
             </#if>
           <div class="caption">
             <span class="muted">${user.player.name }</span>
@@ -134,7 +136,7 @@
   <tbody>
     <#list user.player.wanted as wanted>
     <tr wanted-id="${wanted.id }">
-      <td><a href="<@spring.url '/cards/${wanted.card.id }' />" target="_blank">${wanted.card.name }</a></td>
+      <td><a href="<@spring.url '/cards/${wanted.card.id?c }' />" target="_blank">${wanted.card.name }</a></td>
       <td>${wanted.card.expansion.name }</td>
       <td>${wanted.count }</td>
       <td>${wanted.note!?html }</td>
@@ -146,11 +148,41 @@
 <div class="alert alert-info">${user.player.name } is not looking for any cards</div>
 </#if>
 
+<#else>
+<div class="alert alert-error">This user has been banned</div>
+</#if>
+
 <script>
+var profile = {
+		name : '${user.player.name?js_string}'
+}
+var profileUrls = {
+		ban : '<@spring.url "/admin/ban/player/${user.id?c}" />'
+}
 $(function(){
 	$('.fromnow').each(function(i, that){
 		var $this = $(that);
 		$this.text(moment($this.text()).fromNow());
+	});
+	
+	$('#btn-ban-user').click(function(){
+		var $btn = $(this);
+		bootbox.confirm('Ban ' + profile.name + ' forever?', 'Confirm ban', function(result) {
+			if(result) {
+				$.post(profileUrls.ban, function(response) {
+					switch(response.status) {
+					case '200':
+						$btn.replaceWith('<div class="alert alert-error">Banned!');
+						break;
+					case '500':
+						bootbox.alert(response.message);
+						break;
+					default:
+						footer.error('Error banning user');
+					}
+				})
+			}
+		});
 	});
 });
 </script>

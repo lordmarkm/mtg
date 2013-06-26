@@ -128,7 +128,7 @@ $(function(){
 		  
 		function upload(file, url, callback) {
 		  if (!file || !file.type.match(/image.*/)) {
-        $message.html('<span class="text-error">Error uploading image');
+        $message.html('<span class="text-error">Error uploading image. Might be an invalid format.');
 			  return;
 		  }
 		  
@@ -152,7 +152,7 @@ $(function(){
 		      }
 		    },
 		    error: function(xhr, status) {
-		    	$message.html('<span class="text-error">Error uploading image');
+		    	$message.html('<span class="text-error">Error uploading image. Might be too larg: max file size: 20Kb');
 		    },
 		    complete: function() {
 		    	$dropboxLoading.hide();

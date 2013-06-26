@@ -21,10 +21,10 @@ var navbarUrls = {
 		    </div>
 	    </form>
       <ul id="header-nav" class="nav pull-right">
-         <li><a href="<@spring.url '/cards/browse' />">Cards</a></li>
-         <li><a href="<@spring.url '/binders/browse' />">Binders</a></li>
-         <li><a href="<@spring.url '/community/browse' />">Communities</a></li>
-         <li><a href="<@spring.url '/support/faq' />">FAQ</a></li>
+         <li class="cards"><a href="<@spring.url '/cards/browse' />">Cards</a></li>
+         <li class="binders"><a href="<@spring.url '/binders/browse' />">Binders</a></li>
+         <li class="communities"><a href="<@spring.url '/community/browse' />">Communities</a></li>
+         <li class="faq"><a href="<@spring.url '/support/faq' />">FAQ</a></li>
          <li class="dropdown">
           <@sec.authorize access="isAnonymous()">
           <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
@@ -40,7 +40,7 @@ var navbarUrls = {
           <@sec.authorize access="isAuthenticated()">
           <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
             <#if navimage??>
-            <img class="navbar-thumb" src="<@spring.url '/image/${navimage.id }' />" />
+            <img class="navbar-thumb" src="<@spring.url '/image/${navimage.id?c }' />" />
             </#if>
             <@sec.authentication property="principal.username" />
             <b class="caret"></b>

@@ -19,7 +19,7 @@
       <td>${city.description }</td>
       <td><#if city.country??>${city.country.name }</#if></td>
       <td>
-        <button class="btn-add-city btn btn-primary btn-mini" city-id="${city.id }">
+        <button class="btn-add-city btn btn-primary btn-mini" city-id="${city.id?c }">
           <i class="icon-plus icon-white"></i> Add city
         </button>
       </td>
@@ -50,7 +50,7 @@
       <select id="countryId" name="countryId">
         <option value="0">None</option>
         <#list countries as country>
-        <option value="${country.id }">${country.name }</option>
+        <option value="${country.id?c }">${country.name }</option>
         </#list>
       </select>
     </div>

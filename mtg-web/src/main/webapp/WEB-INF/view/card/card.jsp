@@ -2,6 +2,8 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "../templates/magic.ftl" as magic />
 
+<span id="active-navbar-class" class="hide">cards</span>
+
 <#if card??>
 
 <h2>${card.name }</h2>
@@ -10,7 +12,7 @@
   <div class="span3">
     <div class="pull-right">
       <#if card.image??>
-      <img src="<@spring.url '/image/${card.image.id }' />" />
+      <img id="card-img" src="<@spring.url '/image/${card.image.id?c }' />" />
       <#else>
       <img src="<@spring.url '/images/no-img.jpg' />" />
       </#if>
@@ -35,7 +37,8 @@
     </dl>
     
     <div class="pull-left">
-      <a class="btn" href="<@spring.url '/cards/find/${card.id }' />"><i class="icon-search"></i> Find in binders</a>
+      <button id="btn-refresh-thumb" title="Refresh thumbnail" class="btn"><i class="icon-refresh"></i></button>
+      <a class="btn" href="<@spring.url '/cards/find/${card.id?c }' />"><i class="icon-search"></i> Find in binders</a>
       <@sec.authorize access="isAuthenticated()">
       <button id="btn-wantlist-add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add to want list</button>
       </@sec.authorize>
@@ -58,10 +61,13 @@
 
 <script>
 var cardUrls = {
-		wantlistAdd : '<@spring.url "/account/wantlist/add/${card.id}" />'
+		wantlistAdd : '<@spring.url "/account/wantlist/add/${card.id?c}" />',
+		refresh : '<@spring.url "/image/refresh/" />',
+		image : '<@spring.url "/image/" />'
 }
 var cardConstants = {
-		name : '${card.name!?js_string}'
+		name : '${card.name!?js_string}',
+		imageId : '${card.image.id?c}'
 }
 
 $(function(){
@@ -77,6 +83,21 @@ $(function(){
 			default:
 				footer.error('Error adding to wantlist!');
 			}
+		});
+	});
+	
+	$('#btn-refresh-thumb').click(function(){
+		var $btn = $(this).attr('disabled', 'disabled').addClass('disabled');
+		$.post(cardUrls.refresh + cardConstants.imageId, function(response) {
+			switch(response.status) {
+			case '200':
+				$('#card-img').attr('src', cardUrls.image + response.image.id + '?time=' + Date.now());
+				break;
+			default:
+				footer.error('Error refreshing thumbnail');
+			}
+		}).complete(function(){
+			$btn.removeAttr('disabled').removeClass('disabled');
 		});
 	});
 });

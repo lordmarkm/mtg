@@ -19,7 +19,7 @@
       <td>${meetup.description }</td>
       <td><#if meetup.city??>${meetup.city.name }</#if></td>
       <td>
-        <button class="btn-add-meetup btn btn-primary btn-mini" meetup-id="${meetup.id }">
+        <button class="btn-add-meetup btn btn-primary btn-mini" meetup-id="${meetup.id?c }">
           <i class="icon-plus icon-white"></i> Add meetup
         </button>
       </td>
@@ -50,7 +50,7 @@
       <select id="cityId" name="cityId">
         <option value="0">None</option>
         <#list cities as city>
-        <option value="${city.id }">${city.name }</option>
+        <option value="${city.id?c }">${city.name }</option>
         </#list>
       </select>
     </div>

@@ -1,5 +1,7 @@
 <#import "/spring.ftl" as spring />
 
+<span id="active-navbar-class" class="hide">cards</span>
+
 <#if cards?has_content>
 
 <h3>${cards[0].name } <small>found in multiple sets</small></h3>
@@ -16,7 +18,7 @@
   <tbody>
     <#list cards as card>
     <tr>
-      <td><a href="<@spring.url '/cards/${card.id }' />">${card.name }</a></td>
+      <td><a href="<@spring.url '/cards/${card.id?c }' />">${card.name }</a></td>
       <td>${card.expansion.name }</td>
       <td>${card.cost }</td>
       <td>${card.rarity }</td>
@@ -26,7 +28,7 @@
 </table>
 
 <div class="pull-left">
-  <a class="btn" href="<@spring.url '/cards/find/${cards[0].id }' />">Find in binders</a>
+  <a class="btn" href="<@spring.url '/cards/find/${cards[0].id?c }' />">Find in binders</a>
 </div>
 
 <#else>

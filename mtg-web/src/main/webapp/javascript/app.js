@@ -70,7 +70,8 @@ $(function(){
 	var 
 		$loadcontainer = $('#loadhere-container'), //lol loadcontainer
 		$load = $('#loadhere'),
-		$error = $('#footer-error');
+		$error = $('#footer-error'),
+		$navs = $('#header-nav li');
 	
 	function go(uri) {
 		load(uri, true);
@@ -92,6 +93,12 @@ $(function(){
 				footer.success('Stop the schmucking!');
 				if(push) {
 					history.pushState({uri: uri}, null, uri);
+				}
+				
+				$navs.removeClass('active');
+				var activeNavbarClass = $('#active-navbar-class').text();
+				if(activeNavbarClass) {
+					$('#header-nav li.' + activeNavbarClass).addClass('active');
 				}
 			}
 			clearTimeout(loadingtimeout);

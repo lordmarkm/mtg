@@ -7,7 +7,3 @@
   <img class="tinyflag" title="${country.name}" src="/image/${country.flag.id}" />
   </#if>
 </#macro>
-
-<#macro mana manastr>
-
-</#macro>
