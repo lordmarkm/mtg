@@ -28,7 +28,7 @@
       <td>${bundle.card.expansion.name }</td>
       <td>
         <@tools.flag country=bundle.page.binder.owner.country! />
-        ${bundle.page.binder.owner.name } - 
+        <a href="<@spring.url '/u/${bundle.page.binder.owner.name}' />">${bundle.page.binder.owner.name }</a> - 
         <a href="<@spring.url '/u/${bundle.page.binder.owner.name}/${bundle.page.binder.urlFragment}' />" target="_blank">${bundle.page.binder.name }</a>
       </td>
       <td>${bundle.count }</td>

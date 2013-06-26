@@ -22,15 +22,64 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
+        <app.base.url>http://localhost:8080</app.base.url>
+        <jpa.username>root</jpa.username>
+        <jpa.password>root</jpa.password>
         <images.path>C:/Users/Mark/Desktop/dev/mtg/</images.path>
         <audit.log.file>C:/Users/Mark/Desktop/dev/mtg/audit.log</audit.log.file>
+        <reparse.countries>false</reparse.countries>
       </properties>
     </profile>
     <profile>
       <id>linux</id>
       <properties>
+        <app.base.url>http://localhost:8080</app.base.url>
+        <jpa.username>root</jpa.username>
+        <jpa.password>root</jpa.password>
         <images.path>/home/mbmartinez/Desktop/mtg/</images.path>
         <audit.log.file>/home/mbmartinez/Desktop/mtg/audit.log</audit.log.file>
+        <reparse.countries>false</reparse.countries>
+      </properties>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <app.base.url>http://dgte.info</app.base.url>
+        <jpa.username>dgtephdb</jpa.username>
+        <jpa.password>dgteinfodbpw</jpa.password>
+        <images.path>/home/tomcat/servers/dgteph/mtg-binder/images/</images.path>
+        <audit.log.file>/home/tomcat/servers/dgteph/mtg-binder/audit.log</audit.log.file>
+        <reparse.countries>false</reparse.countries>
+      </properties>
+      <!-- make a skinny war -->
+      <build>
+        <finalName>root</finalName>
+        <plugins>
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+              <packagingExcludes>
+                <!-- exclude all non-mtg jars -->
+                %regex[WEB-INF/lib/(?!(mtg|spring-security-taglibs)).*\.jar]
+              </packagingExcludes>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- reparse countries when active-->    
+    <profile>
+      <id>reparse</id>
+      <properties>
+        <reparse.countries>true</reparse.countries>
       </properties>
     </profile>
   </profiles>

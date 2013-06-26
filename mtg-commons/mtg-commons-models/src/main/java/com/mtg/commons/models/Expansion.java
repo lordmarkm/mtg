@@ -18,6 +18,9 @@ public class Expansion extends AbstractEntity {
 	@Column(nullable=false)
 	private String code;
 	
+	@Column
+	private int series = 0;
+	
 	@Embedded
 	private Rarities rarities;
 	
@@ -53,5 +56,13 @@ public class Expansion extends AbstractEntity {
 	public void setRarities(Rarities rarities) {
 		this.rarities = rarities;
 	}
-	
+
+	public int getSeries() {
+		return series;
+	}
+
+	public void setSeries(int series) {
+		this.series = series;
+	}
+
 }

@@ -39,7 +39,11 @@
       <td><@tools.nl2br string=binder.description /></td>
       <td>${binder.cardCount() }</td>
       <td><div class="filtered-binders-moment">${binder.lastModified }</div></td>
-      <td><div class="clip80" title="${binder.owner.name }"><@tools.flag country=binder.owner.country! /> ${binder.owner.name }</div></td>
+      <td>
+        <div class="clip80" title="${binder.owner.name }">
+          <@tools.flag country=binder.owner.country! /> <a href="<@spring.url '/u/${binder.owner.name }' />">${binder.owner.name }</a>
+        </div>
+      </td>
     </tr>
     </#list>
   </tbody>
