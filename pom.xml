@@ -15,6 +15,7 @@
     <module>mtg-parser</module>
     <module>mtg-mailer</module>
     <module>mtg-audit</module>
+    <module>mtg-interactive</module>
   </modules>
 
   <properties>
