@@ -1,9 +1,9 @@
 <#import "/spring.ftl" as spring />
 
-<h3>Welcome to Magic Online Binder</h3>
+<h3>Welcome to Tomescour</h3>
 
-<h4>What is Magic Online Binder &reg;? What can I do here?</h4>
-<p>Magic Online Binder &reg; makes your binder dreams come true.
+<h4>What is Tomescour &reg;? What can I do here?</h4>
+<p>Tomscour &reg; makes your binder dreams come true.
 
 <p>&nbsp;
 

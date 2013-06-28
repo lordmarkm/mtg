@@ -7,7 +7,7 @@
 
 <head>
   <@includes.universals />
-  <title>Magic Online Binder</title>
+  <title>Tomescour</title>
 </head>
 
 <body>
