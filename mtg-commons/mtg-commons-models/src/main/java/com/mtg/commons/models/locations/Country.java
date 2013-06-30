@@ -13,6 +13,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.Image;
+import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.magic.MagicPlayer;
 
 /**
@@ -31,6 +32,9 @@ public class Country extends AbstractEntity implements Location {
 
 	@OneToMany(mappedBy="country")
 	private List<MagicPlayer> players;
+	
+	@OneToMany
+	private List<Post> posts;
 	
 	@Override
 	public String toString() {
@@ -74,6 +78,14 @@ public class Country extends AbstractEntity implements Location {
 
 	public void setPlayers(List<MagicPlayer> players) {
 		this.players = players;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 	
 	

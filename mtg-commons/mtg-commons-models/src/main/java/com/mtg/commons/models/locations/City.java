@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.AbstractEntity;
+import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.magic.MagicPlayer;
 
 @Entity
@@ -27,6 +28,9 @@ public class City extends AbstractEntity implements Location {
 
 	@OneToMany(mappedBy="city")
 	private List<Meetup> meetups;
+	
+	@OneToMany
+	private List<Post> posts;
 	
 	@Column
 	private boolean banned = false;
@@ -90,6 +94,14 @@ public class City extends AbstractEntity implements Location {
 
 	public void setBanned(boolean banned) {
 		this.banned = banned;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 	
 }

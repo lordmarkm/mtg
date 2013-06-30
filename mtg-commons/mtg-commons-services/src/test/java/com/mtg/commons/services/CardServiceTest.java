@@ -14,10 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mtg.commons.models.Card;
+import com.mtg.commons.services.config.CommonsPersistenceConfig;
 import com.mtg.commons.services.config.CommonsServicesConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CommonsServicesConfig.class})
+@ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class})
 public class CardServiceTest {
 
 	@Resource

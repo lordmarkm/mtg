@@ -130,7 +130,16 @@
       <artifactId>mtg-admin-services</artifactId>
       <version>${project.version}</version>
     </dependency>
-    
+    <dependency>
+      <groupId>mtg-interactive</groupId>
+      <artifactId>mtg-interactive-posts-models</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mtg-interactive</groupId>
+      <artifactId>mtg-interactive-posts-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+        
     <!-- SPRING -->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -18,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 import testconfig.TestPersistenceConfig;
 
 import com.mtg.commons.services.CityService;
+import com.mtg.commons.services.config.CommonsPersistenceConfig;
 import com.mtg.commons.services.config.CommonsServicesConfig;
 import com.mtg.mail.service.MailSenderService;
 import com.mtg.security.models.Account;
 import com.mtg.security.models.AccountInfo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CommonsServicesConfig.class, TestPersistenceConfig.class})
+@ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class, TestPersistenceConfig.class})
 @Transactional 
 public class AccountServiceTest {
 

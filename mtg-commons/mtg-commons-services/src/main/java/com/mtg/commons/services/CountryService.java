@@ -16,4 +16,6 @@ public interface CountryService extends JpaRepository<Country, Long>, CountrySer
 
 	@Query("from Country c where size(c.players) > 0")
 	List<Country> findOccupied();
+
+	Country findByUrlFragment(String urlFragment);
 }

@@ -18,12 +18,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.mtg.commons.models.Expansion;
 import com.mtg.commons.models.Image;
 import com.mtg.commons.models.Rarities.Rarity;
+import com.mtg.commons.services.config.CommonsPersistenceConfig;
+import com.mtg.commons.services.config.CommonsServicesConfig;
 
 /**
  * @author Mark
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.mtg.commons.services.config.CommonsServicesConfig.class})
+@ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class})
 public class ExpansionServiceTest {
 
 	@Resource

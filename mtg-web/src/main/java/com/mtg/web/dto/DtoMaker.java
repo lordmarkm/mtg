@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang.Validate;
 
 import com.mtg.commons.models.collections.Wanted;
+import com.mtg.commons.models.interactive.Post;
 
 public class DtoMaker {
 
@@ -33,5 +34,13 @@ public class DtoMaker {
                 .put("count", wanted.getCount())
                 .put("note", wanted.getNote());    
     }
+
+	public static Map<String, Object> transform(Post post) {
+		Validate.notNull(post);
+		return map()
+				.put("title", post.getTitle())
+				.put("text", post.getText())
+				.put("postDate", post.getPostdate());
+	}
     
 }

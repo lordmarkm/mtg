@@ -21,11 +21,12 @@ import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.PlayerService;
+import com.mtg.commons.services.config.CommonsPersistenceConfig;
 import com.mtg.commons.services.config.CommonsServicesConfig;
 import com.mtg.security.models.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CommonsServicesConfig.class, TestPersistenceConfig.class})
+@ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class, TestPersistenceConfig.class})
 @Transactional //rollback after every test
 public class PlayerServiceTest {
 	

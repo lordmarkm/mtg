@@ -7,9 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.mtg.commons.models.AbstractEntity;
+import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.magic.MagicPlayer;
 
 @Entity
@@ -22,6 +24,9 @@ public class Meetup extends AbstractEntity implements Location {
 	@ManyToMany
 	private List<MagicPlayer> players;
 
+	@OneToMany
+	private List<Post> posts;
+	
 	@Column
 	private boolean banned = false;
 	
@@ -56,6 +61,14 @@ public class Meetup extends AbstractEntity implements Location {
 
 	public void setBanned(boolean banned) {
 		this.banned = banned;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 	
 }

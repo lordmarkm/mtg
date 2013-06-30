@@ -1,6 +1,5 @@
 package com.mtg.mail.dto;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.core.style.ToStringCreator;

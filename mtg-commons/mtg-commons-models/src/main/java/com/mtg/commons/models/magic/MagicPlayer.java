@@ -15,6 +15,7 @@ import org.hibernate.annotations.Type;
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.collections.Wanted;
+import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
@@ -37,6 +38,9 @@ public class MagicPlayer extends AbstractEntity {
 
     @ManyToMany(cascade=CascadeType.ALL)
     private List<Wanted> wanted;
+    
+    @OneToMany
+    private List<Post> posts;
     
 	@Type(type="text")
     private String contact;
@@ -96,6 +100,14 @@ public class MagicPlayer extends AbstractEntity {
 
 	public void setWanted(List<Wanted> wanted) {
 		this.wanted = wanted;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 

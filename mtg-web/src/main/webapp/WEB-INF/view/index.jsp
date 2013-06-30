@@ -28,7 +28,7 @@
 <script>
 var page = {
 		target : '${target?if_exists}',
-		welcome: '<@spring.url "/support/welcome" />'
+		frontpage : '<@spring.url "/support/frontpage" />'
 }
 </script>
 

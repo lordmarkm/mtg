@@ -29,10 +29,11 @@ import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.services.config.CommonsPersistenceConfig;
 import com.mtg.commons.services.config.CommonsServicesConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CommonsServicesConfig.class})
+@ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class})
 public class BinderServiceTest {
 
     @Resource

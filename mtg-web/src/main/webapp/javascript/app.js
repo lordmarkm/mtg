@@ -132,7 +132,7 @@ $(function(){
 	if(page.target) {
 		go(page.target);
 	} else {
-		go(page.welcome);
+		go(page.frontpage);
 	}
 	
 	$(window).bind('popstate', function(e) {
