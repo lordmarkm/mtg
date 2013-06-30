@@ -6,6 +6,8 @@
   </h2>
 
   <dl id="updates-list">
+    <dt>June 26, 2013
+    <dd>Tomescour.org now online, yey! Also renamed Tomescour from Magic Online Binder
     <dt>June 22, 2013
     <dd>
       <ol>
