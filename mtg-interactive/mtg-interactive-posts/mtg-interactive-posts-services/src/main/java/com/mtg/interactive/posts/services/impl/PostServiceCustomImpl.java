@@ -64,9 +64,9 @@ public class PostServiceCustomImpl implements PostServiceCustom {
 	protected Postable setParent(MagicPlayer author, Post post, PostParentType parentType, long parentId) {
 		
 		PostParent postParent = new PostParent();
-		post.setParent(postParent);
 		postParent.setParentType(parentType);
 		postParent.setParentId(parentId);
+		post.setParent(postParent);
 		
 		switch(parentType) {
 		case frontpage:

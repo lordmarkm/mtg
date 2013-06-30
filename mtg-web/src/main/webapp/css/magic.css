@@ -1,3 +1,7 @@
+.post-container {
+  border-bottom: 1px solid black;
+}
+
 .profile-image {
 	max-width: 230px !important;
 	max-height: 230px !important;

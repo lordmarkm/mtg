@@ -14,7 +14,7 @@ public class PostForm {
 	@NotEmpty(message = "Text can't be empty")
 	private String text;
 	
-	private long parentId = 0; //may be null for frontpage posts
+	private long parentId = 1; //may be null for frontpage posts
 
 	@Override
 	public String toString() {
