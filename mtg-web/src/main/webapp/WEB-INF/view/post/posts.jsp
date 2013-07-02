@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
 
 <#list posts as post>
@@ -5,6 +6,7 @@
     <div><strong>${post.title }</strong></div>
     <p><@tools.nl2br string=post.text />
     <div>
+      <span><a href="<@spring.url '/post/${post.id?c }/${post.urlFragment?url }' />">${post.replyCount } comments</a></span>
       <span class="pull-right fromNow">${post.postdate }</span>
     </div>
     <div class="clearfix"></div>

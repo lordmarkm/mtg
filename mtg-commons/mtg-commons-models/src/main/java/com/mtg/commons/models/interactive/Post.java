@@ -50,6 +50,10 @@ public class Post implements Commentable {
 
 	@Embedded
 	private PostParent parent;
+
+	@Column
+	@Type(type="text")
+	private String urlFragment;
 	
 	@Override
 	public String toString() {
@@ -129,6 +133,14 @@ public class Post implements Commentable {
 
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
+	}
+
+	public String getUrlFragment() {
+		return urlFragment;
+	}
+
+	public void setUrlFragment(String urlFragment) {
+		this.urlFragment = urlFragment;
 	}
 
 

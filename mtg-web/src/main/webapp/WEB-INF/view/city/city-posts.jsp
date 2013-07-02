@@ -15,7 +15,7 @@
 
 <script>
 var postableUrls = {
-  load : '<@spring.url "/post/city/${city.id?c}?ajax" />'
+  load : '<@spring.url "/post/city/${city.id?c}/${city.urlFragment}?ajax" />'
 }
 </script>
 <script src="<@spring.url '/javascript/postable.js' />"></script>

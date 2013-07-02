@@ -16,6 +16,7 @@ import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.services.AbstractEntityService;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
 import com.mtg.commons.services.MeetupService;
@@ -27,7 +28,7 @@ import com.mtg.security.services.AccountService;
 import com.mtg.security.services.support.Roles;
 
 @Transactional
-public class PostServiceCustomImpl implements PostServiceCustom {
+public class PostServiceCustomImpl extends AbstractEntityService implements PostServiceCustom {
 
 	private static Logger log = LoggerFactory.getLogger(PostServiceCustomImpl.class);
 	
@@ -54,6 +55,7 @@ public class PostServiceCustomImpl implements PostServiceCustom {
 			MagicPlayer author) {
 		
 		Post saved = posts.save(post);
+		saved.setUrlFragment(urlfragment(saved.getTitle()));
 		
 		//parent
 		Postable parent = setParent(author, saved, parentType, parentId);

@@ -1,5 +1,7 @@
 package com.mtg.web.config;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -14,6 +16,11 @@ public class FreeMarkerConfig extends WebMvcConfigurerAdapter {
     public FreeMarkerConfigurer freemarkerConfig() {
         FreeMarkerConfigurer result = new FreeMarkerConfigurer();
         result.setTemplateLoaderPath("/WEB-INF/view/");
+        
+        Properties settings = new Properties();
+        settings.put("url_escaping_charset", "UTF-8");
+        result.setFreemarkerSettings(settings);
+        
         return result;
     }
     

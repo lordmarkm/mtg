@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,18 @@ public class PostControllerImpl extends GenericController implements PostControl
 	}
 	
 	@Override
+	public ModelAndView viewpost(Principal principal, @PathVariable Long id, @PathVariable String urlFragment) {
+
+		log.info("View post request. user={}, post={}: {}", name(principal), id, urlFragment);
+		
+		Post post = posts.findOne(id);
+		Validate.notNull(post);
+		
+		return mav("post/post")
+				.addObject("post", post);
+	}
+	
+	@Override
 	public JSON post(Principal principal, @PathVariable PostParentType parentType,
 			@Valid PostForm form, BindingResult result) {
 		
@@ -61,9 +74,10 @@ public class PostControllerImpl extends GenericController implements PostControl
 
 	@Override
 	public ModelAndView posts(Principal principal, @PathVariable PostParentType parentType,
-			@PathVariable Long parentId, PageRequestDto request) {
+			@PathVariable Long parentId, @PathVariable String parentUrl, PageRequestDto request) {
 		
-		log.info("Posts requested. user={}, parent= {} {}, page = {}", name(principal), parentType, parentId, request);
+		log.info("Posts requested. user={}, parent= {} {}: {}, page = {}", name(principal), parentType, parentId,
+				parentUrl, request);
 		
 		List<Post> postsPage =  posts.findByParent(parentType, parentId, request.toPageRequest());
 		return mav("post/posts").addObject("posts", postsPage);

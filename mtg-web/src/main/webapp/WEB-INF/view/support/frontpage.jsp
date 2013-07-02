@@ -15,7 +15,7 @@
 
 <script>
 var postableUrls = {
-  load : '<@spring.url "/post/frontpage/1?ajax" />'
+  load : '<@spring.url "/post/frontpage/1/frontpage?ajax" />'
 }
 </script>
 <script src="<@spring.url '/javascript/postable.js' />"></script>

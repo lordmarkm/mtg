@@ -18,12 +18,24 @@ import com.mtg.web.dto.PostForm;
 @RequestMapping("/post")
 public interface PostController {
 
+	/**
+	 * View individual post + comments
+	 */
+	@RequestMapping(value = "/{id}/{urlFragment}")
+	ModelAndView viewpost(Principal principal, Long id, String urlFragment);
+	
+	/**
+	 * New post
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/{parentType}", method = RequestMethod.POST)
 	JSON post(Principal principal, PostParentType parentType, PostForm post, BindingResult result);
 
-	@RequestMapping(value = "/{parentType}/{parentId}")
+	/**
+	 * Display post list
+	 */
+	@RequestMapping(value = "/{parentType}/{parentId}/{parentUrl}")
 	ModelAndView posts(Principal principal, PostParentType parentType,
-			Long parentId, PageRequestDto request);
+			Long parentId, String parentUrl, PageRequestDto request);
 	
 }
