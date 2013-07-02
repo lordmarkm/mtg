@@ -11,10 +11,8 @@
   <packaging>war</packaging>
   <name>MtG :: Web</name>
 
-  <!-- 
-    Differentiate the image directory and audit log file between linux and windows machines
-    Windows profile is default.
-   -->
+  <!-- Differentiate the image directory and audit log file between linux 
+    and windows machines Windows profile is default. -->
   <profiles>
     <profile>
       <id>windows</id>
@@ -75,7 +73,7 @@
       </build>
     </profile>
 
-    <!-- reparse countries when active-->    
+    <!-- reparse countries when active -->
     <profile>
       <id>reparse</id>
       <properties>
@@ -139,7 +137,7 @@
       <artifactId>mtg-interactive-posts-services</artifactId>
       <version>${project.version}</version>
     </dependency>
-        
+
     <!-- SPRING -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -189,6 +187,15 @@
       </exclusions>
     </dependency>
 
+    <!-- GUAVA -->
+    <!-- 
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>14.0.1</version>
+    </dependency>
+    -->
+    
     <!-- JACKSON -->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>

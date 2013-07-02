@@ -1,10 +1,13 @@
 package com.mtg.commons.models.locations;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,6 +23,10 @@ public class Meetup extends AbstractEntity implements Location {
 
 	@ManyToOne
 	private City city;
+	
+	@ManyToMany
+	@JoinTable(name = "meetups_moderators")
+	private Set<MagicPlayer> moderators;
 	
 	@ManyToMany
 	private List<MagicPlayer> players;
@@ -69,6 +76,17 @@ public class Meetup extends AbstractEntity implements Location {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public Set<MagicPlayer> getModerators() {
+		if(null == moderators) {
+			moderators = new HashSet<MagicPlayer>();
+		}
+		return moderators;
+	}
+
+	public void setModerators(Set<MagicPlayer> moderators) {
+		this.moderators = moderators;
 	}
 	
 }

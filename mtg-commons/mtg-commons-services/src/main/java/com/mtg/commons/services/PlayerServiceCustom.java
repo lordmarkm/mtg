@@ -2,6 +2,7 @@ package com.mtg.commons.services;
 
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.service.support.LastModeratorCantLeaveException;
 
 public interface PlayerServiceCustom {
 
@@ -18,8 +19,9 @@ public interface PlayerServiceCustom {
 
 	/**
 	 * Removes city from player's list of cities, then if the city has no more players and no meetups, deletes 
+	 * @throws LastModeratorCantLeaveException 
 	 */
-	void removeCity(MagicPlayer player, Long cityId);
+	void removeCity(MagicPlayer player, Long cityId) throws LastModeratorCantLeaveException;
 
 	/**
 	 * Add an existing meetup
@@ -35,8 +37,9 @@ public interface PlayerServiceCustom {
 	
 	/**
 	 * Removes meetup from player's list of meetups, then if the meetup has no more players, deletes it
+	 * @throws LastModeratorCantLeaveException 
 	 */
-	void removeMeetup(MagicPlayer player, Long meetupId);
+	void removeMeetup(MagicPlayer player, Long meetupId) throws LastModeratorCantLeaveException;
 	
 	/**
 	 * Set a new country

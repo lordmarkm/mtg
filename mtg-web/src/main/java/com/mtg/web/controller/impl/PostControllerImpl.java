@@ -66,7 +66,7 @@ public class PostControllerImpl extends GenericController implements PostControl
 		log.info("Posts requested. user={}, parent= {} {}, page = {}", name(principal), parentType, parentId, request);
 		
 		List<Post> postsPage =  posts.findByParent(parentType, parentId, request.toPageRequest());
-		return mav("support/frontpage-posts").addObject("posts", postsPage);
+		return mav("post/posts").addObject("posts", postsPage);
 	}
 
 }

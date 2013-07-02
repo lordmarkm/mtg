@@ -52,6 +52,12 @@
       <artifactId>mtg-interactive-posts-models</artifactId>
     </dependency>
 
+    <!-- ASPECTJ -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    
     <!-- TEST -->
     <dependency>
       <groupId>mtg-commons</groupId>

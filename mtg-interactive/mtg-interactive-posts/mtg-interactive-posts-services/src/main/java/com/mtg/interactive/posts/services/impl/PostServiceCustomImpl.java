@@ -3,6 +3,8 @@ package com.mtg.interactive.posts.services.impl;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Frontpage;
@@ -27,6 +29,8 @@ import com.mtg.security.services.support.Roles;
 @Transactional
 public class PostServiceCustomImpl implements PostServiceCustom {
 
+	private static Logger log = LoggerFactory.getLogger(PostServiceCustomImpl.class);
+	
 	@Resource
 	private PostService posts;
 	
@@ -94,6 +98,20 @@ public class PostServiceCustomImpl implements PostServiceCustom {
 		default:
 			throw new IllegalArgumentException("Unhandled post parent type: " + parentType);
 		}
+		
+	}
+
+	@Override
+	public void hide(MagicPlayer player, Post post) {
+		
+		log.info("Hiding post. player={}, post={}", player, post);
+		
+	}
+
+	@Override
+	public void edit(MagicPlayer player, Post post) {
+		
+		log.info("Editing post. player={}, post={}", player, post);
 		
 	}
 

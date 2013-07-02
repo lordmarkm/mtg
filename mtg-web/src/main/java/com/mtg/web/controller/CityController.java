@@ -11,10 +11,21 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping({"/cities","/ct"})
 public interface CityController {
 
+	String[] PATTERNS = new String[]{"/cities/**", "/ct/**"};
+	
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView browse(Principal principal);
 	
 	@RequestMapping(value = "/{urlFragment}", method = RequestMethod.GET)
 	ModelAndView city(Principal principal, String urlFragment);
+	
+	@RequestMapping(value = "/{urlFragment}/players", method = RequestMethod.GET)
+	ModelAndView players(Principal principal, String urlFragment);
+
+	@RequestMapping(value = "/{urlFragment}/newpost", method = RequestMethod.GET)
+	ModelAndView newpost(Principal principal, String urlFragment);
+	
+	@RequestMapping(value = "/{urlFragment}/manage", method = RequestMethod.GET)
+	ModelAndView manage(Principal principal, String urlFragment);
 	
 }

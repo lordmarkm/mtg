@@ -1,8 +1,6 @@
 <#import "/spring.ftl" as spring />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
-
-
 <@sec.authorize access="hasRole('ROLE_ADMIN')">
 <div class="well">
   <p>Admin actions
@@ -16,31 +14,8 @@
 <button id="btn-loadmore" class="btn">Load more</button>
 
 <script>
-var frontpageUrls = {
+var postableUrls = {
   load : '<@spring.url "/post/frontpage/1?ajax" />'
 }
-
-$(function() {
-  
-  var page = 0, size = 5;
-  var 
-   $loadhere = $('#posts-loadhere'),
-   $btnLoad = $('#btn-loadmore');
-  
-  function loadmore() {
-    loadhere.loading();
-    $.get(frontpageUrls.load, {page: page, size: size}, function(response) {
-      $loadhere.append(response);
-      loadhere.notloading();
-    });
-  }
-  
-  $btnLoad.click(function(){
-    page += 1;
-    loadmore();
-  });
-  
-  loadmore(); //first time
-  
-});
 </script>
+<script src="<@spring.url '/javascript/postable.js' />"></script>

@@ -35,6 +35,9 @@ public class Post implements Commentable {
 	@ManyToOne(optional=false)
 	private MagicPlayer author;
 	
+	@Column
+	private int replyCount = 0;
+	
 	@OneToMany
 	private List<Comment> replies;
 	
@@ -119,5 +122,14 @@ public class Post implements Commentable {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 
 }

@@ -14,8 +14,10 @@ import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
+import com.mtg.commons.models.locations.Location;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.service.support.LastModeratorCantLeaveException;
 import com.mtg.commons.services.AbstractEntityService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.CityService;
@@ -44,6 +46,17 @@ public class PlayerServiceCustomImpl extends AbstractEntityService implements Pl
 	@Resource
 	private CardService cards;
 	
+	private void stopLastModFromLeaving(Location location, MagicPlayer player) throws LastModeratorCantLeaveException {
+		//The last moderator of a location may not leave that location until he grants 
+		//mod status to at least one other location member, unless that location is empty
+		
+		if(location.getModerators().contains(player)           //player is a moderator
+				&& location.getModerators().size() == 1        //player is the last moderator
+				&& location.getPlayers().size() > 1) {         //there are other players in the location
+			throw new LastModeratorCantLeaveException("The last moderator can't leave a non-empty location!");
+		}
+	}
+	
 	private boolean addCity(MagicPlayer player, City city) {
 		Validate.notNull(city);
 		Validate.notNull(player);
@@ -57,6 +70,11 @@ public class PlayerServiceCustomImpl extends AbstractEntityService implements Pl
 		
 		player.getCities().add(city);
 		city.getPlayers().add(player);
+		
+		if(city.getModerators().size() == 0) {
+			city.getModerators().add(player);
+		}
+		
 		return true;
 	}
 	
@@ -71,6 +89,11 @@ public class PlayerServiceCustomImpl extends AbstractEntityService implements Pl
 		
 		player.getMeetups().add(meetup);
 		meetup.getPlayers().add(player);
+		
+		if(meetup.getModerators().size() == 0) {
+			meetup.getModerators().add(player);
+		}
+		
 		return true;
 	}
 	
@@ -97,32 +120,28 @@ public class PlayerServiceCustomImpl extends AbstractEntityService implements Pl
 		city.setDescription(cityDesc);
 		city.setCountry(country);
 		city.setUrlFragment(urlfragment(cityName));
+		city.getModerators().add(player);
 		
-		if(addCity(player, city)) {
-			cities.save(city); //needs separate save, there is no cascade player->city
-			return service.save(player);
-		}
+		addCity(player, city);
 		
-		return player;
+		cities.save(city); //needs separate save, there is no cascade player->city
+		return service.save(player);
 	}
 
 	@Override
-	public void removeCity(MagicPlayer player, Long cityId) {
+	public void removeCity(MagicPlayer player, Long cityId) throws LastModeratorCantLeaveException {
 		
 		City city = cities.findOne(cityId);
 		Validate.notNull(player);
 		Validate.notNull(city);
 		
+		stopLastModFromLeaving(city, player);
+		
 		player.getCities().remove(city);
 		service.save(player);
 		
 		city.getPlayers().remove(player);
-		if(city.getPlayers().size() == 0 && city.getMeetups().size() == 0) {
-			cities.delete(city);
-		} else {
-			cities.save(city);
-		}
-		
+		city.getModerators().remove(player);
 	}
 	
 	@Override
@@ -147,32 +166,27 @@ public class PlayerServiceCustomImpl extends AbstractEntityService implements Pl
 		meetup.setDescription(meetupDesc);
 		meetup.setCity(city);
 		meetup.setUrlFragment(urlfragment(meetupName));
+		meetup.getModerators().add(player);
 		
-		if(addMeetup(player, meetup)) {
-			meetups.save(meetup);
-			return service.save(player);
-		}
+		addMeetup(player, meetup);
 		
-		return player;
+		meetups.save(meetup);
+		return service.save(player);
 	}
 	
 	@Override
-	public void removeMeetup(MagicPlayer player, Long meetupId) {
-		
+	public void removeMeetup(MagicPlayer player, Long meetupId) throws LastModeratorCantLeaveException {
 		Meetup meetup = meetups.findOne(meetupId);
 		Validate.notNull(player);
 		Validate.notNull(meetup);
+		
+		stopLastModFromLeaving(meetup, player);
 		
 		player.getMeetups().remove(meetup);
 		service.save(player);
 		
 		meetup.getPlayers().remove(player);
-		if(meetup.getPlayers().size() == 0) {
-			meetups.delete(meetup);
-		} else {
-			meetups.save(meetup);
-		}
-		
+		meetup.getModerators().remove(player);
 	}
 
 	@Override

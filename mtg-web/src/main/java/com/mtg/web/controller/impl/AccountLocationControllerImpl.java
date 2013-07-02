@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.magic.MagicPlayer;
+import com.mtg.commons.service.support.LastModeratorCantLeaveException;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
 import com.mtg.commons.services.MeetupService;
@@ -110,7 +111,12 @@ public class AccountLocationControllerImpl extends GenericController implements 
 		log.info("Remove city request. user={}, city id={}", name(principal), cityId);
 		
 		MagicPlayer player = player(principal);
-		players.removeCity(player, cityId);
+		
+		try {
+			players.removeCity(player, cityId);
+		} catch (LastModeratorCantLeaveException e) {
+			return JSON.error("Assign a new moderator before leaving");
+		}
 		
 		return JSON.ok();
 	}
@@ -169,7 +175,11 @@ public class AccountLocationControllerImpl extends GenericController implements 
 		log.info("Remove meetup request. user={}, meetup id={}", name(principal), meetupId);
 		
 		MagicPlayer player = player(principal);
-		players.removeMeetup(player, meetupId);
+		try {
+			players.removeMeetup(player, meetupId);
+		} catch (LastModeratorCantLeaveException e) {
+			return JSON.error("Assign a new moderator before leaving");
+		}
 		
 		return JSON.ok();
 	}

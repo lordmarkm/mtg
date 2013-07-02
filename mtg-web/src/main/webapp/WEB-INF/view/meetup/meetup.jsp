@@ -12,7 +12,12 @@
 </#list>
 </ol>
 
-
+<#if meetup.moderators?has_content>
+<p>Moderators:
+  <#list meetup.moderators as moderator>
+  <a href="<@spring.url '/u/${moderator.name }' />">${moderator.name }</a>
+  </#list>
+</#if>
 
 <#else>
 <div class="alert alert-info">Meetup not found</div>

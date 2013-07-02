@@ -1,27 +1,27 @@
 package com.mtg.interactive.posts.services;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.mtg.audit.service.AuditLogger;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
 import com.mtg.commons.services.MeetupService;
-import com.mtg.commons.services.PlayerService;
-import com.mtg.security.services.AccountService;
+import com.mtg.mail.service.MailSenderService;
 
 @Configuration
 public class PostsServicesTestConfig {
 
 	@Bean
-	public PlayerService playerService() {
-		return mock(PlayerService.class);
+	public MailSenderService mailer() {
+		return mock(MailSenderService.class);
 	}
 	
 	@Bean
-	public AccountService accountService() {
-		return mock(AccountService.class);
+	public AuditLogger audit() {
+		return mock(AuditLogger.class);
 	}
 	
 	@Bean

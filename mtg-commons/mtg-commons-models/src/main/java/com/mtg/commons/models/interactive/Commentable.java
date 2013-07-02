@@ -5,5 +5,6 @@ import java.util.List;
 public interface Commentable {
 
 	public List<Comment> getReplies();
+	public int getReplyCount();
 	
 }

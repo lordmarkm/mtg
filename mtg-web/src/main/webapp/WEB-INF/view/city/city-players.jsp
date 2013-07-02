@@ -1,14 +1,14 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
-
 <span id="active-navbar-class" class="hide">communities</span>
 
 <#if city.banned>
 <div class="alert alert-error">This city has been banned</div>
-<#elseif (city.players?size == 0)>
-<div class="alert alert-info">There is nobody in this city</div>
 <#else>
-<h3>People in ${city.name }</h3>
+
+<h3>${city.name }</h3>
+<@tools.citynav city=city active=2/>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -31,5 +31,12 @@
     </#list>
   </tbody>
 </table>
+
+<#if city.moderators?has_content>
+<p>Moderators: 
+  <#list city.moderators as moderator>
+  <a href="/u/${moderator.name }">${moderator.name }</a>
+  </#list>
+</#if>
 
 </#if>

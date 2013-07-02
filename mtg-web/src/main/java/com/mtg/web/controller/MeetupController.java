@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping({"/meetups", "/m"})
 public interface MeetupController {
 
+	String[] PATTERNS = new String[] {"/meetups/**", "/m/**"};
+	
     @RequestMapping("/{url}")
     ModelAndView browse(String url);
     

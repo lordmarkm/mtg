@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,6 +15,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.mtg.web.controller.CityController;
+import com.mtg.web.controller.CountryController;
+import com.mtg.web.controller.MeetupController;
+import com.mtg.web.interceptor.LocationInterceptor;
 import com.mtg.web.interceptor.NavbarInterceptor;
 import com.mtg.web.interceptor.OnePageInterceptor;
 import com.mtg.web.support.DbMessageSource;
@@ -22,6 +27,7 @@ import com.mtg.web.support.DbMessageSource;
 @Configuration
 @ComponentScan(basePackages = "com.mtg.web")
 @PropertySource({"classpath:app.properties", "classpath:mvc.properties"})
+@EnableAspectJAutoProxy
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
@@ -32,6 +38,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Resource
 	private OnePageInterceptor onepageInterceptor;
+	
+	@Resource
+	private LocationInterceptor locationInterceptor;
 	
     @Bean
     public MessageSource messageSource() {
@@ -67,5 +76,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
     	registry.addInterceptor(navbarInterceptor);
     	registry.addInterceptor(onepageInterceptor);
+    	registry.addInterceptor(locationInterceptor)
+    		.addPathPatterns(MeetupController.PATTERNS)
+    		.addPathPatterns(CityController.PATTERNS)
+    		.addPathPatterns(CountryController.PATTERNS);
     }
 }

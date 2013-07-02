@@ -19,6 +19,6 @@ public interface CityService extends JpaRepository<City, Long> {
 	@Query("from City c where c.banned != true")
 	List<City> findAllNotBanned();
 
-	City findByUrlFragment(String cityUrl);
+	City findByUrlFragment(String urlFragment);
 	
 }

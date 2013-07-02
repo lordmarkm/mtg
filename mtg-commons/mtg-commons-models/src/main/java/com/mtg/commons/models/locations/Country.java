@@ -1,10 +1,14 @@
 package com.mtg.commons.models.locations;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,12 +31,16 @@ public class Country extends AbstractEntity implements Location {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Image flag;
 	
+	@ManyToMany
+	@JoinTable(name = "countries_moderators")
+	private Set<MagicPlayer> moderators;
+	
+	@OneToMany(mappedBy="country")
+	private List<MagicPlayer> players;
+
 	@OneToMany(mappedBy="country")
 	private List<City> cities;
 
-	@OneToMany(mappedBy="country")
-	private List<MagicPlayer> players;
-	
 	@OneToMany
 	private List<Post> posts;
 	
@@ -86,6 +94,17 @@ public class Country extends AbstractEntity implements Location {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public Set<MagicPlayer> getModerators() {
+		if(null == moderators) {
+			moderators = new HashSet<MagicPlayer>();
+		}
+		return moderators;
+	}
+
+	public void setModerators(Set<MagicPlayer> moderators) {
+		this.moderators = moderators;
 	}
 	
 	

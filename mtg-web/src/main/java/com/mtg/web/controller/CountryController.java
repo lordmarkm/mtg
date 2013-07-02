@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping({"/countries", "/cy"})
 public interface CountryController {
 
+	String[] PATTERNS = new String[]{"/countries/**", "/cy/**"};
+	
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView browse(Principal principal);
 	

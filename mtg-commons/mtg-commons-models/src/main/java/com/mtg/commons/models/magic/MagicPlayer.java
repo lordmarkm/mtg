@@ -11,10 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.collections.Binder;
 import com.mtg.commons.models.collections.Wanted;
+import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
@@ -39,12 +41,21 @@ public class MagicPlayer extends AbstractEntity {
     @ManyToMany(cascade=CascadeType.ALL)
     private List<Wanted> wanted;
     
-    @OneToMany
+    @OneToMany(mappedBy="author")
     private List<Post> posts;
+    
+    @OneToMany(mappedBy="author")
+    private List<Comment> comments;
     
 	@Type(type="text")
     private String contact;
     
+	public String toString() {
+		return new ToStringCreator(this)
+			.append("name", name)
+			.toString();
+	}
+	
     public List<Binder> getBinders() {
         if(null == binders) {
             binders = new ArrayList<Binder>();
@@ -108,6 +119,14 @@ public class MagicPlayer extends AbstractEntity {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 

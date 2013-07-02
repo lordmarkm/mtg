@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.mtg.commons.models.magic.MagicPlayer;
+
 
 @Entity
 @Table(name = "comments")
@@ -31,8 +33,14 @@ public class Comment implements Commentable {
 	private List<Comment> replies;
 
 	@Column
+	private int replyCount = 0;
+	
+	@Column
 	@Type(type="text")
 	private String text;
+	
+	@ManyToOne
+	private MagicPlayer author;
 	
 	public Commentable getParent() {
 		return post != null ? post : comment;
@@ -76,6 +84,22 @@ public class Comment implements Commentable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public MagicPlayer getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(MagicPlayer author) {
+		this.author = author;
+	}
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 	
 }
