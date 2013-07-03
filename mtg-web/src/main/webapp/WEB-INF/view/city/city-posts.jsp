@@ -11,7 +11,10 @@
 <@tools.citynav city=city active=0/>
 
 <div id="posts-loadhere"></div>
-<button id="btn-loadmore" class="btn">Load more</button>
+
+<div class="text-center mt20">
+  <button id="btn-loadmore" class="btn">Load more</button>
+</div>
 
 <script>
 var postableUrls = {

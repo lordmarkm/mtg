@@ -23,7 +23,7 @@ public class Frontpage implements Postable {
 	@Id
 	@GeneratedValue
 	private long id;
-	
+
 	@Override
 	public List<Post> getPosts() {
 		if(null == posts) {

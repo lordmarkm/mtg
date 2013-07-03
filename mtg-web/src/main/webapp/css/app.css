@@ -4,6 +4,7 @@ body {
   overflow-y: scroll;
 }
 
+.unoutlined {outline: 0;}
 .inline-block {display: inline-block;}
 .pointer {cursor: pointer;}
 .center {text-align: center;}

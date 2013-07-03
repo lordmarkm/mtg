@@ -10,6 +10,23 @@
   </#if>
 </#macro>
 
+<#macro postparentLink post>
+  <#switch post.parent.parentType>
+    <#case 'frontpage'>
+      <a href="<@spring.url '/support/frontpage' />">the frontpage</a>
+      <#break>
+    <#case 'meetup'>
+      <a href="<@spring.url '/m/${post.parent.parent.urlFragment}' />">${post.parent.parent.name}</a>
+      <#break>
+    <#case 'city'>
+      <a href="<@spring.url '/ct/${post.parent.parent.urlFragment}' />">${post.parent.parent.name}</a>
+      <#break>
+    <#case 'country'>
+      <a href="<@spring.url '/cy/${post.parent.parent.urlFragment}' />">${post.parent.parent.name}</a>
+      <#break>
+  </#switch>
+</#macro>
+
 <#macro citynav city active>
 <div class="tabbable">
   <ul class="nav nav-tabs">

@@ -3,26 +3,13 @@
 
 <#list posts as post>
   <div class="post-container">
-    <div><strong>${post.title }</strong></div>
-    <p><@tools.nl2br string=post.text />
+    <h4 class="post-title">${post.title }</h4>
+    Posted by ${post.author.name } to <@tools.postparentLink post=post /> <span class="fromNow">${post.postdate }</span>
     <div>
       <span><a href="<@spring.url '/post/${post.id?c }/${post.urlFragment?url }' />">${post.replyCount } comments</a></span>
-      <span class="pull-right fromNow">${post.postdate }</span>
     </div>
     <div class="clearfix"></div>
   </div>
 </#list>
 
-<script>
-$(function(){
-	if($('.fromNow').length === 0) {
-		$('#btn-loadmore').hide();
-		return;
-	}
-	
-	$('.fromNow').each(function(i, span){
-		var $span = $(span);
-		$span.text(moment($span.text()).fromNow()).removeClass('fromNow');
-	});
-});
-</script>
+<script src="<@spring.url '/javascript/fromnow.js' />"></script>

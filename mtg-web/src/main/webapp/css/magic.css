@@ -1,5 +1,9 @@
-.post-container {
-  border-bottom: 1px solid black;
+.fromNow {
+	display: none;
+}
+
+.post-title {
+	margin-bottom: 1px;
 }
 
 .profile-image {
