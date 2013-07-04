@@ -1,3 +1,28 @@
+.comment-expand {
+	font: x-small verdana,arial,helvetica,sans-serif;
+}
+.comment-expand:hover {
+	background-color: blue;
+	color:white;
+	text-decoration: none;
+}
+
+.comment-container {
+	margin-top: 15px;
+	margin-left: 20px;
+	padding-left: 10px;
+	border-left: 1px dotted grey;
+}
+
+.usertext-edit {
+	width: 500px;
+}
+
+.usertext-edit textarea {
+	width: 490px;
+  height: 100px;
+}
+
 #btn-loadmore {
   display: none;
 }

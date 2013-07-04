@@ -4,6 +4,8 @@ body {
   overflow-y: scroll;
 }
 
+.tiny {font-size: 0.82em;}
+.bold {font-weight: bold;}
 .unoutlined {outline: 0;}
 .inline-block {display: inline-block;}
 .pointer {cursor: pointer;}
@@ -17,6 +19,9 @@ body {
 .mb10 {margin-bottom: 10px;}
 .mb20 {margin-bottom: 20px;}
 .mb50 {margin-bottom: 50px;}
+
+.ml2 {margin-left: 2px;}
+.ml5 {margin-left: 5px;}
 
 .pd2 {padding: 2px;}
 

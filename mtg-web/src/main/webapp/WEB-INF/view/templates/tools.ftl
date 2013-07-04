@@ -44,3 +44,40 @@
   </ul>
 </div>
 </#macro>
+
+<#macro showcomment comment username>
+  <div class="comment-container">
+    <div class="comment-header">
+      <#if comment.deleted>
+      <span class="muted">[deleted]</span>
+      <#else>
+      <a href="javascript:;" class="comment-expand">[-]</a> <a href="<@spring.url '/u/${comment.author.name}' />">${comment.author.name}</a> 
+      </#if>
+      <span class="fromNow muted tiny">${comment.postdate}</span>
+    </div>
+    <div class="comment-body">
+      <#if comment.deleted>
+      <span class="muted">[deleted]</span>
+      <#else>
+      <div>
+        ${comment.text}
+      </div>
+      <small class="comment-controls" data-comment-id="${comment.id}">
+        <@sec.authorize access="isAuthenticated()">
+        <a class="link-comment-reply" href="javascript:;">reply</a>
+        </@sec.authorize>
+        <#if username == comment.author.name>
+        <a class="link-comment-delete" href="javascript:;">delete</a>
+        </#if>
+      </small>
+      <div class="reply">
+      </div>
+      </#if>
+      <div class="replies">
+      <#list comment.replies as reply>
+        <@showcomment reply username />
+      </#list>
+      </div>
+    </div>
+  </div>
+</#macro>

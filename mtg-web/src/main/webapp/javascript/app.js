@@ -59,6 +59,11 @@ var loadhere = {
 		}, 200);
 	},
 	
+	instaloading : function() {
+		loadhere.ensureElement();
+		loadhere.elem.loading();
+	},
+	
 	notloading : function() {
 		loadhere.ensureElement();
 		clearTimeout(loadhere.timeout);

@@ -22,6 +22,12 @@ import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
 import com.mtg.commons.models.locations.Meetup;
 
+/**
+ * WARNING: If you want to allow editing MagicPlayer.name, please also see:
+ *  1. UsernameInjectingInterceptor and the various places where mav.username is used
+ * @author mbmartinez
+ */
+
 @Entity
 @Table(name="magicplayers")
 public class MagicPlayer extends AbstractEntity {

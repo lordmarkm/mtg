@@ -6,6 +6,8 @@
   </h2>
 
   <dl id="updates-list">
+    <dt>July 4, 2013
+    <dd>Posts now working :)
     <dt>June 26, 2013
     <dd>Tomescour.org now online, yey! Also renamed Tomescour from Magic Online Binder
     <dt>June 22, 2013

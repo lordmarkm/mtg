@@ -1,5 +1,7 @@
 package com.mtg.web.interceptor;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -74,14 +76,4 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 	
 	}	
 	
-//	@Override
-//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-//		
-//		String uri = request.getRequestURI();
-//
-//		log.info("Redirecting to index page with target uri={}", uri);
-//		response.sendRedirect("/?uri=" + uri);
-//		
-//		return false;
-//	}
 }

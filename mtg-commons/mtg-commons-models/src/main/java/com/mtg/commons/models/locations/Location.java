@@ -8,6 +8,7 @@ import com.mtg.commons.models.magic.MagicPlayer;
 
 public interface Location extends Postable {
 
+    public static final String LOCATION = "location";
 	public static final String MEETUP = "meetup";
 	public static final String CITY = "city";
 	public static final String COUNTRY = "country";

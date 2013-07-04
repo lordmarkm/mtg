@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Comment;
@@ -28,52 +29,49 @@ public class CommentServiceCustomImpl implements CommentServiceCustom {
 	@Resource
 	private CommentService comments;
 	
+	protected Comment assembleComment(Principal principal, String text) {
+	    Account account = accounts.findByUsername(principal.getName());
+	    Validate.notNull(account);
+	    
+        Comment unsaved = new Comment();
+        unsaved.setText(text);
+        unsaved.setPostdate(DateTime.now());
+        Comment comment = comments.save(unsaved);
+        
+        MagicPlayer author = account.getPlayer();
+        author.getComments().add(comment);
+        comment.setAuthor(author);
+        
+        return comment;
+	}
+	
 	@Override
 	public Comment onComment(Principal principal, Long commentId, String text) {
-		Account account = accounts.findByUsername(principal.getName());
 		Comment parent = comments.findOne(commentId);
-		
-		Validate.notNull(account);
 		Validate.notNull(parent);
 		
-		MagicPlayer author = account.getPlayer();
-		
-		Comment comment = new Comment();
+		Comment comment = assembleComment(principal, text);
 		comment.setComment(parent);
-		comment.setText(text);
-		comment.setAuthor(author);
-		Comment saved = comments.save(comment);
-		
-		author.getComments().add(comment);
-		
+
 		parent.getReplies().add(comment);
 		parent.setReplyCount(parent.getReplyCount() + 1);
 		
-		return saved;
+		return comment;
 	}
 	
 	@Override
 	public Comment onPost(Principal principal, Long postId, String text) {
-		Account account = accounts.findByUsername(principal.getName());
 		Post post = posts.findOne(postId);
 		
-		Validate.notNull(account);
 		Validate.notNull(post);
 
-		MagicPlayer author = account.getPlayer();
-		
-		Comment comment = new Comment();
+		Comment comment = assembleComment(principal, text);
 		comment.setPost(post);
-		comment.setText(text);
-		comment.setAuthor(author);
-		Comment saved = comments.save(comment);
 
-		author.getComments().add(saved);
-		
-		post.getReplies().add(saved);
+		post.getReplies().add(comment);
 		post.setReplyCount(post.getReplyCount() + 1);
 		
-		return saved;
+		return comment;
 	}
 
 }

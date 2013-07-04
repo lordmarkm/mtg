@@ -21,6 +21,7 @@ import com.mtg.web.controller.MeetupController;
 import com.mtg.web.interceptor.LocationInterceptor;
 import com.mtg.web.interceptor.NavbarInterceptor;
 import com.mtg.web.interceptor.OnePageInterceptor;
+import com.mtg.web.interceptor.UsernameInjectingInterceptor;
 import com.mtg.web.support.DbMessageSource;
 
 @EnableWebMvc
@@ -41,6 +42,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Resource
 	private LocationInterceptor locationInterceptor;
+	
+	@Resource
+	private UsernameInjectingInterceptor usernameInjector;
 	
     @Bean
     public MessageSource messageSource() {
@@ -74,7 +78,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-    	registry.addInterceptor(navbarInterceptor);
+        registry.addInterceptor(usernameInjector);
+        registry.addInterceptor(navbarInterceptor);
     	registry.addInterceptor(onepageInterceptor);
     	registry.addInterceptor(locationInterceptor)
     		.addPathPatterns(MeetupController.PATTERNS)

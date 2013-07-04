@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import com.mtg.commons.models.magic.MagicPlayer;
 
@@ -19,87 +21,111 @@ import com.mtg.commons.models.magic.MagicPlayer;
 @Table(name = "comments")
 public class Comment implements Commentable {
 
-	@Id
-	@GeneratedValue
-	private long id;
-	
-	@ManyToOne
-	private Comment comment;
-	
-	@ManyToOne
-	private Post post;
-	
-	@OneToMany
-	private List<Comment> replies;
+    @Id
+    @GeneratedValue
+    private long id;
 
-	@Column
-	private int replyCount = 0;
-	
-	@Column
-	@Type(type="text")
-	private String text;
-	
-	@ManyToOne
-	private MagicPlayer author;
-	
-	public Commentable getParent() {
-		return post != null ? post : comment;
-	}
-	
-	public Comment getComment() {
-		return comment;
-	}
+    @Column(nullable = false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime postdate;
 
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
+    @ManyToOne
+    private Comment comment;
 
-	public Post getPost() {
-		return post;
-	}
+    @ManyToOne
+    private Post post;
 
-	public void setPost(Post post) {
-		this.post = post;
-	}
+    @OneToMany
+    @OrderBy("postdate desc")
+    private List<Comment> replies;
 
-	public List<Comment> getReplies() {
-		return replies;
-	}
+    @Column
+    private int replyCount = 0;
 
-	public void setReplies(List<Comment> replies) {
-		this.replies = replies;
-	}
+    @Column
+    @Type(type="text")
+    private String text;
 
-	public String getText() {
-		return text;
-	}
+    @ManyToOne
+    private MagicPlayer author;
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    @Column
+    private boolean deleted = false;
+    
+    public Commentable getParent() {
+        return post != null ? post : comment;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public Comment getComment() {
+        return comment;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
-	public MagicPlayer getAuthor() {
-		return author;
-	}
+    public Post getPost() {
+        return post;
+    }
 
-	public void setAuthor(MagicPlayer author) {
-		this.author = author;
-	}
+    public void setPost(Post post) {
+        this.post = post;
+    }
 
-	public int getReplyCount() {
-		return replyCount;
-	}
+    public List<Comment> getReplies() {
+        return replies;
+    }
 
-	public void setReplyCount(int replyCount) {
-		this.replyCount = replyCount;
-	}
-	
+    public void setReplies(List<Comment> replies) {
+        this.replies = replies;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public MagicPlayer getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(MagicPlayer author) {
+        this.author = author;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public DateTime getPostdate() {
+        return postdate;
+    }
+
+    public void setPostdate(DateTime postdate) {
+        this.postdate = postdate;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
 }

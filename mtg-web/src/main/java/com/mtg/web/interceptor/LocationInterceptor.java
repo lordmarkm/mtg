@@ -41,6 +41,11 @@ public class LocationInterceptor extends HandlerInterceptorAdapter {
 	private Location getLocation(ModelAndView mav) {
 		Map<String, Object> model = mav.getModel();
 		
+		//see CityController(etc)Impl.manage(..) and .newpost(..)
+		if(null != model.get("type")) {
+		    return (Location) model.get("location");
+		}
+		
 		Meetup m = (Meetup) model.get(Location.MEETUP);
 		if(null != m) return m;
 		

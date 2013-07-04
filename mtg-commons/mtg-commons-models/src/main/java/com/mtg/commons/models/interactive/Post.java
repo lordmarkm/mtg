@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -39,6 +40,7 @@ public class Post implements Commentable {
 	private int replyCount = 0;
 	
 	@OneToMany
+	@OrderBy("postdate desc")
 	private List<Comment> replies;
 	
 	@OneToMany
@@ -54,6 +56,9 @@ public class Post implements Commentable {
 	@Column
 	@Type(type="text")
 	private String urlFragment;
+	
+	@Column
+	private boolean deleted = false;
 	
 	@Override
 	public String toString() {
@@ -142,6 +147,14 @@ public class Post implements Commentable {
 	public void setUrlFragment(String urlFragment) {
 		this.urlFragment = urlFragment;
 	}
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
 
 }
