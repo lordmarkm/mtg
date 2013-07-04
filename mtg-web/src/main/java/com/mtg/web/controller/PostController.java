@@ -1,5 +1,6 @@
 package com.mtg.web.controller;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,11 @@ public interface PostController {
 	/**
 	 * Display post list
 	 */
-	@RequestMapping(value = "/{parentType}/{parentId}/{parentUrl}")
+	@RequestMapping(value = "/{parentType}/{parentId}/{parentUrl}", method = RequestMethod.GET)
 	ModelAndView posts(Principal principal, PostParentType parentType,
 			Long parentId, String parentUrl, PageRequestDto request);
 	
+	@ResponseBody
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	JSON delete(Principal principal, Long id) throws AccessDeniedException;
 }

@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/account/**").authenticated()
 				.antMatchers("/**/newpost").authenticated()
 				.antMatchers("/**/manage").authenticated()
-				.antMatchers("/comment/**").authenticated()
+				.antMatchers("/comment/post/**").authenticated() //lol POST methods in CommentController
 				.antMatchers("/**").permitAll()
 				.and()
 			.logout()

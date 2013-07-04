@@ -1,3 +1,7 @@
+.post-controls a {
+  margin-right: 3px;
+}
+
 .comment-expand {
 	font: x-small verdana,arial,helvetica,sans-serif;
 }
@@ -6,7 +10,9 @@
 	color:white;
 	text-decoration: none;
 }
-
+.comment-controls a {
+  margin-right: 3px;
+}
 .comment-container {
 	margin-top: 15px;
 	margin-left: 20px;
@@ -16,6 +22,7 @@
 
 .usertext-edit {
 	width: 500px;
+	margin-top: 5px;
 }
 
 .usertext-edit textarea {

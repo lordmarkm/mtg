@@ -33,10 +33,7 @@ public class NavbarInterceptor extends HandlerInterceptorAdapter {
 			Object handler, ModelAndView mav) throws Exception {
 	
 		//TODO I THINK the only time navbar image is ever loaded is with  a OnePageInterceptor redirect. Not sure though
-		String uri = request.getParameter("uri");
-		boolean hasUri = uri != null && uri.length() > 0;
-		
-		if(mav != null && hasUri) {
+		if(mav != null && mav.getModel().get("target") != null) {
 			Object auth = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(null != auth && auth instanceof User) {
 				log.info("Injecting account for navbar.");

@@ -1,5 +1,6 @@
 package com.mtg.interactive.posts.services.impl;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import com.mtg.interactive.posts.services.CommentServiceCustom;
 import com.mtg.interactive.posts.services.PostService;
 import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
+import com.mtg.security.services.support.Roles;
 
 @Transactional
 public class CommentServiceCustomImpl implements CommentServiceCustom {
@@ -54,11 +56,22 @@ public class CommentServiceCustomImpl implements CommentServiceCustom {
 		comment.setComment(parent);
 
 		parent.getReplies().add(comment);
-		parent.setReplyCount(parent.getReplyCount() + 1);
+		cascadeIncrementReplyCount(parent);
 		
 		return comment;
 	}
-	
+
+	//when somebody comments on a comment, he is not only replying to direct parent, but to all ancestors
+	protected void cascadeIncrementReplyCount(Comment comment) {
+		comment.setReplyCount(comment.getReplyCount() + 1);
+		if (null != comment.getPost()) {
+			Post progenitor = comment.getPost();
+			progenitor.setReplyCount(progenitor.getReplyCount() + 1);
+		} else if(null != comment.getComment()) {
+			cascadeIncrementReplyCount(comment.getComment());
+		}
+	}
+
 	@Override
 	public Comment onPost(Principal principal, Long postId, String text) {
 		Post post = posts.findOne(postId);
@@ -72,6 +85,36 @@ public class CommentServiceCustomImpl implements CommentServiceCustom {
 		post.setReplyCount(post.getReplyCount() + 1);
 		
 		return comment;
+	}
+
+	@Override
+	public Post getProgenitor(Comment comment) {
+		
+		Comment lastComment = comment;
+		Post progenitor = null;
+		while(null == progenitor) {
+			progenitor = lastComment.getPost();
+			lastComment = lastComment.getComment();
+		
+			//nothing found, should never happen, but catch just in case
+			if(null == lastComment) break;
+		}
+		
+		return progenitor;
+	}
+
+	@Override
+	public void hide(Principal principal, Long id) throws AccessDeniedException {
+		Account requestor = accounts.findByUsername(principal.getName());
+		Comment comment = comments.findOne(id);
+		Validate.notNull(comment);
+		Validate.notNull(requestor);
+		
+		if(comment.getAuthor().equals(requestor.getPlayer()) || Roles.hasRole(requestor, Roles.ROLE_ADMIN)) {
+			comment.setDeleted(true);
+		} else {
+			throw new AccessDeniedException("No! I am too sexy for you!");
+		}
 	}
 
 }

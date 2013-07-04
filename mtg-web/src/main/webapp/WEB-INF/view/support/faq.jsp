@@ -6,6 +6,9 @@
 <p>We wanted to be able to sell our cards without having to go to the local card 
 shop, and figured other people might want the same thing.
 
+<h4>How do I save links?</h4>
+
+
 <h4>Why doesn't feature X work?</h4>
 <p>Tomescour needs javascript and in some places HTML 5. Enabling javascript and
 updating your browser update will probably take care of any issues with the site. 

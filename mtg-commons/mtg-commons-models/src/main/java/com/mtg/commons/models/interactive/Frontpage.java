@@ -32,6 +32,11 @@ public class Frontpage implements Postable {
 		return posts;
 	}
 
+	@Override
+	public String getUrlFragment() {
+		return "frontpage";
+	}
+	
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}

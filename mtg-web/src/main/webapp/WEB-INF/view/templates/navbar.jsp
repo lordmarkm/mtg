@@ -12,7 +12,7 @@ var navbarUrls = {
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand unoutlined" href="<@spring.url '/support/frontpage' />">Tomescour.org</a>
+      <a class="brand unoutlined" style="outline: 0;" href="<@spring.url '/support/frontpage' />">Tomescour.org</a>
 	    <form class="navbar-form pull-left" style="height:40px;">
 	      <div class="input-append">
 			    <input id="navbar-search" type="text" autocomplete="off" class="span2" placeholder="Search for cards">

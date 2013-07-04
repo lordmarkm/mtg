@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class GenericController {
-
+	
 	protected String name(Principal principal) {
 		return null == principal ? "Anonymous" : principal.getName();
 	}
@@ -31,7 +31,8 @@ public abstract class GenericController {
 	}
 	
 	protected String basic(String src) {
-		src = src.replaceAll("\n", "br2nl");
+		Validate.notNull(src);
+		src = src.trim().replaceAll("[\r\n]+", "br2nl");
 		src = Jsoup.clean(src, Whitelist.basic());
 		return src.replaceAll("br2nl", "\n"); 
 	}

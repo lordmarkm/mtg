@@ -1,5 +1,7 @@
 package com.mtg.interactive.posts.services.impl;
 
+import java.nio.file.AccessDeniedException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,11 +109,17 @@ public class PostServiceCustomImpl extends AbstractEntityService implements Post
 		
 	}
 
-	@Override
-	public void hide(MagicPlayer player, Post post) {
+	public void hide(Principal principal, Long id) throws AccessDeniedException {
+		Validate.notNull(principal);
+		Account requestor = accounts.findByUsername(principal.getName());
+		Post post = posts.findOne(id);
+		Validate.notNull(post);
 		
-		log.info("Hiding post. player={}, post={}", player, post);
-		
+		if(post.getAuthor().equals(requestor.getPlayer()) || Roles.hasRole(requestor, Roles.ROLE_ADMIN)) {
+			post.setDeleted(true);
+		} else {
+			throw new AccessDeniedException("No! I am too sexy for you!");
+		}
 	}
 
 	@Override

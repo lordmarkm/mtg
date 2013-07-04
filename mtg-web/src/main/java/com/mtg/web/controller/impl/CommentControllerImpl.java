@@ -1,5 +1,6 @@
 package com.mtg.web.controller.impl;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.interactive.Comment;
+import com.mtg.commons.models.interactive.Post;
 import com.mtg.interactive.posts.services.CommentService;
 import com.mtg.web.controller.CommentController;
 import com.mtg.web.controller.GenericController;
@@ -28,13 +30,13 @@ public class CommentControllerImpl extends GenericController implements CommentC
 	private CommentService comments;
 	
 	@Override
-	public JSON onPost(Principal principal, @PathVariable Long id, @RequestParam String comment) {
+	public JSON onPost(Principal principal, @PathVariable Long id, @RequestParam String text) {
 		
-		log.info("Comment on post. user={}, post={}, text={}", name(principal), id, comment);
+		log.info("Comment on post. user={}, post={}, text={}", name(principal), id, text);
 		
-		comments.onPost(principal, id, comment);
+		Comment comment = comments.onPost(principal, id, basic(text));
 		
-		return JSON.ok();
+		return JSON.ok().put("comment", DtoMaker.transform(comment));
 	}
 
 	@Override
@@ -58,4 +60,26 @@ public class CommentControllerImpl extends GenericController implements CommentC
                 .addObject("comment", comment);
     }
 
+    
+    @Override
+    public ModelAndView permalink(Principal principal, @PathVariable Long id) {
+        log.info("Request to view a single comment. user={}, comment={}", name(principal), id);
+        
+        Comment comment = comments.findOne(id);
+        Validate.notNull(comment);
+        
+        Post post = comments.getProgenitor(comment);
+        Validate.notNull(post);
+        
+        return mav("post/comment-context")
+        		.addObject("post", post)
+                .addObject("comment", comment);
+    }
+
+	@Override
+	public JSON delete(Principal principal, @PathVariable Long id) throws AccessDeniedException {
+		log.info("Request to delete a comment. user={}, comment={}", name(principal), id);
+		comments.hide(principal, id);
+		return JSON.ok();
+	}
 }

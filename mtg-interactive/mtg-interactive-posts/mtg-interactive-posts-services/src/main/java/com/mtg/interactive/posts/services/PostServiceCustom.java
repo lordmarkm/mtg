@@ -1,5 +1,7 @@
 package com.mtg.interactive.posts.services;
 
+import java.nio.file.AccessDeniedException;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -18,8 +20,9 @@ public interface PostServiceCustom {
 
 	/**
 	 * "Delete"
+	 * @throws AccessDeniedException 
 	 */
-	public void hide(MagicPlayer player, Post post);
+	void hide(Principal principal, Long id) throws AccessDeniedException;
 
 	/**
 	 * Edit text only, titles can't be edited - mark last edit time

@@ -1,5 +1,6 @@
 package com.mtg.web.controller.impl;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 
@@ -90,6 +91,15 @@ public class PostControllerImpl extends GenericController implements PostControl
 		}
 		
 		return mav("post/posts").addObject("posts", postsPage);
+	}
+
+	@Override
+	public JSON delete(Principal principal, @PathVariable Long id) throws AccessDeniedException {
+		
+		log.info("Delete request for post. user={}, post={}", name(principal), id);
+		posts.hide(principal, id);
+		
+		return JSON.ok();
 	}
 
 }

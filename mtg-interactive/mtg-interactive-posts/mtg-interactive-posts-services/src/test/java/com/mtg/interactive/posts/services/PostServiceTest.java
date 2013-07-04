@@ -148,13 +148,6 @@ public class PostServiceTest {
 		service.edit(mod.getPlayer(), post);
 	}
 	
-	@Test(expected = AccessDeniedException.class)
-	public void noAccess() {
-		Account author = accountWithPlayer();
-		Post post = post(author);
-		service.hide(strangerWithPlayer().getPlayer(), post);
-	}
-	
 	private Meetup titan() {
 		Meetup titan = new Meetup();
 		titan.setName("titan");

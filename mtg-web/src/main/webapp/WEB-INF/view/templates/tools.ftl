@@ -45,6 +45,9 @@
 </div>
 </#macro>
 
+<#macro profilenav player active>
+</#macro>
+
 <#macro showcomment comment username>
   <div class="comment-container">
     <div class="comment-header">
@@ -60,7 +63,7 @@
       <span class="muted">[deleted]</span>
       <#else>
       <div>
-        ${comment.text}
+      <@nl2br string=comment.text />
       </div>
       <small class="comment-controls" data-comment-id="${comment.id}">
         <@sec.authorize access="isAuthenticated()">
@@ -69,6 +72,7 @@
         <#if username == comment.author.name>
         <a class="link-comment-delete" href="javascript:;">delete</a>
         </#if>
+        <a href="<@spring.url '/comment/permalink/${comment.id }' />">permalink</a>
       </small>
       <div class="reply">
       </div>
