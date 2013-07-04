@@ -1,10 +1,14 @@
 package com.mtg.interactive.posts.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Frontpage;
@@ -115,6 +119,35 @@ public class PostServiceCustomImpl extends AbstractEntityService implements Post
 		
 		log.info("Editing post. player={}, post={}", player, post);
 		
+	}
+
+	@Override
+	public List<Post> findByFrontpageOrLocation(MagicPlayer player,
+			Pageable pageRequest) {
+		
+		List<Long> cityIds = new ArrayList<Long>();
+		List<Long> meetupIds = new ArrayList<Long>();
+		
+		//city Ids
+		for(City city : player.getCities()) {
+			cityIds.add(city.getId());
+		}
+		if(cityIds.isEmpty()) {
+			cityIds.add(0L);
+		}
+		
+		//meetup Ids
+		for(Meetup meetup : player.getMeetups()) {
+			meetupIds.add(meetup.getId());
+		}
+		if(meetupIds.isEmpty()) {
+			meetupIds.add(0L);
+		}
+		
+		//country Id, 0 if stateless
+		Long countryId = player.getCountry() != null ? player.getCountry().getId() : 0L;
+
+		return posts.findByFrontpageOrLocation(cityIds, meetupIds, countryId, pageRequest);
 	}
 
 }

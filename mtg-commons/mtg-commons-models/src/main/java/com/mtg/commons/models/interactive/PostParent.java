@@ -2,6 +2,8 @@ package com.mtg.commons.models.interactive;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 import com.mtg.commons.models.locations.City;
@@ -19,6 +21,7 @@ public class PostParent {
 	}
 	
 	@Column
+	@Enumerated(EnumType.STRING)
 	private PostParentType parentType;
 	
 	@Column

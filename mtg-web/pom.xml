@@ -73,7 +73,10 @@
       </build>
     </profile>
 
-    <!-- reparse countries when active -->
+    <!-- 
+      reparse countries when active 
+      WARNING: must always be run together with linux or windows
+    -->
     <profile>
       <id>reparse</id>
       <properties>

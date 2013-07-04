@@ -16,4 +16,12 @@ public interface PostService extends JpaRepository<Post, Long>, PostServiceCusto
 	List<Post> findByParent(@Param("parentType") PostParentType parentType, @Param("parentId") Long parentId,
 			Pageable pageRequest);
 
+	@Query("from Post p where p.parent.parentType = 'frontpage' or " +
+		   "(p.parent.parentType = 'city'    and p.parent.parentId in (:cityIds)) or " +
+		   "(p.parent.parentType = 'meetup'  and p.parent.parentId in (:meetupIds)) or " +
+		   "(p.parent.parentType = 'country' and p.parent.parentId = :countryId) " +
+		   "order by p.postdate desc")
+	List<Post> findByFrontpageOrLocation(@Param("cityIds") List<Long> cityIds, @Param("meetupIds") List<Long> meetupIds,
+			@Param("countryId") Long countryId, Pageable pageRequest);
+
 }

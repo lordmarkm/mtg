@@ -1,5 +1,6 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
+<script src="<@spring.url '/javascript/fromnow.js' />"></script>
 
 <#list posts as post>
   <div class="post-container">
@@ -11,5 +12,3 @@
     <div class="clearfix"></div>
   </div>
 </#list>
-
-<script src="<@spring.url '/javascript/fromnow.js' />"></script>

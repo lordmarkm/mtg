@@ -79,7 +79,16 @@ public class PostControllerImpl extends GenericController implements PostControl
 		log.info("Posts requested. user={}, parent= {} {}: {}, page = {}", name(principal), parentType, parentId,
 				parentUrl, request);
 		
-		List<Post> postsPage =  posts.findByParent(parentType, parentId, request.toPageRequest());
+		List<Post> postsPage =  null;
+		
+		//if frontpage, also get posts from player's locations
+		if(parentType == PostParentType.frontpage && null != principal) {
+			MagicPlayer player = player(principal);
+			postsPage = posts.findByFrontpageOrLocation(player, request.toPageRequest());
+		} else {
+			postsPage = posts.findByParent(parentType, parentId, request.toPageRequest());
+		}
+		
 		return mav("post/posts").addObject("posts", postsPage);
 	}
 

@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,8 +15,12 @@ import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.interactive.PostParent;
 import com.mtg.commons.models.interactive.PostParent.PostParentType;
 import com.mtg.commons.models.locations.City;
+import com.mtg.commons.models.locations.Country;
+import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CityService;
+import com.mtg.commons.services.CountryService;
+import com.mtg.commons.services.MeetupService;
 import com.mtg.commons.services.PlayerService;
 import com.mtg.commons.services.config.CommonsPersistenceConfig;
 import com.mtg.commons.services.config.CommonsServicesConfig;
@@ -45,6 +50,12 @@ public class PostServiceTest {
 	
 	@Resource
 	private CityService cities;
+	
+	@Resource
+	private MeetupService meetups;
+	
+	@Resource
+	private CountryService countries;
 	
 	@Test
 	public void config() {
@@ -144,4 +155,32 @@ public class PostServiceTest {
 		service.hide(strangerWithPlayer().getPlayer(), post);
 	}
 	
+	private Meetup titan() {
+		Meetup titan = new Meetup();
+		titan.setName("titan");
+		titan.setDescription("titan");
+		return meetups.save(titan);
+	}
+	
+	private Country ph() {
+		Country ph = new Country();
+		ph.setName("Philippines");
+		ph.setDescription("ph");
+		return countries.save(ph);
+	}
+	
+	@Test
+	public void testFrontpageOrLocation() {
+		Account mod = accountWithPlayer();
+		City dgte = dgte();
+		Meetup titan = titan();
+		Country ph = ph();
+		
+		MagicPlayer player = mod.getPlayer();
+		player.getCities().add(dgte);
+		player.getMeetups().add(titan);
+		player.setCountry(ph);
+		
+		service.findByFrontpageOrLocation(player, new PageRequest(0, 10));
+	}
 }
