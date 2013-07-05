@@ -1,6 +1,5 @@
 package com.mtg.interactive.posts.services.impl;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Frontpage;

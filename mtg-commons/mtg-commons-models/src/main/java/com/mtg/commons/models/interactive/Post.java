@@ -22,6 +22,8 @@ import com.mtg.commons.models.magic.MagicPlayer;
 @Table(name="posts")
 public class Post implements Commentable {
 
+    public static final String PREFERRED_MODEL_KEY = "post";
+    
 	@Id
 	@GeneratedValue
 	private long id;

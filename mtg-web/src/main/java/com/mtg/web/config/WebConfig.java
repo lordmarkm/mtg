@@ -16,11 +16,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.mtg.web.controller.CityController;
+import com.mtg.web.controller.CommentController;
 import com.mtg.web.controller.CountryController;
 import com.mtg.web.controller.MeetupController;
+import com.mtg.web.controller.PostController;
 import com.mtg.web.interceptor.LocationInterceptor;
 import com.mtg.web.interceptor.NavbarInterceptor;
 import com.mtg.web.interceptor.OnePageInterceptor;
+import com.mtg.web.interceptor.PostOrCommentInterceptor;
 import com.mtg.web.interceptor.UsernameInjectingInterceptor;
 import com.mtg.web.support.DbMessageSource;
 
@@ -42,6 +45,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Resource
 	private LocationInterceptor locationInterceptor;
+	
+	@Resource
+	private PostOrCommentInterceptor postOrCommentInterceptor;
 	
 	@Resource
 	private UsernameInjectingInterceptor usernameInjector;
@@ -81,6 +87,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(usernameInjector);
         registry.addInterceptor(navbarInterceptor);
     	registry.addInterceptor(onepageInterceptor);
+    	registry.addInterceptor(postOrCommentInterceptor)
+    	    .addPathPatterns(CommentController.PATTERNS)
+    	    .addPathPatterns(PostController.PATTERNS);
     	registry.addInterceptor(locationInterceptor)
     		.addPathPatterns(MeetupController.PATTERNS)
     		.addPathPatterns(CityController.PATTERNS)

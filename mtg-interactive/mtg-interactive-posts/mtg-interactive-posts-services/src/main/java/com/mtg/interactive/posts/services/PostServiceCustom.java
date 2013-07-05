@@ -1,10 +1,10 @@
 package com.mtg.interactive.posts.services;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 
 import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.interactive.PostParent.PostParentType;

@@ -1,8 +1,8 @@
 package com.mtg.web.controller;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +19,8 @@ import com.mtg.web.dto.PostForm;
 @RequestMapping("/post")
 public interface PostController {
 
+    String[] PATTERNS = new String[] {"/post/**"};
+    
 	/**
 	 * View individual post + comments
 	 */

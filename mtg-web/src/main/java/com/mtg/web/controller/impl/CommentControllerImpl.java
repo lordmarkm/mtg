@@ -1,6 +1,5 @@
 package com.mtg.web.controller.impl;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
@@ -8,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,7 +57,7 @@ public class CommentControllerImpl extends GenericController implements CommentC
         Validate.notNull(comment);
         
         return mav("post/comment")
-                .addObject("comment", comment);
+                .addObject(Comment.PREFERRED_MODEL_KEY, comment);
     }
 
     
@@ -72,8 +72,8 @@ public class CommentControllerImpl extends GenericController implements CommentC
         Validate.notNull(post);
         
         return mav("post/comment-context")
-        		.addObject("post", post)
-                .addObject("comment", comment);
+        		.addObject(Post.PREFERRED_MODEL_KEY, post)
+                .addObject(Comment.PREFERRED_MODEL_KEY, comment);
     }
 
 	@Override

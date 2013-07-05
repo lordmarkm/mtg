@@ -35,13 +35,13 @@ $(function(){
 			tableInitialized = true;
 		},
 		fnServerData : function(sSource, aoData, fnCallback) {
-	    $.ajax({
-        'dataType' : 'json',
-        'type'     : 'GET',
-        'url'      : sSource,
-        'data'     : aoData,
-        'success'  : fnCallback
-      });			
+		    $.ajax({
+		        'dataType' : 'json',
+		        'type'     : 'GET',
+		        'url'      : sSource,
+		        'data'     : aoData,
+		        'success'  : fnCallback
+		    });			
 		},
 		aoColumnDefs   : [//[id, name, expansion, cost, rarity]
 		                  {bVisible: false, aTargets: [0]},

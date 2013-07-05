@@ -15,7 +15,7 @@
       <@sec.authorize access="isAuthenticated()">
       <a href="javascript:;">save</a>
       </@sec.authorize>
-      <#if post.author.name == username>
+      <#if post.author.name == username || moderator || admin>
       <a class="link-post-delete" href="javascript:;">delete</a>
       </#if>
     </small>

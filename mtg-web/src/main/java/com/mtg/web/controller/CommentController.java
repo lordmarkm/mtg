@@ -1,8 +1,8 @@
 package com.mtg.web.controller;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +15,8 @@ import com.mtg.web.dto.JSON;
 @RequestMapping("/comment")
 public interface CommentController {
 
+    String[] PATTERNS = new String[] {"/comment/**"};
+    
 	@ResponseBody
 	@RequestMapping(value = "/post/post/{id}", method = RequestMethod.POST)
 	JSON onPost(Principal principal, Long id, String text);

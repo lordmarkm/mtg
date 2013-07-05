@@ -1,7 +1,8 @@
 package com.mtg.interactive.posts.services;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
+
+import org.springframework.security.access.AccessDeniedException;
 
 import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;

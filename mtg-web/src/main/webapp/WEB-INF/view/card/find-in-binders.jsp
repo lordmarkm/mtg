@@ -38,7 +38,7 @@
   </tbody>
 </table>
 
-<#elseif !bundles?has_content>
+<#elseif card ?? && !bundles?has_content>
 <div class="alert alert-info"><strong>${card.name }</strong> not found in any binders</div>
 <#else>
 <div class="alert alert-info">Card not found</div>

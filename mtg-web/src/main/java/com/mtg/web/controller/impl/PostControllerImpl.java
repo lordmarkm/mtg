@@ -1,6 +1,5 @@
 package com.mtg.web.controller.impl;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +51,7 @@ public class PostControllerImpl extends GenericController implements PostControl
 		Validate.notNull(post);
 		
 		return mav("post/post")
-				.addObject("post", post);
+				.addObject(Post.PREFERRED_MODEL_KEY, post);
 	}
 	
 	@Override

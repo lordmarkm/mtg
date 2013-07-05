@@ -1,12 +1,12 @@
 package com.mtg.interactive.posts.services.impl;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Comment;
