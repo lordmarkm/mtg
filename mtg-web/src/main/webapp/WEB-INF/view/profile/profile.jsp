@@ -1,11 +1,12 @@
 <#import "/spring.ftl" as spring />
 <#import "../templates/tools.ftl" as tools />
+<#import "profile.ftl" as profile />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
 <#if !user.banned>
 
 <#include "profile-header.jsp">
-<@tools.profilenav player=user.player active=0/>
+<@profile.nav player=user.player active=0 />
 
 <div class="row-fluid">
   <div class="span4">
@@ -27,8 +28,8 @@
   <div class="span7 pull-right">
     <table class="table">
       <tr>
-        <th>Name</th>
-        <td>${user.player.name }</td>
+        <th style="border-top: 0;">Name</th>
+        <td style="border-top: 0;">${user.player.name }</td>
       </tr>
       <tr>
         <th>Date joined</th>

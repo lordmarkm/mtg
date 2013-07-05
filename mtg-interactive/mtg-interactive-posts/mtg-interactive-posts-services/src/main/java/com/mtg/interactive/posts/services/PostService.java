@@ -2,6 +2,7 @@ package com.mtg.interactive.posts.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.interactive.PostParent.PostParentType;
+import com.mtg.commons.models.magic.MagicPlayer;
 
 public interface PostService extends JpaRepository<Post, Long>, PostServiceCustom {
 
@@ -24,5 +26,8 @@ public interface PostService extends JpaRepository<Post, Long>, PostServiceCusto
 		   "order by p.postdate desc")
 	List<Post> findByFrontpageOrLocation(@Param("cityIds") List<Long> cityIds, @Param("meetupIds") List<Long> meetupIds,
 			@Param("countryId") Long countryId, Pageable pageRequest);
+
+	@Query("from Post p where p.author = :author and p.deleted = 'false' order by p.postdate desc")
+	Page<Post> findByAuthor(@Param("author") MagicPlayer author, Pageable pageable);
 
 }

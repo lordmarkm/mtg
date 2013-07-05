@@ -54,6 +54,19 @@ public class Comment implements Commentable {
     @Column
     private boolean deleted = false;
     
+    public Post getProgenitor() {
+		Comment lastComment = this;
+		Post progenitor = null;
+		while(null == progenitor) {
+			progenitor = lastComment.getPost();
+			lastComment = lastComment.getComment();
+		
+			//nothing found, should never happen, but catch just in case
+			if(null == lastComment) break;
+		}
+		return progenitor;
+    }
+    
     public Commentable getParent() {
         return post != null ? post : comment;
     }

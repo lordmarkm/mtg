@@ -45,9 +45,6 @@
 </div>
 </#macro>
 
-<#macro profilenav player active>
-</#macro>
-
 <#macro showcomment comment username>
   <div class="comment-container">
     <div class="comment-header">

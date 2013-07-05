@@ -11,7 +11,7 @@ body {
 .pointer {cursor: pointer;}
 .center {text-align: center;}
 
-.mt5 {margin-top: 5px;}
+.mt5 {margin-top: 5px !important;}
 .mt10 {margin-top: 10px;}
 .mt20 {margin-top: 20px;}
 
