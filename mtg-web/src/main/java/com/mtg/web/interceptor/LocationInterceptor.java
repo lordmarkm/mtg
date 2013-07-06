@@ -66,7 +66,7 @@ public class LocationInterceptor extends HandlerInterceptorAdapter {
 			try {
 				Principal principal = request.getUserPrincipal();
 				
-				log.info("Intercepted location view. principal={}", principal);
+				log.info("Intercepted location view. principal={}", principal == null ? "Anonymous" : principal.getName());
 				
 				if(null == principal) {
 					none(mav);

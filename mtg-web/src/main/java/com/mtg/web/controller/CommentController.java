@@ -31,6 +31,9 @@ public interface CommentController {
     @RequestMapping(value = "/permalink/{id}", method = RequestMethod.GET)
     ModelAndView permalink(Principal principal, Long id);
     
+    @RequestMapping(value = "/context/{id}", method = RequestMethod.GET)
+    ModelAndView context(Principal principal, Long id);
+    
     @ResponseBody
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     JSON delete(Principal principal, Long id) throws AccessDeniedException;

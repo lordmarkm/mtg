@@ -27,7 +27,7 @@
   </div>
   
   <div id="post-replies">
-    <@tools.context contextcomment=comment ancestors=ancestors index=0 username=username/>
+    <@tools.showcomment comment=comment username=username highlight=true delete=false />
   </div>
 </div>
 

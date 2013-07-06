@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;
+import com.mtg.commons.models.locations.Location;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.interactive.posts.services.CommentService;
 import com.mtg.interactive.posts.services.CommentServiceCustom;
@@ -110,7 +111,12 @@ public class CommentServiceCustomImpl implements CommentServiceCustom {
 		Validate.notNull(comment);
 		Validate.notNull(requestor);
 		
-		if(comment.getAuthor().equals(requestor.getPlayer()) || Roles.hasRole(requestor, Roles.ROLE_ADMIN)) {
+		Location location = comment.getProgenitor().getParent().getLocationParent();
+		boolean moderator = location != null && location.getModerators().contains(requestor.getPlayer());
+		
+		if(comment.getAuthor().equals(requestor.getPlayer())      //grant if author
+				|| Roles.hasRole(requestor, Roles.ROLE_ADMIN)     //grant if admin
+				|| moderator) {									  //grant if location moderator
 			comment.setDeleted(true);
 		} else {
 			throw new AccessDeniedException("No! I am too sexy for you!");

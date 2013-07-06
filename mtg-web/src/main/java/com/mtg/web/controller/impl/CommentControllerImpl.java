@@ -1,6 +1,8 @@
 package com.mtg.web.controller.impl;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -71,15 +73,39 @@ public class CommentControllerImpl extends GenericController implements CommentC
         Post post = comments.getProgenitor(comment);
         Validate.notNull(post);
         
-        return mav("post/comment-context")
+        return mav("post/comment-permalink")
         		.addObject(Post.PREFERRED_MODEL_KEY, post)
                 .addObject(Comment.PREFERRED_MODEL_KEY, comment);
     }
 
+	@Override
+	public ModelAndView context(Principal principal, @PathVariable Long id) {
+        log.info("Request to view a single comment. user={}, comment={}", name(principal), id);
+        
+        Comment comment = comments.findOne(id);
+        Validate.notNull(comment);
+        
+        List<Comment> ancestors = new ArrayList<Comment>();
+        Comment lastComment = comment.getComment();
+        while(lastComment != null) {
+        	ancestors.add(0, lastComment);
+        	lastComment = lastComment.getComment();
+        }
+        
+        Post post = comments.getProgenitor(comment);
+        Validate.notNull(post);
+        
+        return mav("post/comment-context")
+        		.addObject(Post.PREFERRED_MODEL_KEY, post)
+                .addObject(Comment.PREFERRED_MODEL_KEY, comment)
+                .addObject("ancestors", ancestors);
+	}
+    
 	@Override
 	public JSON delete(Principal principal, @PathVariable Long id) throws AccessDeniedException {
 		log.info("Request to delete a comment. user={}, comment={}", name(principal), id);
 		comments.hide(principal, id);
 		return JSON.ok();
 	}
+
 }

@@ -110,4 +110,10 @@ public class AccountServiceCustomImpl implements AccountServiceCustom {
 		return info.getEmail();
 	}
 
+	@Override
+	public void changePassword(String name, String newpassword) {
+		Account user = service.findByUsername(name);
+		user.setPassword(newpassword);
+	}
+
 }

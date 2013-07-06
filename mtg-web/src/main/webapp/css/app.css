@@ -4,6 +4,9 @@ body {
   overflow-y: scroll;
 }
 
+.noclick {cursor: default;}
+.tiniest {font-size: 0.65em;}
+.tinier {font-size: 0.75em;}
 .tiny {font-size: 0.82em;}
 .bold {font-weight: bold;}
 .unoutlined {outline: 0;}
@@ -15,6 +18,7 @@ body {
 .mt10 {margin-top: 10px;}
 .mt20 {margin-top: 20px;}
 
+.mb0 {margin-bottom: 0px;}
 .mb5 {margin-bottom: 5px;}
 .mb10 {margin-bottom: 10px;}
 .mb20 {margin-bottom: 20px;}

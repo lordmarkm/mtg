@@ -1,14 +1,14 @@
 <#import "/spring.ftl" as spring />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#import "../templates/tools.ftl" as tools />
+<span id="active-navbar-class" class="hide">communities</span>
 
-<@sec.authorize access="hasRole('ROLE_ADMIN')">
-<div class="well">
-  <p>Admin actions
-  <div>
-    <a href="/admin/frontpage/newpost" class="btn">New frontpage post</a>
-  </div>
-</div>
-</@sec.authorize>
+<#if meetup.banned>
+<div class="alert alert-info">This meetup has been banned</div>
+<#else>
+
+<h3>${meetup.name }</h3>
+<@tools.meetupnav meetup=meetup active=0 />
 
 <div id="commentable">
   <div id="posts-loadhere"></div>
@@ -20,7 +20,7 @@
 
 <script>
 var postableUrls = {
-  load : '<@spring.url "/post/frontpage/1/frontpage?ajax" />'
+  load : '<@spring.url "/post/meetup/${meetup.id?c}/${meetup.urlFragment}?ajax" />'
 }
 var postUrls = {
         deletePost: '<@spring.url "/post/delete/" />',
@@ -30,3 +30,5 @@ var postUrls = {
 </script>
 <script src="<@spring.url '/javascript/postable.js' />"></script>
 <script src="<@spring.url '/javascript/commentable.js' />"></script>
+
+</#if>

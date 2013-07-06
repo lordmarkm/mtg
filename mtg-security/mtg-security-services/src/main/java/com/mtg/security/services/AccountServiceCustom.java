@@ -29,4 +29,6 @@ public interface AccountServiceCustom {
 	 */
 	String resendVerification(String name);
 
+	void changePassword(String name, String newpassword);
+
 }

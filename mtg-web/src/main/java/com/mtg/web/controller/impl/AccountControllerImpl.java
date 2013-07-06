@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.security.Principal;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +22,7 @@ import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AccountController;
 import com.mtg.web.controller.GenericController;
+import com.mtg.web.dto.ChangePasswordForm;
 import com.mtg.web.dto.ImageForm;
 import com.mtg.web.dto.JSON;
 
@@ -49,19 +52,19 @@ public class AccountControllerImpl extends GenericController implements AccountC
 	
 	@Override
 	public ModelAndView activate(Principal principal, @PathVariable String activationCode) {
-		if(accounts.authenticate(activationCode)) {
-			ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")
-					.addObject("type", "success")
-					.addObject("message", "Verification successful. Your e-mail address is now verified.");
-			
-			return mav;
-		} else {
-			ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")
-					.addObject("type", "error")
-					.addObject("message", "Invalid verification code, or email already verified. In case of an invalid " +
-							"code, you may have a new one sent to your email from your account dashboard.");
-			return mav;
-		}
+		accounts.authenticate(activationCode);
+		ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")
+				.addObject("type", "success")
+				.addObject("message", "Verification successful. Your e-mail address is now verified.");
+
+		return mav;
+//		} else {
+//			ModelAndView mav = mav(principal != null ? "support/generic-message" : "login")
+//					.addObject("type", "error")
+//					.addObject("message", "Invalid verification code, or email already verified. In case of an invalid " +
+//							"code, you may have a new one sent to your email from your account dashboard.");
+//			return mav;
+//		}
 	}
 	
 	@Override
@@ -91,6 +94,29 @@ public class AccountControllerImpl extends GenericController implements AccountC
 		log.info("Contact edit request. user={}, contact={}", name(principal), contact);
 		
 		players.setContact(player(principal).getName(), basic(contact));
+		
+		return JSON.ok();
+	}
+
+	@Override
+	public JSON changePassword(Principal principal, @Valid ChangePasswordForm form, BindingResult binding) {
+
+		log.info("Change password request. user={}, form={}", name(principal), form);
+		
+		if(binding.hasErrors()) {
+			return JSON.error(firstError(binding));
+		}
+		
+		if(!form.getNewpassword().equals(form.getConfirmpassword())) {
+			return JSON.error("Passwords don't match");
+		}
+		
+		Account account = accounts.findByUsername(principal.getName());
+		if(!account.getPassword().equals(form.getPassword())) {
+			return JSON.error("Incorrect password");
+		}
+		
+		accounts.changePassword(principal.getName(), form.getNewpassword());
 		
 		return JSON.ok();
 	}

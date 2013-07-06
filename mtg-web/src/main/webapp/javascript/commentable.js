@@ -38,7 +38,8 @@ $(function(){
 		}
 	}, 'a.link-comment-delete,a.link-post-delete');
 	
-	//continuation of the above; on confirm delete, delete the post
+	//continuation of the above; on confirm delete, delete the post. this actually triggers
+	//simultaneously as the delete comment one
 	commentable.on({
 		click: function(){
 			var $that = $(this);
@@ -78,9 +79,28 @@ $(function(){
 		}
 	}, 'a.link-confirm-delete');
 	
+	//whenever user clicks on 'save' link, save the link. give option to unsave
+	commentable.on({
+		click: function(){
+			var $that = $(this);
+			var id = $that.closest('.post-controls').data('post-id');
+			var url = $that.hasClass('link-post-save') ? postUrls.savePost : postUrls.unsavePost;
+			$.post(url + id, function(response) {
+				switch(response.status) {
+				case '200':
+					$that.toggleClass('link-post-save').toggleClass('link-post-unsave');
+					$that.text($that.hasClass('link-post-save') ? 'save' : 'unsave');
+					break;
+				default:
+					footer.error('Error saving post!');
+				}
+			});
+		}
+	}, 'a.link-post-save,a.link-post-unsave');
+	
+	//when the reply form is submitted successfully, show the new comment and remove the reply form
 	commentable.on({
 		submit: function(){
-			//when the reply form is submitted successfully, show the new comment and remove the reply form
 			var $form = $(this);
 			
 			$form.find('.comment-submit').attr('disabled', 'disabled').addClass('disabled');

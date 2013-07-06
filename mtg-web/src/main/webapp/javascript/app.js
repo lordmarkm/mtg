@@ -134,7 +134,7 @@ $(function(){
 		}
 	}, 'a');
 	
-	if(page.target) {
+	if(page.target && page.target.length > 0) {
 		go(page.target);
 	} else {
 		go(page.frontpage);

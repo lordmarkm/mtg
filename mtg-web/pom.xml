@@ -42,7 +42,7 @@
     <profile>
       <id>prod</id>
       <properties>
-        <app.base.url>http://dgte.info</app.base.url>
+        <app.base.url>http://tomescour.org</app.base.url>
         <jpa.username>dgtephdb</jpa.username>
         <jpa.password>dgteinfodbpw</jpa.password>
         <images.path>/home/tomcat/servers/dgteph/mtg-binder/images/</images.path>

@@ -30,4 +30,7 @@ public interface PostService extends JpaRepository<Post, Long>, PostServiceCusto
 	@Query("from Post p where p.author = :author and p.deleted = 'false' order by p.postdate desc")
 	Page<Post> findByAuthor(@Param("author") MagicPlayer author, Pageable pageable);
 
+	@Query("select m.saved from MagicPlayer m where m.name = :username")
+	Page<Post> findSaved(@Param("username") String username, Pageable page);
+
 }

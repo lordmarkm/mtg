@@ -35,6 +35,13 @@ public class Post implements Commentable {
 	@Type(type="text")
 	private String text;
 	
+	@Column
+	@Type(type="text")
+	private String link;
+	
+	@Column
+	private String linkDomain;
+	
 	@ManyToOne(optional=false)
 	private MagicPlayer author;
 	
@@ -157,6 +164,22 @@ public class Post implements Commentable {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getLinkDomain() {
+		return linkDomain;
+	}
+
+	public void setLinkDomain(String linkDomain) {
+		this.linkDomain = linkDomain;
+	}
 
 
 }

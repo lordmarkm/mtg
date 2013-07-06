@@ -16,4 +16,11 @@ public interface ProfileCommentableController {
 	@RequestMapping(value = "/{username}/posts/{page}/{size}")
 	ModelAndView posts(Principal principal, String username, int page, int size);
 
+	/**
+	 * Only admins or self can view player saved
+	 * @return
+	 */
+	@RequestMapping(value = "/{username}/saved/{page}/{size}")
+	ModelAndView saved(Principal principal, String username, int page, int size);
+
 }

@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mtg.web.dto.ChangePasswordForm;
 import com.mtg.web.dto.ImageForm;
 import com.mtg.web.dto.JSON;
 
@@ -30,6 +32,10 @@ public interface AccountController {
 	@ResponseBody
 	@RequestMapping(value = "/verify/resend", method = RequestMethod.POST)
 	JSON resendVerification(Principal principal);
+	
+	@ResponseBody
+	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+	JSON changePassword(Principal principal, ChangePasswordForm form, BindingResult binding);
 	
 	/**
 	 * If activation is successful, display success message, else error msg

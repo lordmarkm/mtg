@@ -1,5 +1,7 @@
 package com.mtg.interactive.posts.services.impl;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +9,10 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,12 +60,40 @@ public class PostServiceCustomImpl extends AbstractEntityService implements Post
 	@Resource
 	private AccountService accounts;
 	
+	@Resource
+	private Environment env;
+	
+	protected boolean verifyLink(String link) {
+		UrlValidator validator = new UrlValidator();
+		boolean valid = validator.isValid(link);
+		
+		if(!valid) {
+			log.warn("Invalid link! Using default instead. link={}", link);
+		}
+		
+		return valid;
+	}
+	
 	@Override
 	public Post post(Post post, PostParentType parentType, long parentId,
 			MagicPlayer author) {
 		
 		Post saved = posts.save(post);
 		saved.setUrlFragment(urlfragment(saved.getTitle()));
+		
+		if(saved.getLink() == null || saved.getLink().length() == 0 || !verifyLink(saved.getLink())) {
+			String baseUrl = env.getProperty("app.base.url");
+			saved.setLink(baseUrl + "/post/" + saved.getId() + "/" + saved.getUrlFragment());
+		}
+		
+		try {
+			URI uri = new URI(saved.getLink());
+			String host = uri.getHost();
+			if(host.startsWith("www.")) host = host.substring(4);
+			saved.setLinkDomain(host);
+		} catch (URISyntaxException e) {
+			log.warn("Unparseable uri: {}", saved.getLink());
+		}
 		
 		//parent
 		Postable parent = setParent(author, saved, parentType, parentId);
@@ -115,7 +147,10 @@ public class PostServiceCustomImpl extends AbstractEntityService implements Post
 		Post post = posts.findOne(id);
 		Validate.notNull(post);
 		
-		if(post.getAuthor().equals(requestor.getPlayer()) || Roles.hasRole(requestor, Roles.ROLE_ADMIN)) {
+		if(post.getAuthor().equals(requestor.getPlayer()) //grant if author
+				|| Roles.hasRole(requestor, Roles.ROLE_ADMIN) //grant if admin
+				|| (post.getParent().getLocationParent() != null 
+					&& post.getParent().getLocationParent().getModerators().contains(requestor.getPlayer()))) { //grant if moderator
 			post.setDeleted(true);
 		} else {
 			throw new AccessDeniedException("No! I am too sexy for you!");

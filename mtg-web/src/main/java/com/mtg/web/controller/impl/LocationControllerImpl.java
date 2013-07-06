@@ -7,19 +7,25 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.Validate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.locations.City;
 import com.mtg.commons.models.locations.Country;
+import com.mtg.commons.models.locations.Location.Type;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.CityService;
 import com.mtg.commons.services.CountryService;
 import com.mtg.commons.services.MeetupService;
+import com.mtg.interactive.posts.services.LocationService;
+import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.controller.LocationController;
+import com.mtg.web.dto.JSON;
 
 @Component
 public class LocationControllerImpl extends GenericController implements LocationController {
@@ -37,6 +43,9 @@ public class LocationControllerImpl extends GenericController implements Locatio
 	
 	@Resource
 	private CountryService countries;
+	
+	@Resource
+	private LocationService locations;
 	
 	private MagicPlayer player(Principal principal) {
 		return accounts.findByUsername(principal.getName()).getPlayer();
@@ -122,6 +131,17 @@ public class LocationControllerImpl extends GenericController implements Locatio
 		}
 		
 		return relatedCities;
+	}
+
+	@Override
+	public JSON makemod(Principal principal, @PathVariable Type type, @PathVariable Long id, @PathVariable Long playerId) {
+		Validate.notNull(principal);
+		locations.makemod(account(principal), type, id, playerId);
+		return JSON.ok();
+	}
+
+	private Account account(Principal principal) {
+		return null == principal ? null : accounts.findByUsername(principal.getName());
 	}
 
 }

@@ -5,6 +5,7 @@
 <#include "editcontact-modal.jsp">
 <#include "resendverification-modal.jsp">
 <#include "deletebinder-modal.jsp">
+<#include "changepassword-modal.jsp">
 
 <h3>Account Details</h3>
 <dl class="dl-horizontal">
@@ -48,6 +49,13 @@
       <tr>
         <th>Name</th>
         <td>${account.player.name }</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Password</th>
+        <td>
+          <button id="btn-change-password" class="btn btn-mini btn-success"><i class="icon-edit icon-white"></i> Change</button>
+        </td>
         <td></td>
       </tr>
       <tr>

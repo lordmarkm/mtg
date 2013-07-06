@@ -5,7 +5,7 @@
 <script src="<@spring.url '/javascript/fromnow.js' />"></script>
 
 <#include "profile-header.jsp">
-<@profile.nav player=user.player active=1/>
+<@profile.nav player=user.player active=1 self=(username == user.username)/>
 
 <div id="commentable">
   <#list comments.content as comment>

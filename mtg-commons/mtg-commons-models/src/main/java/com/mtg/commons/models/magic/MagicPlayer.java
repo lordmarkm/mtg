@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -49,6 +51,11 @@ public class MagicPlayer extends AbstractEntity {
     
     @OneToMany(mappedBy="author")
     private List<Post> posts;
+    
+    @ManyToMany
+    @JoinTable(name = "magicplayers_saved")
+    @OrderColumn(name = "save_order")
+    private List<Post> saved;
     
     @OneToMany(mappedBy="author")
     private List<Comment> comments;
@@ -133,6 +140,17 @@ public class MagicPlayer extends AbstractEntity {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public List<Post> getSaved() {
+		if(null == saved) {
+			saved = new ArrayList<Post>();
+		}
+		return saved;
+	}
+
+	public void setSaved(List<Post> saved) {
+		this.saved = saved;
 	}
 
 

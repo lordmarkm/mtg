@@ -4,9 +4,14 @@
 
 <h3>${location.name }</h3>
 
-<#if type='city'>
-<@tools.citynav city=location active=1/>
-</#if>
+<#switch type>
+  <#case 'city'>
+  <@tools.citynav city=location active=1/>
+    <#break>
+  <#case 'meetup'>
+  <@tools.meetupnav meetup=location active=1/>
+    <#break>
+</#switch>
 
 <form id="form-post" method="post" action="#">
   <#if type != 'frontpage'>
@@ -27,6 +32,12 @@
       </div>
     </div>
     <div class="control-group">
+      <label class="control-label" for="link">Link (optional)</label>
+      <div class="controls">
+        <input id="link" type="text" name="link" />
+      </div>
+    </div>
+    <div class="control-group">
       <label class="control-label" for="text">Text</label>
       <div class="controls">
         <textarea id="text" name="text" style="width: 60%"></textarea>
@@ -42,6 +53,9 @@
     <#break>
   <#case 'city'>
   <a id="btn-back" class="btn" href="<@spring.url '/ct/${location.urlFragment }' />">Back to ${location.name }</a>
+    <#break>
+  <#case 'meetup'>
+  <a id="btn-back" class="btn" href="<@spring.url '/m/${location.urlFragment }' />">Back to ${location.name }</a>  
     <#break>
 </#switch>
 

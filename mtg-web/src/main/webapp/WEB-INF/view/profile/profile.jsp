@@ -6,7 +6,7 @@
 <#if !user.banned>
 
 <#include "profile-header.jsp">
-<@profile.nav player=user.player active=0 />
+<@profile.nav player=user.player active=0 self=(username == user.username)/>
 
 <div class="row-fluid">
   <div class="span4">

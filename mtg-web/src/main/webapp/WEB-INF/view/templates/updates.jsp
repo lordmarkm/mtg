@@ -2,7 +2,7 @@
 
 <div class="well">
   <h2>
-    Updates<br /> <small>The latest from Magic Online Binder</small>
+    Updates<br /> <small>The latest from Tomescour</small>
   </h2>
 
   <dl id="updates-list">

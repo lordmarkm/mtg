@@ -75,7 +75,7 @@ public class PostOrCommentInterceptor extends HandlerInterceptorAdapter {
         try {
             Principal principal = request.getUserPrincipal();
 
-            log.info("Intercepted post or comment view. principal={}", principal);
+            log.info("Intercepted post or comment view. principal={}", principal == null ? "Anonymous" : principal.getName());
 
             if(null == principal) {
                 none(mav);

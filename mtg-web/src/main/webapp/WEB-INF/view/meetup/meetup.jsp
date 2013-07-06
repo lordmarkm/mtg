@@ -19,6 +19,19 @@
   </#list>
 </#if>
 
+<script>
+var postableUrls = {
+  load : '<@spring.url "/post/city/${meetup.id?c}/${meetup.urlFragment}?ajax" />'
+}
+var postUrls = {
+        deletePost: '<@spring.url "/post/delete/" />',
+        savePost : '<@spring.url "/account/post/save/" />',
+        unsavePost : '<@spring.url "/account/post/unsave/" />'
+}
+</script>
+<script src="<@spring.url '/javascript/postable.js' />"></script>
+<script src="<@spring.url '/javascript/commentable.js' />"></script>
+
 <#else>
 <div class="alert alert-info">Meetup not found</div>
 </#if>

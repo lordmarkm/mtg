@@ -14,6 +14,8 @@ public class PostForm {
 	@NotEmpty(message = "Text can't be empty")
 	private String text;
 	
+	private String link;
+	
 	private long parentId = 1; //may be null for frontpage posts
 
 	@Override
@@ -21,6 +23,7 @@ public class PostForm {
 		return new ToStringCreator(this)
 			.append("title", title)
 			.append("text", text)
+			.append("link", link)
 			.append("parentId", parentId)
 			.toString();
 	}
@@ -29,6 +32,7 @@ public class PostForm {
 		Post post = new Post();
 		post.setTitle(title);
 		post.setText(text);
+		post.setLink(link);
 		post.setPostdate(DateTime.now());
 		return post;
 	}
@@ -55,6 +59,14 @@ public class PostForm {
 
 	public void setParentId(long parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 }

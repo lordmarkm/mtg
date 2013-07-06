@@ -19,7 +19,9 @@ import com.mtg.commons.models.interactive.Post;
 import com.mtg.commons.models.interactive.PostParent.PostParentType;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.interactive.posts.services.PostService;
+import com.mtg.security.models.Account;
 import com.mtg.security.services.AccountService;
+import com.mtg.security.services.support.Roles;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.controller.PostController;
 import com.mtg.web.dto.DtoMaker;
@@ -38,8 +40,12 @@ public class PostControllerImpl extends GenericController implements PostControl
 	@Resource
 	private AccountService accounts;
 	
+	private Account account(Principal principal) {
+		return null == principal ? null : accounts.findByUsername(principal.getName());
+	}
+	
 	private MagicPlayer player(Principal principal) {
-		return accounts.findByUsername(principal.getName()).getPlayer();
+		return null == principal ? null : accounts.findByUsername(principal.getName()).getPlayer();
 	}
 	
 	@Override
@@ -48,9 +54,12 @@ public class PostControllerImpl extends GenericController implements PostControl
 		log.info("View post request. user={}, post={}: {}", name(principal), id, urlFragment);
 		
 		Post post = posts.findOne(id);
+		Account user = account(principal);
 		Validate.notNull(post);
 		
 		return mav("post/post")
+				.addObject("user", user)
+				.addObject("admin", Roles.hasRole(user, Roles.ROLE_ADMIN))
 				.addObject(Post.PREFERRED_MODEL_KEY, post);
 	}
 	
@@ -83,14 +92,20 @@ public class PostControllerImpl extends GenericController implements PostControl
 		List<Post> postsPage =  null;
 		
 		//if frontpage, also get posts from player's locations
-		if(parentType == PostParentType.frontpage && null != principal) {
+		Account user = account(principal);
+		if(parentType == PostParentType.frontpage && null != user) {
 			MagicPlayer player = player(principal);
 			postsPage = posts.findByFrontpageOrLocation(player, request.toPageRequest());
+		} else if (parentType == PostParentType.frontpage && null == user) {
+			//if anon on front page, view all posts TODO add this option for logged in users
+			postsPage = posts.findAll(request.toPageRequest()).getContent();
 		} else {
 			postsPage = posts.findByParent(parentType, parentId, request.toPageRequest());
 		}
 		
-		return mav("post/posts").addObject("posts", postsPage);
+		return mav("post/posts")
+				.addObject("user", user)
+				.addObject("posts", postsPage);
 	}
 
 	@Override
