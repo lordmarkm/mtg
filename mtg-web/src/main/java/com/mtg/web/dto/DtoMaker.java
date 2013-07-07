@@ -30,6 +30,7 @@ public class DtoMaker {
     }
     
     public static Map<String,Object> transform(Wanted wanted) {
+    	if(null == wanted) return null;
         Validate.notNull(wanted);
         return map()
                 .put("count", wanted.getCount())

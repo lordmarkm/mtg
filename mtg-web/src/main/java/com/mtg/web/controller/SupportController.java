@@ -1,5 +1,7 @@
 package com.mtg.web.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,4 +29,9 @@ public interface SupportController {
 	@RequestMapping("/updates")
 	ModelAndView updates();
 
+	@RequestMapping("/etiquette")
+	ModelAndView etiquette(Principal principal);
+	
+	@RequestMapping("/formatting")
+	ModelAndView formatting(Principal principal);
 }

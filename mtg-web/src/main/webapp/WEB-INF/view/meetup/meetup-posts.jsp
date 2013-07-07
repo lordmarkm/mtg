@@ -3,7 +3,9 @@
 <#import "../templates/tools.ftl" as tools />
 <span id="active-navbar-class" class="hide">communities</span>
 
-<#if meetup.banned>
+<#if !meetup??>
+<div class="alert alert-info">Meetup not found</div>
+<#elseif meetup.banned>
 <div class="alert alert-info">This meetup has been banned</div>
 <#else>
 

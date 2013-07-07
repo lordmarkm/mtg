@@ -3,7 +3,9 @@
 <#import "../templates/tools.ftl" as tools />
 <span id="active-navbar-class" class="hide">communities</span>
 
-<#if city.banned>
+<#if !city??>
+<div class="alert alert-info">City not found</div>
+<#elseif city.banned>
 <div class="alert alert-error">This city has been banned</div>
 <#else>
 

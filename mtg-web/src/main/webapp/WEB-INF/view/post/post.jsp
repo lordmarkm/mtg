@@ -32,8 +32,8 @@
         <textarea name="text" placeholder="Reply to this post"></textarea>
         <div>
           <small class="pull-right muted">
-            <a href="javascript:;">reddiquette</a>
-            <a href="javascript:;">formatting help</a>
+            <a href="<@spring.url '/support/etiquette' />" target="_blank">etiquette</a>
+            <a href="<@spring.url '/support/formatting' />" target="_blank">formatting help</a>
           </small>
           <input type="submit" value="save" class="btn btn-primary btn-small" />
         </div>
