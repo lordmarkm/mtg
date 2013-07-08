@@ -13,9 +13,15 @@
     
     <small class="post-controls bold" data-post-id="${post.id }">
       <@sec.authorize access="isAuthenticated()">
-      <a href="javascript:;">save</a>
+        <#if user.player.saved?seq_contains(post)>
+        <a class="link-post-unsave" href="javascript:;">unsave</a>
+        <#else>
+        <a class="link-post-save" href="javascript:;">save</a>
+        </#if>
       </@sec.authorize>
-      <#if post.author.name == username>
+      <#if post.deleted>
+      <span class="muted">deleted</span>
+      <#elseif post.author.name == username || moderator || admin>
       <a class="link-post-delete" href="javascript:;">delete</a>
       </#if>
     </small>
@@ -36,7 +42,10 @@
 var postUrls = {
     reply : '<@spring.url "/comment/post/comment/" />',
     comment : '<@spring.url "/comment/" />',
-    deleteComment : '<@spring.url "/comment/delete/" />'
+    deleteComment : '<@spring.url "/comment/delete/" />',
+    deletePost: '<@spring.url "/post/delete/" />',
+    savePost : '<@spring.url "/account/post/save/" />',
+    unsavePost : '<@spring.url "/account/post/unsave/" />'
 }
 </script>
 <script src="<@spring.url '/javascript/commentable.js' />"></script>

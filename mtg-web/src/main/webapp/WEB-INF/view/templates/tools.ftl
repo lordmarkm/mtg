@@ -10,6 +10,10 @@
   </#if>
 </#macro>
 
+<#macro postAuthorLink post>
+  <a href="<@spring.url '/u/${post.author.name }' />">${post.author.name }</a>
+</#macro>
+
 <#macro postparentLink post>
   <#switch post.parent.parentType>
     <#case 'frontpage'>
@@ -25,6 +29,24 @@
       <a href="<@spring.url '/cy/${post.parent.parent.urlFragment}' />">${post.parent.parent.name}</a>
       <#break>
   </#switch>
+</#macro>
+
+<#macro countrynav country active>
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li <#if active=0>class="active"</#if>><a href="<@spring.url '/cy/${country.urlFragment }' />"><i class="fam-comments"></i> Discussions</a></li>
+    <@sec.authorize access="isAuthenticated()">
+    <li <#if active=1>class="active"</#if>><a href="<@spring.url '/cy/${country.urlFragment }/newpost' />"><i class="fam-comment-add"></i> Post</a>
+    </@sec.authorize>
+    <@sec.authorize access="isAnonymous()">
+    <li class="disabled" title="Please login to post"><a href="javascript:;" style="outline: 0;"><i class="fam-comment-add"></i> Post</a>
+    </@sec.authorize>
+    <li <#if active=2>class="active"</#if>><a href="<@spring.url '/cy/${country.urlFragment }/players' />"><i class="fam-book-open"></i> Binders</a></li>
+    <#if admin || moderator>
+    <li <#if active=3>class="active"</#if>><a href="<@spring.url '/cy/${country.urlFragment}/manage' />"><i class="fam-group-gear"></i> Manage</a>
+    </#if>
+  </ul>
+</div>
 </#macro>
 
 <#macro citynav city active>

@@ -22,4 +22,7 @@ public interface MeetupController {
     @RequestMapping(value = "{urlFragment}/players", method = RequestMethod.GET)
     ModelAndView players(Principal principal, String urlFragment);
     
+    @RequestMapping(value = "{urlFragment}/manage", method = RequestMethod.GET)
+    ModelAndView manage(Principal principal, String urlFragment);
+    
 }

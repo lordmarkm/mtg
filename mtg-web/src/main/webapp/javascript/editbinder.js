@@ -114,7 +114,7 @@ $(function(){
 	loadBinderPage();
 	
 	//add card to binder
-	$(document).on({
+	$cardstable.on({
 		click : function(){
 			var page = parseInt($page.val());
 			var id = $(this).attr('card-id');
@@ -136,7 +136,7 @@ $(function(){
 	}, '.btn.binder-add');
 	
 	//increment, decrement, delete bundle
-	$(document).on({
+	$table.on({
 		click: function(){
 			var $bundle = $(this).attr('disabled', 'disabled').addClass('disabled');
 			var op = $bundle.attr('bundle-op');
@@ -155,7 +155,7 @@ $(function(){
 	}, '.bundle-operation');
 
 	//edit note
-	$(document).on({
+	$table.on({
 		click: function(){
 			var $btn = $(this).attr('disabled', 'disabled').addClass('disabled');
 			var id = $btn.closest('tr').attr('bundle-id');

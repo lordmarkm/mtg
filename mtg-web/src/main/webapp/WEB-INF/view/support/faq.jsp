@@ -15,4 +15,4 @@ updating your browser update will probably take care of any issues with the site
 If you're using Internet Explorer, it's still the #1 browser for downloading a 
 better browser.
 
-<h4>Have a question? Please email to <a href="mailto:mtgbinder@gmail.com">mtgbinder at gmail.com</a></h4>
+<h4>Have a question? Please email to <a href="mailto:mtgbinder@gmail.com" target="_blank">mtgbinder at gmail.com</a></h4>

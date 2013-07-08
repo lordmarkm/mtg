@@ -9,10 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.IndexColumn;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
@@ -30,7 +33,8 @@ public class BinderPage {
 	@Column(name="pageNumber", nullable=false)
 	private int pageNumber;
 	
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @OrderColumn(name="bundles_order")
 	private List<Bundle> bundles;
 
 	public BinderPage() {

@@ -98,7 +98,7 @@ public class PostControllerImpl extends GenericController implements PostControl
 			postsPage = posts.findByFrontpageOrLocation(player, request.toPageRequest());
 		} else if (parentType == PostParentType.frontpage && null == user) {
 			//if anon on front page, view all posts TODO add this option for logged in users
-			postsPage = posts.findAll(request.toPageRequest()).getContent();
+			postsPage = posts.findNotDeleted(request.toPageRequest()).getContent();
 		} else {
 			postsPage = posts.findByParent(parentType, parentId, request.toPageRequest());
 		}

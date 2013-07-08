@@ -6,6 +6,10 @@
 
 <#if type='city'>
 <@tools.citynav city=location active=3/>
+<#elseif type='meetup'>
+<@tools.meetupnav meetup=location active=3/>
+<#elseif type='country'>
+<@tools.countrynav country=location active=3/>
 </#if>
 
 <table class="table table-striped">

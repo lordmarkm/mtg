@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mtg.commons.models.interactive.PostParent.PostParentType;
 import com.mtg.commons.models.locations.Meetup;
 import com.mtg.commons.services.MeetupService;
+import com.mtg.security.services.LocationSecurityService;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.controller.MeetupController;
 
@@ -24,6 +25,9 @@ public class MeetupControllerImpl extends GenericController implements MeetupCon
 	
     @Resource
     private MeetupService meetups;
+    
+	@Resource
+	private LocationSecurityService locations;
     
     @Override
     public ModelAndView browse(@PathVariable String url) {
@@ -50,6 +54,19 @@ public class MeetupControllerImpl extends GenericController implements MeetupCon
 		Meetup meetup = meetups.findByUrlFragment(urlFragment);
 		return mav("meetup/meetup-players")
 				.addObject("meetup", meetup);
+	}
+
+	@Override
+	public ModelAndView manage(Principal principal, @PathVariable String urlFragment) {
+		
+		log.info("Meetup management page requested. user={}, name={}", name(principal), urlFragment);
+
+		Meetup meetup  = meetups.findByUrlFragment(urlFragment);
+		locations.ensureModOrAdmin(principal, meetup);
+		
+		return mav("location/manage")
+				.addObject("location", meetup)
+				.addObject("type", PostParentType.meetup);
 	}
 	
 }

@@ -19,4 +19,13 @@ public interface CountryController {
 	@RequestMapping("/{urlFragment}")
 	ModelAndView country(Principal principal, String urlFragment);
 	
+	@RequestMapping(value = "/{urlFragment}/players", method = RequestMethod.GET)
+	ModelAndView players(Principal principal, String urlFragment);
+
+	@RequestMapping(value = "/{urlFragment}/newpost", method = RequestMethod.GET)
+	ModelAndView newpost(Principal principal, String urlFragment);
+	
+	@RequestMapping(value = "/{urlFragment}/manage", method = RequestMethod.GET)
+	ModelAndView manage(Principal principal, String urlFragment);
+	
 }

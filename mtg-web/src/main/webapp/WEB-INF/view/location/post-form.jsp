@@ -5,6 +5,9 @@
 <h3>${location.name }</h3>
 
 <#switch type>
+  <#case 'country'>
+  <@tools.countrynav country=location active=1/>  
+    <#break>
   <#case 'city'>
   <@tools.citynav city=location active=1/>
     <#break>
@@ -50,6 +53,9 @@
 <#switch type>
   <#case 'frontpage'>
   <a id="btn-back" class="btn" href="<@spring.url '/support/frontpage' />">Back to frontpage</a>
+    <#break>
+  <#case 'country'>
+  <a id="btn-back" class="btn" href="<@spring.url '/cy/${location.urlFragment }' />">Back to ${location.name }</a>
     <#break>
   <#case 'city'>
   <a id="btn-back" class="btn" href="<@spring.url '/ct/${location.urlFragment }' />">Back to ${location.name }</a>

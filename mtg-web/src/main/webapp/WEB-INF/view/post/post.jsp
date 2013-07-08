@@ -6,8 +6,11 @@
 <div id="commentable">
 
   <div class="post-container">
-    <h4 class="post-title">${post.title }</h4>
-    Posted by ${post.author.name } to <@tools.postparentLink post=post /> <span class="fromNow">${post.postdate }</span>
+    <h4 class="post-title">
+      <a href="${post.link! }" target="_blank">${post.title }</a>
+      <#if post.linkDomain??><small class="tiniest">(${post.linkDomain! })</small></#if>
+    </h4>
+    Posted by <@tools.postAuthorLink post=post /> to <@tools.postparentLink post=post /> <span class="fromNow">${post.postdate }</span>
     
     <div class="well mt20 mb5">${post.text?html }</div>
     

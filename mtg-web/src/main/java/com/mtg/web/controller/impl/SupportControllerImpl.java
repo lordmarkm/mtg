@@ -28,8 +28,7 @@ public class SupportControllerImpl extends GenericController implements SupportC
     
     @Override
     public ModelAndView frontpage() {
-    	return mav("support/frontpage")
-    			.addObject("posts", frontpage.getFrontpage().getPosts());
+    	return mav("support/frontpage");
     }
     
 	@Override

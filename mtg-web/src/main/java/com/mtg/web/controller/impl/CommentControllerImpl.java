@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;
 import com.mtg.interactive.posts.services.CommentService;
+import com.mtg.security.models.Account;
+import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.CommentController;
 import com.mtg.web.controller.GenericController;
 import com.mtg.web.dto.DtoMaker;
@@ -30,6 +32,13 @@ public class CommentControllerImpl extends GenericController implements CommentC
 
 	@Resource
 	private CommentService comments;
+	
+	@Resource
+	private AccountService accounts;
+	
+	private Account account(Principal principal) {
+		return null == principal ? null : accounts.findByUsername(principal.getName());
+	}
 	
 	@Override
 	public JSON onPost(Principal principal, @PathVariable Long id, @RequestParam String text) {
@@ -74,6 +83,7 @@ public class CommentControllerImpl extends GenericController implements CommentC
         Validate.notNull(post);
         
         return mav("post/comment-permalink")
+        		.addObject("user", account(principal))
         		.addObject(Post.PREFERRED_MODEL_KEY, post)
                 .addObject(Comment.PREFERRED_MODEL_KEY, comment);
     }
@@ -96,6 +106,7 @@ public class CommentControllerImpl extends GenericController implements CommentC
         Validate.notNull(post);
         
         return mav("post/comment-context")
+        		.addObject("user", account(principal))
         		.addObject(Post.PREFERRED_MODEL_KEY, post)
                 .addObject(Comment.PREFERRED_MODEL_KEY, comment)
                 .addObject("ancestors", ancestors);
