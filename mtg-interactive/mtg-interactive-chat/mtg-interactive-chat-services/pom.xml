@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>mtg-interactive-chat</groupId>
@@ -8,4 +9,68 @@
   <groupId>mtg-interactive-chat-services</groupId>
   <artifactId>mtg-interactive-chat-services</artifactId>
   <name>MtG :: Interactive :: Chat :: Services</name>
+
+  <!-- Purpose of the <profiles> and <build> nodes: differentiate the images 
+    directory between windows and linux machines. Windows is default. -->
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <images.path.test>C:/Users/Mark/Desktop/dev/mtg-test/</images.path.test>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux</id>
+      <properties>
+        <images.path.test>/home/mbmartinez/Desktop/mtg-test/</images.path.test>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>mtg-interactive-chat</groupId>
+      <artifactId>mtg-interactive-chat-models</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mtg-commons</groupId>
+      <artifactId>mtg-commons-services</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mtg-security</groupId>
+      <artifactId>mtg-security-services</artifactId>
+    </dependency>
+
+    <!-- ASPECTJ -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+
+    <!-- TEST -->
+    <dependency>
+      <groupId>mtg-commons</groupId>
+      <artifactId>mtg-commons-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.2.8</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

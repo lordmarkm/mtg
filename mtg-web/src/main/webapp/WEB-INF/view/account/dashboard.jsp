@@ -154,6 +154,30 @@
 <div class="alert alert-info">You have no binders right now</div>
 </#if>
 
+
+<h3>Decks</h3>
+<a  id="btn-adddeck" class="btn btn-primary pull-right" href="/account/deck/new"><i class="icon-plus icon-white"></i> Create a deck</a>
+<div class="clearfix mb10"></div>
+
+<#if account.player.decks?has_content>
+<table class="table">
+  <#list account.player.decks as deck>
+  <tr data-deck-id="${deck.urlFragment }">
+    <td>
+      <strong><a href="<@spring.url '/u/${account.player.name }/deck/${deck.urlFragment }' />">${deck.name }</a></strong>
+    </td>
+    <td>
+      <a href="<@spring.url '/account/editdeck/${deck.urlFragment}' />" class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</a>
+      <a href="javascript:;" class="delete-deck btn btn-danger btn-mini" data-deck-name="${deck.name }" data-deck-id="${deck.urlFragment }"><i class="icon-remove icon-white"></i> Delete</a>
+    </td>
+  </tr>
+  </#list>
+</table>
+<#else>
+<div class="alert alert-info">You have not created any decks</div>
+</#if>
+
+
 <div id="wantlist-container"></div>
 
 <div class="mb50"></div>

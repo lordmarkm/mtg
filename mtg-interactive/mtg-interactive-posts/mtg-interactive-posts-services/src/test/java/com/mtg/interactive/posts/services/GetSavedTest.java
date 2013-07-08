@@ -24,7 +24,7 @@ import com.mtg.security.services.AccountService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {CommonsPersistenceConfig.class, CommonsServicesConfig.class,
-		SecurityConfig.class, PostsServicesConfig.class, PostsServicesTestConfig.class})
+		SecurityConfig.class, PostsServicesConfig.class, ChatServicesTestConfig.class})
 @Transactional
 public class GetSavedTest {
 

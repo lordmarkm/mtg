@@ -60,7 +60,7 @@ public class CommonsPersistenceConfig {
     public EntityManagerFactory entityManagerFactory() throws Exception {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan(new String[] { "com.mtg.commons.models", "com.mtg.security.models" });
+        entityManagerFactory.setPackagesToScan(new String[] { "com.mtg.commons.models", "com.mtg.security.models", "com.mtg.interactive.chat.models" });
         entityManagerFactory.setPersistenceProvider(new HibernatePersistence());
         entityManagerFactory.setJpaProperties(hibernateProperties());
         entityManagerFactory.afterPropertiesSet();

@@ -1,4 +1,4 @@
-package com.mtg.interactive.posts.services;
+package com.mtg.interactive.chat.services;
 
 import static org.mockito.Mockito.mock;
 
@@ -12,7 +12,7 @@ import com.mtg.commons.services.MeetupService;
 import com.mtg.mail.service.MailSenderService;
 
 @Configuration
-public class PostsServicesTestConfig {
+public class ChatServicesTestConfig {
 
 	@Bean
 	public MailSenderService mailer() {

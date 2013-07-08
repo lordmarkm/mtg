@@ -17,6 +17,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import com.mtg.commons.models.AbstractEntity;
 import com.mtg.commons.models.collections.Binder;
+import com.mtg.commons.models.collections.Deck;
 import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;
@@ -36,6 +37,9 @@ public class MagicPlayer extends AbstractEntity {
 
     @OneToMany
     private List<Binder> binders;
+    
+    @OneToMany
+    private List<Deck> decks;
     
     @ManyToOne
     private Country country;
@@ -151,6 +155,14 @@ public class MagicPlayer extends AbstractEntity {
 
 	public void setSaved(List<Post> saved) {
 		this.saved = saved;
+	}
+
+	public List<Deck> getDecks() {
+		return decks;
+	}
+
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
 	}
 
 
