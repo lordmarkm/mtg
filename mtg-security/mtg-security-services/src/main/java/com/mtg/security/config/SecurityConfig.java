@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Resource
 	private MtgUserDetailsService userDetailsService;
+	
+	@Resource
+	private Environment env;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -68,7 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login/authenticate")
 				.defaultSuccessUrl("/account/dashboard", true)
 				.failureUrl("/auth/login/bad_credentials")
-				.permitAll();
+				.permitAll()
+				.and()
+			.rememberMe()
+			    .key(env.getProperty("remember.me.key"));
 	}
 	
 	@Override

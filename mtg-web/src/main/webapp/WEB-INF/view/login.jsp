@@ -50,6 +50,12 @@
         <input type="password" name="password" />
       </div>
     </div>
+    <div class="control-group">
+      <label class="control-label" for="remember-me">Remember me</label>
+      <div class="controls">
+        <input type='checkbox' name='remember-me' id="remember-me"/>
+      </div>
+    </div>
   </fieldset>
   <div class="control-group">
     <div class="controls">
