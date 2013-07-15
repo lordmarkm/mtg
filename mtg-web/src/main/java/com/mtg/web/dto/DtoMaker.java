@@ -1,10 +1,14 @@
 package com.mtg.web.dto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 
+import com.mtg.commons.models.Card;
+import com.mtg.commons.models.collections.Deck;
 import com.mtg.commons.models.collections.Wanted;
 import com.mtg.commons.models.interactive.Comment;
 import com.mtg.commons.models.interactive.Post;
@@ -49,6 +53,22 @@ public class DtoMaker {
         Validate.notNull(comment);
         return map()
                 .put("id", comment.getId());
+    }
+
+    public static List<CardDto> transform(List<Card> cards) {
+        List<CardDto> dtos = new ArrayList<CardDto>();
+        for(Card card : cards) {
+            dtos.add(transform(card));
+        }
+        return dtos;
+    }
+    
+    public static CardDto transform(Card card) {
+        return new CardDto(card);
+    }
+
+    public static DeckDto transform(Deck deck) {
+        return new DeckDto(deck);
     }
     
 }
