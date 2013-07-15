@@ -26,6 +26,7 @@ public class Deck extends AbstractEntity {
 	public String toString() {
 		return new ToStringCreator(this)
 			.append("name", name)
+			.append("description", description)
 			.toString();
 	}
 

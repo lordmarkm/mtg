@@ -22,4 +22,6 @@ public interface PlayerService extends JpaRepository<MagicPlayer, Long>, PlayerS
 	@Deprecated //really shouldn't be deleting players
 	void delete(MagicPlayer p);
 
+	MagicPlayer findByName(String owner);
+
 }

@@ -167,7 +167,7 @@
       <strong><a href="<@spring.url '/u/${account.player.name }/deck/${deck.urlFragment }' />">${deck.name }</a></strong>
     </td>
     <td>
-      <a href="<@spring.url '/account/editdeck/${deck.urlFragment}' />" class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</a>
+      <a href="<@spring.url '/account/deck/edit/${deck.id}/${deck.urlFragment}' />" class="btn btn-success btn-mini"><i class="icon-edit icon-white"></i> Edit</a>
       <a href="javascript:;" class="delete-deck btn btn-danger btn-mini" data-deck-name="${deck.name }" data-deck-id="${deck.urlFragment }"><i class="icon-remove icon-white"></i> Delete</a>
     </td>
   </tr>

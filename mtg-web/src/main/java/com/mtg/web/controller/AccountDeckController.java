@@ -22,5 +22,8 @@ public interface AccountDeckController {
 	@ResponseBody
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	JSON newdeck(Principal principal, NewDeckForm form, BindingResult binding);
+
+	@RequestMapping("/edit/{id}/{urlFragment}")
+	ModelAndView edit(Principal principal, Long id, String urlFragment);
 	
 }

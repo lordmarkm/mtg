@@ -29,7 +29,7 @@
 
 <script>
 var newdeckUrls = {
-    editdeck : '<@spring.url "/account/deck/edit" />'
+    editdeck : '<@spring.url "/account/deck/edit/" />'
 }
 
 $(function(){
