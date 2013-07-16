@@ -1,5 +1,6 @@
 <#import "/spring.ftl" as spring />
-<#import "./templates/includes.ftl" as includes />
+<#--import "./templates/includes.ftl" as includes /-->
+<#import "./templates/offline-includes.ftl" as includes />
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 
 <!DOCTYPE html>
@@ -29,6 +30,11 @@
 var page = {
 		target : '${target?if_exists}',
 		frontpage : '<@spring.url "/support/frontpage" />'
+}
+
+//app-wide urls
+var urls = {
+	  cardsDt        : '<@spring.url "/cards/datatables/" />',
 }
 </script>
 

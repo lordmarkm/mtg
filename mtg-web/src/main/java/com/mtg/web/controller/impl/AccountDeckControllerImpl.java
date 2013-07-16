@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mtg.commons.models.collections.Deck;
 import com.mtg.commons.services.DeckService;
+import com.mtg.commons.services.ExpansionService;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AccountDeckController;
 import com.mtg.web.controller.GenericController;
@@ -30,6 +31,9 @@ public class AccountDeckControllerImpl extends GenericController implements Acco
 	
 	@Resource
 	private AccountService accounts;
+	
+	@Resource
+	private ExpansionService exps;
 	
 	@Override
 	public ModelAndView newdeckForm(Principal principal) {
@@ -60,6 +64,7 @@ public class AccountDeckControllerImpl extends GenericController implements Acco
 		Validate.notNull(deck);
 
 		return mav("/account/deck/edit")
+				.addObject("exps", exps.findAllOrdered())
 				.addObject("deck", deck);
 	}
 

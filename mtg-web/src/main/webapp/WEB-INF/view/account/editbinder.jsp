@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="<@spring.url '/css/editbinder.css' />" />
 <script type="text/javascript" charset="utf8" src="<@spring.url '/libs/datatables/datatables-fnreloadajax.js' />" ></script>
+<script src="<@spring.url '/javascript/cardtable.js' />"></script>
 
 <#if binder??>
 
@@ -68,7 +69,6 @@ var editbinder = {
     binder : '${binder.urlFragment}'
 }
 var editbinderUrls = {
-      cardsDt        : '<@spring.url "/cards/datatables/" />',
       getPage        : '<@spring.url "/account/editbinder/page/" />',
       addCard        : '<@spring.url "/account/editbinder/add/" />',
       bundleOp       : '<@spring.url "/account/editbinder/bundle/" />',

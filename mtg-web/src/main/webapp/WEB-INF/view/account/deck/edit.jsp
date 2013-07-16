@@ -1,4 +1,5 @@
 <#import "/spring.ftl" as spring />
+<script src="<@spring.url '/javascript/cardtable.js' />"></script>
 
 <h3>Edit ${deck.name }</h3>
 
@@ -9,13 +10,45 @@
   </ul>
 </div>
 
+<div class="span3">
+    <div id="cards-pickmessage" class="alert alert-info">Select a collection to show cards</div>
+    <table class="hide" id="cards-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th></th>
+          <th>Cost</th>
+          <th>Rarity</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    
+    <div class="clearfix"></div>
+    <div class="pt20">
+      <form class="form-horizontal">
+        <select id="cards-expansion-select">
+          <option value="" disabled selected>Please choose collection</option>
+          <option value="mycollection" disabled>My Collection</option>
+          <#list exps as exp>  
+          <option value="${exp.code }">${exp.name }</option>
+          </#list>
+        </select>
+      </form>
+    </div>
+</div>
+
 <script>
 var editUrls = {
 		deck : '<@spring.url "/deck/${deck.id}/json" />'
 }
 
 $(function(){
+
 	
+	//handle the deck
 	var model = {
 		deck : ko.observable(),
 		getDeck : function() {
@@ -36,6 +69,7 @@ $(function(){
 		lands : ko.computed(function(){
 			
 			//TODO get lands here
+			return [];
 			
 		})
 	}
