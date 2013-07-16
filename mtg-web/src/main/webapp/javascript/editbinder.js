@@ -73,7 +73,7 @@ $(function(){
 				}
 			});
 		}
-	}, '.btn.binder-add');
+	}, '.btn.card-add');
 	
 	//increment, decrement, delete bundle
 	$table.on({

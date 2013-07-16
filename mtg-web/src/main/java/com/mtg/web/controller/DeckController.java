@@ -16,4 +16,8 @@ public interface DeckController {
     @RequestMapping("/{id}/json")
     JSON json(Principal principal, Long id);
 
+    @ResponseBody
+    @RequestMapping("/{deckId}/add/{cardId}")
+    JSON addCard(Principal principal, Long deckId, Long cardId);
+
 }

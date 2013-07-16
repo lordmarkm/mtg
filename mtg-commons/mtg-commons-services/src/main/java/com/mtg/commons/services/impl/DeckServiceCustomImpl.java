@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mtg.commons.models.Card;
 import com.mtg.commons.models.collections.Deck;
 import com.mtg.commons.models.magic.MagicPlayer;
 import com.mtg.commons.services.AbstractEntityService;
@@ -42,5 +43,10 @@ public class DeckServiceCustomImpl extends AbstractEntityService implements Deck
 		images.excise(deck.getImage());
 		decks.delete(deck);
 	}
+
+    @Override
+    public void addcard(Deck deck, Card card) {
+        deck.getCards().add(card);
+    }
 
 }

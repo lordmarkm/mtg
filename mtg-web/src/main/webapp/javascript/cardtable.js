@@ -45,7 +45,7 @@ $(function(){
 				                    	  'sWidth' : '10px',
 				                    	  'bSortable' : false,
 				                    	  'fnRender': function(td) {
-				                    		  return '<button card-id="' + td.aData[0] + '" class="btn btn-mini binder-add" title="Add to binder"><i class="icon-plus"></i></button>';
+				                    		  return '<button card-id="' + td.aData[0] + '" class="btn btn-mini card-add" title="Add card"><i class="icon-plus"></i></button>';
 				                    	  },
 				                    	  'aTargets' : [2]
 				                      }
