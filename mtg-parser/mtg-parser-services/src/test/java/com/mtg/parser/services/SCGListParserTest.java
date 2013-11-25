@@ -14,7 +14,7 @@ import com.mtg.parser.services.impl.SCGListParser;
 
 public class SCGListParserTest {
 
-	private CardListParser parser = new SCGListParser();
+	private WebsiteParser parser = new SCGListParser();
 
 	//@Test
 	public void testParseOne() throws IOException {

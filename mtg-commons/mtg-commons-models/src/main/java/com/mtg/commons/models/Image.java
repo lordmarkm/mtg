@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * @author mbmartinez
@@ -27,6 +28,15 @@ public class Image {
 	@Column
 	@Type(type="text")
 	private String originalPath;
+	
+	@Override
+	public String toString() {
+	    return new ToStringCreator(this)
+	        .append("id", id)
+	        .append("path", path)
+	        .append("originalPath", originalPath)
+	        .toString();
+	}
 	
 	public long getId() {
 		return id;

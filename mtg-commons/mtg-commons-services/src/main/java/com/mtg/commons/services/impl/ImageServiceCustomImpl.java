@@ -46,6 +46,8 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 	
 	@Override
 	public Image update(Image image, byte[] bytes, String extension) {
+	    log.debug("Refreshing image. image={}", image);
+	    
 		Validate.notNull(image);
 		
 		if(null != image.getPath()) {
@@ -82,6 +84,10 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 	
 	private void deleteFile(String path) {
 	    log.debug("Deleting image file. path={}", path);
+	    if (null == path) {
+	        log.warn("Image path not defined!");
+	        return;
+	    }
 		File file = new File(path);
 		if(file.exists()) {
 			file.delete();
@@ -116,6 +122,7 @@ public class ImageServiceCustomImpl implements ImageServiceCustom {
 		}
 		
 		try {
+		    log.debug("Loading image from original path. path={}", image.getOriginalPath());
 			URL url = new URL(image.getOriginalPath());
 			String format = getFormat(url);
 			if(null == format) format = DEFAULT_FORMAT;

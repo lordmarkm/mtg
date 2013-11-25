@@ -11,7 +11,7 @@ import com.mtg.commons.models.Card;
  * Parse a list of cards from a list type webpage
  * @author Mark
  */
-public interface CardListParser {
+public interface WebsiteParser {
 
 	/**
 	 * Parse one card

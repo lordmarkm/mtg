@@ -29,7 +29,7 @@ import com.mtg.commons.service.support.OpResult;
 import com.mtg.commons.services.BinderService;
 import com.mtg.commons.services.CardService;
 import com.mtg.commons.services.ExpansionService;
-import com.mtg.parser.services.CardListParser;
+import com.mtg.parser.services.WebsiteParser;
 import com.mtg.security.services.AccountService;
 import com.mtg.web.controller.AdminController;
 import com.mtg.web.controller.GenericController;
@@ -60,7 +60,7 @@ public class AdminControllerImpl extends GenericController implements AdminContr
     private AdminService admin;
     
     @Resource
-    private CardListParser parser;
+    private WebsiteParser parser;
     
     @Resource
     private Environment env;
