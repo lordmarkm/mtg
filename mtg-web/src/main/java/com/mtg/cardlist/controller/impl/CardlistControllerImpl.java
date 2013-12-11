@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mtg.cardlist.controller.CardlistController;
 import com.mtg.web.controller.GenericController;
 
+/**
+ * @author mbmartinez
+ */
 @Component
 public class CardlistControllerImpl extends GenericController implements CardlistController {
 
