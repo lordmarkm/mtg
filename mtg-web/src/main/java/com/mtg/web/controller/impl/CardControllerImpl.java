@@ -44,7 +44,7 @@ public class CardControllerImpl extends GenericController implements CardControl
 	    log.info("Card browse page requested. user={}", name(principal));
 	    
 	    return mav("card/browse")
-	            .addObject("expansions", expansions.findAllOrdered());
+	            .addObject("expansions", expansions.findAll());
 	}
 	
 	@Override

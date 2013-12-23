@@ -78,7 +78,7 @@ public class AdminControllerImpl extends GenericController implements AdminContr
         		.addObject("usercount", accounts.count())
         		.addObject("cardcount", cards.count())
         		.addObject("bindercount", binders.count())
-        		.addObject("expansions", exps.findAllOrdered());
+        		.addObject("expansions", exps.findAll());
     }
 
     @Override

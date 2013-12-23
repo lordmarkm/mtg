@@ -12,11 +12,9 @@ public interface ExpansionService extends JpaRepository<Expansion, Long>, Expans
 	Expansion findByCode(String code);
 
 	@Query("from Expansion e order by e.series desc")
-	List<Expansion> findAllOrdered();
-	
-	@Deprecated //user findAllOrdered() instead
 	List<Expansion> findAll();
 	
 	@Deprecated//use excise(e) instead
 	void delete(Expansion e);
+
 }

@@ -64,7 +64,7 @@ public class AccountDeckControllerImpl extends GenericController implements Acco
 		Validate.notNull(deck);
 
 		return mav("/account/deck/edit")
-				.addObject("exps", exps.findAllOrdered())
+				.addObject("exps", exps.findAll())
 				.addObject("deck", deck);
 	}
 
