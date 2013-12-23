@@ -23,7 +23,13 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 	static Logger log = LoggerFactory.getLogger(OnePageInterceptor.class);
 	
 	private boolean shouldIgnore(HttpServletRequest request, String uri) {
-		//ignore image request
+	    
+	    //ignore angular pages, including events SPA
+	    if(uri.contains("/events/")) {
+	        return true;
+	    }
+
+	    //ignore image request
 		if(uri.contains("/image/")) {
 			return true;
 		}
