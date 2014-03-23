@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 public abstract class GenericController {
 	
@@ -22,6 +23,10 @@ public abstract class GenericController {
 	
 	protected ModelAndView mav(String viewname) {
 		return new ModelAndView(viewname);
+	}
+	
+	protected ModelAndView redirect(String target) {
+		return new ModelAndView(new RedirectView(target));
 	}
 	
 	protected String firstError(BindingResult result) {

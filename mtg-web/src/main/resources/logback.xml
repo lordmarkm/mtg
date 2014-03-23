@@ -17,10 +17,12 @@
   <logger name="audit" level="info">
     <appender-ref ref="AUDITFILE" />
   </logger>
-  
-  <logger name="com.mtg" level="debug" />
 
-  <root level="info">
+  <!--   
+  <logger name="com.mtg" level="debug" />
+  -->
+ 
+  <root level="debug">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

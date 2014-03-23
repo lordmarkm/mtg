@@ -28,6 +28,10 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 	    if(uri.contains("/events/")) {
 	        return true;
 	    }
+	    
+	    if(uri.contains("/cardlist/")) {
+	    	return true;
+	    }
 
 	    //ignore image request
 		if(uri.contains("/image/")) {
@@ -42,8 +46,10 @@ public class OnePageInterceptor extends HandlerInterceptorAdapter {
 		
 		//ignore resources
 		for(String resource : new String[]{"/css/","/images/","/javascript/","/libs/"}) {
-			log.debug("Ignoring resource request.");
-			if(uri.contains(resource)) return true;
+			if(uri.contains(resource)) {
+				log.debug("Ignoring resource request.");
+				return true;
+			}
 		}
 		
 		//ignore logout request (is this a get?)
